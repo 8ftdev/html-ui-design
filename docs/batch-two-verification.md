@@ -34,4 +34,4 @@ Live route: http://localhost:4322/html-ui-plugin-batch-check in the existing Kor
 
 The support matrix is the API boundary, not a claim of upstream equivalence. Badge remains a span; Breadcrumb callers supply links/list items; Table callers supply rows/cells; ButtonGroup is a labeled group without toolbar behavior; application logic owns alerts/loading/submission. AspectRatio exposes named recipes and custom style ratios; Skeleton/Spinner use CSS reduced-motion alternatives. Existing local disclosure WAAPI is unchanged.
 
-These changes are local and uncommitted. The preceding batch remains published on main. Dashboard integration and unrelated pre-existing dashboard/navbar work are not included in library publishing. Tests used rebuilt local producer/converter binaries, not the manually installed /usr/bin/html-ui.
+This batch was committed and pushed to main on 2026-09-29: producer 1f3a01c, converter 3bbd22f, plugin 841c156. Dashboard integration and unrelated pre-existing dashboard/navbar work are not included in library publishing. Tests used rebuilt local producer/converter binaries, not the manually installed /usr/bin/html-ui.

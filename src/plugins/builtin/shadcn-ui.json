@@ -3,7 +3,7 @@
   "name": "shadcn-ui",
   "provenance": {
     "source": "shadcn registry/base-nova (2026-09-29)",
-    "revision": "0ffce683c5a09bdede1c4e85c4e8a7a165a028ba39233dd2f5cfafc89f1f2dd2",
+    "revision": "6b6fdcde7601c5e9cecbaef8f2228a2604d5b4435accb3242b1b155a049a6f8e",
     "license": "MIT; shadcn"
   },
   "tokens": [
@@ -1080,6 +1080,446 @@
           "part": "control",
           "state": "readOnly",
           "description": "Native readonly control remains focusable and submitted"
+        }
+      ],
+      "hooks": []
+    },
+    "empty": {
+      "primitive": "empty",
+      "parts": {
+        "root": {
+          "base": [
+            "flex w-full min-w-0 flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-border p-6 text-center text-balance"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "header": {
+          "base": [
+            "flex w-full max-w-sm flex-col items-center gap-2"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "media": {
+          "base": [
+            "mb-2 flex shrink-0 items-center justify-center empty:hidden"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "bg-transparent"
+              ],
+              "icon": [
+                "size-8 rounded-lg bg-muted text-foreground"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string"
+          },
+          "defaultVariants": {
+            "variant": "default"
+          },
+          "compoundVariants": []
+        },
+        "title": {
+          "base": [
+            "text-sm font-medium tracking-tight"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "description": {
+          "base": [
+            "text-sm/relaxed text-muted-foreground empty:hidden [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-primary"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "flex w-full max-w-sm min-w-0 flex-col items-center gap-2.5 text-sm empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "media": "media",
+        "title": "title",
+        "description": "description",
+        "content": "default"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "item": {
+      "primitive": "item",
+      "parts": {
+        "root": {
+          "base": [
+            "flex w-full min-w-0 flex-wrap items-center rounded-lg border text-sm transition-colors motion-reduce:transition-none"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent"
+              ],
+              "outline": [
+                "border-border"
+              ],
+              "muted": [
+                "border-transparent bg-muted/50"
+              ]
+            },
+            "size": {
+              "default": [
+                "gap-2.5 px-3 py-2.5"
+              ],
+              "sm": [
+                "gap-2.5 px-3 py-2.5"
+              ],
+              "xs": [
+                "gap-2 px-2.5 py-2"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "media": {
+          "base": [
+            "inline-flex size-5 shrink-0 items-center justify-center self-start empty:hidden [&_img]:size-full [&_img]:object-contain"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "flex min-w-0 flex-1 flex-col gap-1"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "title": {
+          "base": [
+            "text-sm font-medium [overflow-wrap:anywhere]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "description": {
+          "base": [
+            "text-sm text-muted-foreground empty:hidden [overflow-wrap:anywhere] [&_a]:underline [&_a]:underline-offset-4"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "actions": {
+          "base": [
+            "flex max-w-full shrink-0 flex-wrap items-center gap-2 empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "media": "media",
+        "title": "title",
+        "description": "default",
+        "actions": "actions"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "input-group": {
+      "primitive": "input-group",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-2"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "label": {
+          "base": [
+            "text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "surface": {
+          "base": [
+            "flex min-w-0 items-center gap-2 rounded-lg border border-input bg-transparent px-2 transition-colors motion-reduce:transition-none dark:bg-input/30 has-[>input:disabled]:bg-input/50 has-[>input:disabled]:opacity-50 has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-3 has-[>input:focus-visible]:ring-ring/50 has-[>input:user-invalid]:border-destructive has-[>input:user-invalid]:ring-3 has-[>input:user-invalid]:ring-destructive/20"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "start": {
+          "base": [
+            "inline-flex shrink-0 items-center justify-center gap-2 text-sm text-muted-foreground empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-8 min-w-0 flex-1 border-0 bg-transparent py-1 text-base text-foreground outline-none placeholder:text-muted-foreground md:text-sm disabled:cursor-not-allowed read-only:cursor-default"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "end": {
+          "base": [
+            "inline-flex max-w-full shrink-0 items-center justify-center gap-2 text-sm text-muted-foreground empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default",
+        "start": "start",
+        "end": "end"
+      },
+      "requirements": [
+        {
+          "part": "control",
+          "state": "disabled",
+          "description": "Native disabled input; application separately disables addon actions"
+        },
+        {
+          "part": "control",
+          "state": "invalid",
+          "description": "Native user constraint validity"
+        }
+      ],
+      "hooks": []
+    },
+    "kbd": {
+      "primitive": "kbd",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-flex h-5 w-fit min-w-5 items-center justify-center gap-1 rounded-sm bg-muted px-1 align-middle font-sans text-xs font-medium text-muted-foreground"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "pagination": {
+      "primitive": "pagination",
+      "parts": {
+        "root": {
+          "base": [
+            "flex w-full min-w-0 justify-center"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "list": {
+          "base": [
+            "flex max-w-full flex-wrap items-center justify-center gap-1 text-sm [&>li]:inline-flex [&>li>a]:inline-flex [&>li>a]:h-8 [&>li>a]:min-w-8 [&>li>a]:items-center [&>li>a]:justify-center [&>li>a]:rounded-lg [&>li>a]:border [&>li>a]:border-transparent [&>li>a]:px-2 [&>li>a]:font-medium [&>li>a]:transition-colors [&>li>a:hover]:bg-muted [&>li>a:focus-visible]:outline-2 [&>li>a:focus-visible]:outline-ring [&>li>a[aria-current=page]]:border-border [&>li>a[aria-current=page]]:bg-background"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "typography": {
+      "primitive": "typography",
+      "parts": {
+        "root": {
+          "base": [
+            "min-w-0 text-foreground [overflow-wrap:anywhere] [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:text-2xl [&_h2]:font-semibold [&_h3]:text-xl [&_h3]:font-semibold [&_h4]:text-lg [&_h4]:font-semibold [&_p]:text-sm/relaxed [&>*+*]:mt-4 [&_ul]:list-disc [&_ul]:ps-6 [&_ol]:list-decimal [&_ol]:ps-6 [&_li+li]:mt-2 [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-primary [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_blockquote]:border-s-2 [&_blockquote]:border-border [&_blockquote]:ps-4 [&_blockquote]:text-muted-foreground [&_blockquote]:italic [&_pre]:max-w-full [&_pre]:overflow-auto [&_pre]:rounded-lg [&_pre]:bg-muted [&_pre]:p-4 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:font-mono [&_code]:text-sm"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "direction": {
+      "primitive": "direction",
+      "parts": {
+        "root": {
+          "base": [
+            "min-w-0"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "radio-group": {
+      "primitive": "radio-group",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-3 disabled:opacity-50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "legend": {
+          "base": [
+            "mb-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "legend": "legend",
+        "content": "default"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "radio": {
+      "primitive": "radio",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-flex min-w-0 items-center gap-2 text-sm has-[>input:disabled]:cursor-not-allowed"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "size-4 shrink-0 accent-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 user-invalid:outline-2 user-invalid:outline-destructive"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": [
+        {
+          "part": "control",
+          "state": "checked",
+          "description": "Native named-radio exclusivity and reset"
+        },
+        {
+          "part": "control",
+          "state": "disabled",
+          "description": "Native control or fieldset disabled state"
+        }
+      ],
+      "hooks": []
+    },
+    "slider": {
+      "primitive": "slider",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-5 w-full min-w-0 cursor-pointer accent-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": [
+        {
+          "part": "control",
+          "state": "disabled",
+          "description": "Native single-thumb range input"
         }
       ],
       "hooks": []

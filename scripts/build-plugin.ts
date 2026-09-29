@@ -5,6 +5,7 @@ import { parsePlugin, pluginSchema } from "../src/plugins/schema";
 import { z } from "zod";
 import { addNativeBatch } from "./plugin-batch-one";
 import { addCompositionBatch } from "./plugin-batch-two";
+import { addFormContentBatch } from "./plugin-batch-three";
 const raw = readFileSync(
   "tests/fixtures/plugins/shadcn-base-nova.registry.json",
   "utf8",
@@ -151,6 +152,7 @@ grid.defaultVariants = { gap: "default", columns: "1" };
 component("grid", { root: grid }, { default: "default" });
 addNativeBatch(p, source);
 addCompositionBatch(p, source);
+addFormContentBatch(p, source);
 writeFileSync(
   "src/plugins/builtin/shadcn-ui.json",
   JSON.stringify(parsePlugin(p), null, 2) + "\n",

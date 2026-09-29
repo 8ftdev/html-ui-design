@@ -5,7 +5,7 @@ test('support report names every generated mapping and explains legacy scope sep
  const p=await loadPlugin('shadcn-ui');
  const report=await Bun.file('src/plugins/builtin/support.json').json();
  expect(report.contractVersion).toBe(2);
- expect(report.legacyDeclarationMode).toEqual({catalogCount:50,establishesPluginSupport:false});
+ expect(report.legacyDeclarationMode).toEqual({catalogCount:58,establishesPluginSupport:false});
  for(const [name,mapping] of Object.entries(p.components)){
   const entry=report.components[name];
   expect(entry.primitive).toBe(mapping.primitive);

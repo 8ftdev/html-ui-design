@@ -73,6 +73,25 @@ for (const [component,attrs,slot] of [['Badge','variant="unknown"','test'],['Asp
 rmSync(resolve(out,"BatchTwo.vue"));
 check();
 console.log('PASS: batch two consumer compositions typecheck; invalid variant, ratio, orientation and textarea props rejected');
+writeFileSync(resolve(out,"BatchThree.vue"),`<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Empty,Item,InputGroup,Kbd,Pagination,Typography,Direction,RadioGroup,Radio,Slider,Button} from './index'
+const text=ref('hello'),volume=ref(50)
+</script><template>
+<Empty variant="icon"><template #title>Empty</template><Button>Create</Button></Empty>
+<Item variant="outline" size="xs"><template #title>Item</template>Description</Item>
+<InputGroup id="consumer-query" v-model:value="text" read-only>Query<template #end><Kbd>K</Kbd></template></InputGroup>
+<Pagination><li><a href="/">1</a></li></Pagination><Direction dir="rtl"><Typography><h2>Heading</h2><p>Body</p></Typography></Direction>
+<RadioGroup name="delivery"><template #legend>Delivery</template><template #default="{name}"><Radio :name="name" value="email" default-checked>Email</Radio></template></RadioGroup>
+<Slider v-model:value="volume" :min="0" :max="100" :step="10">Volume</Slider>
+</template>`);
+check();
+for(const [component,attrs,slot] of [['Direction','dir="sideways"','text'],['Item','variant="unknown"','<template #title>title</template>'],['InputGroup','','label'],['Radio','name="x" value="one" default-checked="yes"','label'],['Slider',':value="true"','volume']]){
+ writeFileSync(resolve(out,"Invalid.vue"),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}>${slot}</${component}></template>`);
+ try{check();throw new Error(`invalid ${component} props accepted`)}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,"Invalid.vue"))}
+}
+rmSync(resolve(out,"BatchThree.vue"));check();
+console.log('PASS: batch three scoped compositions and models typecheck; invalid direction, variant, required id, radio and slider types rejected');
 // Parts may style different values of one public axis.
 const partial = JSON.parse(
   readFileSync("src/plugins/builtin/shadcn-ui.json", "utf8"),

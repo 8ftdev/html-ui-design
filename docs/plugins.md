@@ -192,3 +192,43 @@ Use `aria-hidden="true"` when Spinner decorates an already labeled Button, so th
 The Vue emitter avoids writing an unchanged text value back after input. This matters for native minlength validation in Firefox/WebKit, which distinguish user edits from programmatic assignments. External value changes still synchronize; native reset restores the initial baseline.
 
 Destructive Alert/Badge text mixes the destructive token with 30% foreground in oklab. This adapts the semantic hue toward the paired readable foreground across light/dark surfaces; Alert description inherits the same text color. The dashboard regression checks at least 4.5:1 text contrast in both host themes. Theme owners still control the actual tokens and can override every part recipe.
+
+## Native form and content batch
+
+The third batch adds Empty, Item, InputGroup, Kbd, Pagination, Typography, Direction, RadioGroup, Radio and Slider. The plugin now emits 37 local building blocks, including IconButton. Radio and Typography are local extensions; Direction uses HTML `dir` inheritance rather than a framework provider. The [support matrix](support.md) documents each adaptation's boundary.
+
+```vue
+<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {InputGroup,Icon,Kbd,RadioGroup,Radio,Slider,Button,Grid} from './ui'
+const email=ref(''),volume=ref(50)
+function selection(event:Event) {
+  const radio=event.target as HTMLInputElement
+  console.log(radio.value)
+}
+</script>
+<template>
+  <form><Grid gap="lg">
+    <InputGroup id="email" name="email" type="email" v-model:value="email" required>
+      Email
+      <template #start><Icon aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 5h18v14H3zM3 5l9 8 9-8"/></svg></Icon></template>
+      <template #end><Kbd>⌘ K</Kbd></template>
+    </InputGroup>
+    <RadioGroup name="delivery" @change="selection">
+      <template #legend>Delivery</template>
+      <template #default="{name}">
+        <Radio :name="name" value="email" default-checked>Email</Radio>
+        <Radio :name="name" value="sms">Text message</Radio>
+      </template>
+    </RadioGroup>
+    <Slider name="volume" v-model:value="volume" :min="0" :max="100" :step="10">Volume</Slider>
+    <Button type="submit">Save</Button>
+  </Grid></form>
+</template>
+```
+
+InputGroup owns one native text/email/password input, an associated label and inline start/end addons. Its id is required and must be unique. Addon actions remain separate from the label; the application disables those actions when appropriate. This adaptation does not generate textarea/block addons or addon click-to-focus behavior.
+
+RadioGroup supplies its shared name through the default slot. Native radios own exclusivity, arrow keys, required validity and form reset. Read selection through change events or FormData; there is no independent checked model per Radio. `defaultChecked` establishes the mount-time native reset baseline. Slider retains one native range control, numeric update events and browser sanitization; no multi-thumb or vertical abstraction is generated. Optional incoming value does not make the native update event optional.
+
+Empty owns visual title/media/description/action containers; callers supply heading semantics. Item is a noninteractive content row with independently styled parts; compose local actions in its slots. Its bounded media box centers icons and contains tall images. Pagination owns a labeled nav/list; callers supply li and links, destinations and aria-current. Typography styles supplied semantic HTML within a local wrapper; it is not the upstream Typeset CSS/API. Kbd displays a shortcut without registering it. Existing disclosure WAAPI and the protocol are unchanged.
