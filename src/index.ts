@@ -1,4 +1,4 @@
-export { parsePlugin, pluginSchema, recipeSchema } from "./plugins/schema.js";
+export { parsePlugin, pluginSchema, recipeSchema, motionRecipeSchema } from "./plugins/schema.js";
 export type {
   UIPlugin,
   ComponentRecipe,
@@ -9,3 +9,4 @@ export { importCva } from "./plugins/import-cva.js";
 export { applyClassPlugin } from "./vue/class-plugin.js";
 export { generateLibrary } from "./library/generate.js";
 export { writeLibrary } from "./library/write.js";
+export type { MotionRecipe } from "./plugins/schema.js";

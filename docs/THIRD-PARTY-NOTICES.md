@@ -1,6 +1,6 @@
 # Third-party notices
 
-The builtin shadcn-ui recipes derive from the shadcn/ui Base Nova registry snapshot acquired on 2026-09-28 via the official shadcn registry CLI. The source snapshot is retained in tests/fixtures/plugins/shadcn-base-nova.registry.json; its SHA-256 is recorded in the builtin plugin provenance.
+The builtin shadcn-ui recipes derive from the shadcn/ui Base Nova registry snapshot acquired on 2026-09-28 from the official shadcn Base Nova registry. The source snapshot is retained in tests/fixtures/plugins/shadcn-base-nova.registry.json; its SHA-256 is recorded in the builtin plugin provenance.
 
 shadcn/ui — Copyright (c) 2023 shadcn. MIT License.
 

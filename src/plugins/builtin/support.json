@@ -1,10 +1,84 @@
 {
+  "contractVersion": 2,
   "reference": "https://ui.shadcn.com/docs/components",
   "snapshot": "2026-09-28",
+  "plugin": "shadcn-ui",
+  "revision": "dc1bdd47185d9369469c2d876139714bf38fb835dab67695c1ec470528c0b886",
+  "summary": {
+    "mappedPrimitives": 16,
+    "compositions": 1,
+    "total": 17
+  },
+  "legacyDeclarationMode": {
+    "catalogCount": 40,
+    "establishesPluginSupport": false
+  },
   "components": {
     "accordion": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "One native details/summary item; shared name supports exclusive groups. No disabled item, roving focus, generated indicator, upstream panel lifecycle.",
+      "primitive": "accordion",
+      "parts": [
+        "root",
+        "content",
+        "trigger"
+      ],
+      "slots": [
+        "summary",
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "content": {
+          "expanded": {
+            "source": {
+              "node": "root",
+              "attribute": "open",
+              "present": true
+            }
+          }
+        },
+        "root": {
+          "expanded": {
+            "source": {
+              "node": "root",
+              "attribute": "open",
+              "present": true
+            }
+          }
+        },
+        "trigger": {
+          "expanded": {
+            "source": {
+              "node": "root",
+              "attribute": "open",
+              "present": true
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "summary",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "summary",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {
+        "content": {
+          "expanded": {
+            "preset": "disclosure",
+            "duration": "var(--motion-duration-normal, 180ms)",
+            "easing": "var(--motion-easing-standard, ease-out)"
+          }
+        }
+      }
     },
     "alert": {
       "status": "unsupported",
@@ -23,8 +97,25 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "avatar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native image with required src/alt and default/sm/lg sizes. App owns image failure handling; fallback, badge and group APIs excluded.",
+      "primitive": "avatar",
+      "parts": [
+        "root"
+      ],
+      "slots": [],
+      "axes": {
+        "size": [
+          "default",
+          "sm",
+          "lg"
+        ]
+      },
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "badge": {
       "status": "unsupported",
@@ -40,7 +131,64 @@
     },
     "button": {
       "status": "partial",
-      "reason": "Native button + pinned Base Nova CVA; external Base UI behaviors excluded."
+      "reason": "Native button + pinned Base Nova CVA; external Base UI behaviors excluded.",
+      "primitive": "button",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "root": {
+          "active": {
+            "source": {
+              "node": "root",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "root",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "root",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "root",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "button-group": {
       "status": "unsupported",
@@ -52,7 +200,20 @@
     },
     "card": {
       "status": "partial",
-      "reason": "Native single surface with adapted spacing; upstream Card subcomponents excluded."
+      "reason": "Native single surface with adapted spacing; upstream Card subcomponents excluded.",
+      "primitive": "card",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "carousel": {
       "status": "unsupported",
@@ -64,11 +225,132 @@
     },
     "checkbox": {
       "status": "partial",
-      "reason": "Native checked control adaptation; no indicator/indeterminate API."
+      "reason": "Native checked control adaptation; no indicator/indeterminate API.",
+      "primitive": "checkbox",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "checked": {
+            "source": {
+              "node": "control",
+              "pseudo": "checked"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "collapsible": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native details/summary with open model and toggle event. No arbitrary external trigger, disabled prop.",
+      "primitive": "collapsible",
+      "parts": [
+        "root",
+        "content",
+        "trigger"
+      ],
+      "slots": [
+        "summary",
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "content": {
+          "expanded": {
+            "source": {
+              "node": "root",
+              "attribute": "open",
+              "present": true
+            }
+          }
+        },
+        "root": {
+          "expanded": {
+            "source": {
+              "node": "root",
+              "attribute": "open",
+              "present": true
+            }
+          }
+        },
+        "trigger": {
+          "expanded": {
+            "source": {
+              "node": "root",
+              "attribute": "open",
+              "present": true
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "summary",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "summary",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {
+        "content": {
+          "expanded": {
+            "preset": "disclosure",
+            "duration": "var(--motion-duration-normal, 180ms)",
+            "easing": "var(--motion-easing-standard, ease-out)"
+          }
+        }
+      }
     },
     "combobox": {
       "status": "unsupported",
@@ -111,12 +393,90 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "field": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local label/control/description slots, scoped id and vertical/horizontal/responsive orientation. App connects control id and aria-describedby; no error aggregation or validation engine.",
+      "primitive": "field",
+      "parts": [
+        "root",
+        "label",
+        "description"
+      ],
+      "slots": [
+        "label",
+        "control",
+        "description"
+      ],
+      "axes": {
+        "orientation": [
+          "vertical",
+          "horizontal",
+          "responsive"
+        ]
+      },
+      "nativeStates": {
+        "description": {},
+        "label": {},
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "input": {
       "status": "partial",
-      "reason": "Base Nova classes on native labeled input; no full Base UI API equivalence."
+      "reason": "Base Nova classes on native labeled input; no full Base UI API equivalence.",
+      "primitive": "input",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "input-group": {
       "status": "unsupported",
@@ -155,8 +515,67 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "native-select": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native labeled select with default/sm sizes, options slot, input/change events and browser arrow. No selection model prop; application reads events or uses selected options.",
+      "primitive": "select",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default",
+        "options"
+      ],
+      "axes": {
+        "size": [
+          "default",
+          "sm"
+        ]
+      },
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "navigation-menu": {
       "status": "unsupported",
@@ -171,8 +590,26 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "progress": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled native progress with value/max and indeterminate when value is omitted. Native bar adaptation; no separate Track, Indicator, Label or Value components.",
+      "primitive": "progress",
+      "parts": [
+        "root"
+      ],
+      "slots": [],
+      "axes": {},
+      "nativeStates": {
+        "root": {
+          "indeterminate": {
+            "source": {
+              "node": "root",
+              "pseudo": "indeterminate"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "questionnaire": {
       "status": "unsupported",
@@ -187,16 +624,40 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "scroll-area": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Focusable labeled region with native overflow and a default max-height. No custom scrollbar/drag API; application supplies content and can override constraints.",
+      "primitive": "scroll-area",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "select": {
       "status": "unsupported",
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "separator": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native horizontal thematic hr. No decorative or vertical semantics API; use layout CSS for decorative dividers.",
+      "primitive": "separator",
+      "parts": [
+        "root"
+      ],
+      "slots": [],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "sheet": {
       "status": "unsupported",
@@ -219,8 +680,72 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "switch": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled native checkbox with switch role, checked model, reset, disabled and default/sm sizes. CSS draws the thumb; no indeterminate or external Thumb component.",
+      "primitive": "switch",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {
+        "size": [
+          "default",
+          "sm"
+        ]
+      },
+      "nativeStates": {
+        "control": {
+          "checked": {
+            "source": {
+              "node": "control",
+              "pseudo": "checked"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "table": {
       "status": "unsupported",
@@ -260,15 +785,103 @@
     },
     "grid": {
       "status": "supported-extension",
-      "reason": "html-ui local building block, not an upstream shadcn contract."
+      "reason": "html-ui local building block, not an upstream shadcn contract.",
+      "primitive": "grid",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {
+        "gap": [
+          "none",
+          "xs",
+          "sm",
+          "default",
+          "lg",
+          "xl"
+        ],
+        "columns": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "smColumns": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "mdColumns": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      },
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "icon": {
       "status": "supported-extension",
-      "reason": "html-ui local building block, not an upstream shadcn contract."
+      "reason": "html-ui local building block, not an upstream shadcn contract.",
+      "primitive": "icon",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "icon-button": {
       "status": "supported-extension",
-      "reason": "html-ui local building block, not an upstream shadcn contract."
+      "reason": "html-ui local building block, not an upstream shadcn contract.",
+      "composition": [
+        "button",
+        "icon"
+      ],
+      "parts": [],
+      "slots": [
+        "default"
+      ]
+    },
+    "fieldset": {
+      "status": "partial",
+      "reason": "Adapts shadcn FieldSet/FieldLegend from the field registry to native fieldset/legend. Disabled propagates to descendant native controls (first legend exception applies).",
+      "primitive": "fieldset",
+      "parts": [
+        "root",
+        "legend"
+      ],
+      "slots": [
+        "legend",
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "legend": {},
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "root",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {}
     }
   }
 }

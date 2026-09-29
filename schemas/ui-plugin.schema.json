@@ -230,6 +230,45 @@
               "additionalProperties": false
             }
           },
+          "motion": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "minLength": 1
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "expanded": {
+                  "type": "object",
+                  "properties": {
+                    "preset": {
+                      "type": "string",
+                      "const": "disclosure"
+                    },
+                    "duration": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "easing": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "preset",
+                    "duration",
+                    "easing"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "expanded"
+              ],
+              "additionalProperties": false
+            }
+          },
           "hooks": {
             "type": "array",
             "items": {

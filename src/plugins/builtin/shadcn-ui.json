@@ -3,7 +3,7 @@
   "name": "shadcn-ui",
   "provenance": {
     "source": "shadcn registry/base-nova (2026-09-28)",
-    "revision": "1d819f6bcabdbfd3f7a04502f512b0d14fd0dd1eddc1f66c60c51495103aba05",
+    "revision": "dc1bdd47185d9369469c2d876139714bf38fb835dab67695c1ec470528c0b886",
     "license": "MIT; shadcn"
   },
   "tokens": [
@@ -28,26 +28,31 @@
       "parts": {
         "root": {
           "base": [
-            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
           ],
           "variants": {
             "variant": {
               "default": [
+                "border-transparent",
                 "bg-primary text-primary-foreground hover:bg-primary/80"
               ],
               "outline": [
                 "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
               ],
               "secondary": [
+                "border-transparent",
                 "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
               ],
               "ghost": [
+                "border-transparent",
                 "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
               ],
               "destructive": [
+                "border-transparent",
                 "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
               ],
               "link": [
+                "border-transparent",
                 "text-primary underline-offset-4 hover:underline"
               ]
             },
@@ -297,6 +302,394 @@
         "default": "default"
       },
       "requirements": []
+    },
+    "accordion": {
+      "primitive": "accordion",
+      "parts": {
+        "root": {
+          "base": [
+            "group/disclosure w-full border-b border-border pb-2 text-sm"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "text-sm"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "cursor-pointer rounded-lg py-2.5 text-left text-sm font-medium outline-none transition-colors hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "summary": "summary",
+        "content": "default"
+      },
+      "requirements": [
+        {
+          "part": "root",
+          "state": "expanded",
+          "description": "Native details open state"
+        }
+      ],
+      "motion": {
+        "content": {
+          "expanded": {
+            "preset": "disclosure",
+            "duration": "var(--motion-duration-normal, 180ms)",
+            "easing": "var(--motion-easing-standard, ease-out)"
+          }
+        }
+      },
+      "hooks": []
+    },
+    "collapsible": {
+      "primitive": "collapsible",
+      "parts": {
+        "root": {
+          "base": [
+            "group/disclosure w-full text-sm"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "text-sm"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "cursor-pointer rounded-lg py-2 text-sm font-medium outline-none hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "summary": "summary",
+        "content": "default"
+      },
+      "requirements": [
+        {
+          "part": "root",
+          "state": "expanded",
+          "description": "Native details open state"
+        }
+      ],
+      "motion": {
+        "content": {
+          "expanded": {
+            "preset": "disclosure",
+            "duration": "var(--motion-duration-normal, 180ms)",
+            "easing": "var(--motion-easing-standard, ease-out)"
+          }
+        }
+      },
+      "hooks": []
+    },
+    "avatar": {
+      "primitive": "avatar",
+      "parts": {
+        "root": {
+          "base": [
+            "aspect-square shrink-0 rounded-full object-cover ring-1 ring-border"
+          ],
+          "variants": {
+            "size": {
+              "default": [
+                "size-8"
+              ],
+              "sm": [
+                "size-6"
+              ],
+              "lg": [
+                "size-10"
+              ]
+            }
+          },
+          "axisTypes": {
+            "size": "string"
+          },
+          "defaultVariants": {
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {},
+      "requirements": [],
+      "hooks": []
+    },
+    "field": {
+      "primitive": "field",
+      "parts": {
+        "root": {
+          "base": [
+            "grid w-full gap-2"
+          ],
+          "variants": {
+            "orientation": {
+              "vertical": [
+                "grid-cols-1"
+              ],
+              "horizontal": [
+                "grid-cols-[auto_minmax(0,1fr)] items-center"
+              ],
+              "responsive": [
+                "grid-cols-1 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center"
+              ]
+            }
+          },
+          "axisTypes": {
+            "orientation": "string"
+          },
+          "defaultVariants": {
+            "orientation": "vertical"
+          },
+          "compoundVariants": []
+        },
+        "label": {
+          "base": [
+            "text-sm font-medium leading-snug"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "description": {
+          "base": [
+            "col-span-full text-sm leading-normal text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "label",
+        "control": "control",
+        "description": "description"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "fieldset": {
+      "primitive": "fieldset",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-4 border-0 p-0 disabled:opacity-50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "legend": {
+          "base": [
+            "mb-1.5 text-base font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "legend": "legend",
+        "content": "default"
+      },
+      "requirements": [
+        {
+          "part": "root",
+          "state": "disabled",
+          "description": "Native descendant form-control disabling"
+        }
+      ],
+      "hooks": []
+    },
+    "separator": {
+      "primitive": "separator",
+      "parts": {
+        "root": {
+          "base": [
+            "m-0 h-px w-full shrink-0 border-0 bg-border"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {},
+      "requirements": [],
+      "hooks": []
+    },
+    "progress": {
+      "primitive": "progress",
+      "parts": {
+        "root": {
+          "base": [
+            "h-1 w-full overflow-hidden rounded-full border-0 bg-muted accent-primary [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-muted [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-primary [&::-moz-progress-bar]:rounded-full [&::-moz-progress-bar]:bg-primary"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {},
+      "requirements": [
+        {
+          "part": "root",
+          "state": "indeterminate",
+          "description": "Omitting value preserves native indeterminate progress"
+        }
+      ],
+      "hooks": []
+    },
+    "switch": {
+      "primitive": "switch",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-flex flex-row-reverse items-center justify-end gap-2 text-sm has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "shrink-0 cursor-pointer appearance-none rounded-full border-0 bg-input bg-[image:radial-gradient(circle,var(--background)_65%,transparent_70%)] bg-no-repeat outline-none transition-[background-color,background-position] duration-[var(--motion-duration-fast,150ms)] motion-reduce:transition-none checked:bg-primary checked:bg-[position:calc(100%-2px)_center] focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 forced-colors:appearance-auto"
+          ],
+          "variants": {
+            "size": {
+              "default": [
+                "h-5 w-9 bg-[size:1rem_1rem] bg-[position:2px_center]"
+              ],
+              "sm": [
+                "h-4 w-6 bg-[size:0.75rem_0.75rem] bg-[position:2px_center]"
+              ]
+            }
+          },
+          "axisTypes": {
+            "size": "string"
+          },
+          "defaultVariants": {
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": [
+        {
+          "part": "control",
+          "state": "checked",
+          "description": "Native checkbox checked state with switch role"
+        },
+        {
+          "part": "control",
+          "state": "disabled",
+          "description": "Native disabled input"
+        }
+      ],
+      "hooks": []
+    },
+    "scroll-area": {
+      "primitive": "scroll-area",
+      "parts": {
+        "root": {
+          "base": [
+            "relative max-h-64 overflow-auto rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "content": "default"
+      },
+      "requirements": [],
+      "hooks": []
+    },
+    "native-select": {
+      "primitive": "select",
+      "parts": {
+        "root": {
+          "base": [
+            "grid gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "w-full min-w-0 appearance-auto rounded-lg border border-input bg-background px-2.5 text-sm font-normal outline-none transition-colors motion-reduce:transition-none hover:bg-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 dark:hover:bg-input/50"
+          ],
+          "variants": {
+            "size": {
+              "default": [
+                "h-8 py-1"
+              ],
+              "sm": [
+                "h-7 py-0.5"
+              ]
+            }
+          },
+          "axisTypes": {
+            "size": "string"
+          },
+          "defaultVariants": {
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default",
+        "options": "options"
+      },
+      "requirements": [
+        {
+          "part": "control",
+          "state": "disabled",
+          "description": "Native disabled select"
+        }
+      ],
+      "hooks": []
     }
   }
 }

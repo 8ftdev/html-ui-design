@@ -32,6 +32,12 @@ export const recipeSchema = z.strictObject({
     }),
   ),
 });
+export const motionRecipeSchema = z.strictObject({
+  preset: z.literal("disclosure"),
+  duration: z.string().min(1),
+  easing: z.string().min(1),
+});
+export type MotionRecipe = z.infer<typeof motionRecipeSchema>;
 export const pluginSchema = z.strictObject({
   pluginVersion: z.literal(1),
   name: identifier,
@@ -61,6 +67,7 @@ export const pluginSchema = z.strictObject({
           description: z.string().min(1),
         }),
       ),
+      motion: z.record(identifier, z.strictObject({ expanded: motionRecipeSchema })).optional(),
       hooks: z
         .array(
           z.strictObject({
@@ -128,6 +135,8 @@ export function parsePlugin(input: unknown): UIPlugin {
         axes.set(a, signature);
       }
     }
+    for (const part of Object.keys(c.motion ?? {}))
+      if (!Object.hasOwn(c.parts, part)) throw new Error(`unknown motion part ${part}`);
     for (const req of c.requirements)
       if (!Object.hasOwn(c.parts, req.part))
         throw new Error(`unknown required part ${req.part}`);

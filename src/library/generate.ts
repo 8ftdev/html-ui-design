@@ -1,3 +1,4 @@
+import { motionRuntimeSource } from "../motion/runtime-source.js";
 import { notice } from "../plugins/builtin/notice.js";
 import { execFileSync } from "node:child_process";
 import { loadPlugin } from "../plugins/load.js";
@@ -43,7 +44,7 @@ export async function generateLibrary(options: {
     const name = names.get(component)!;
     contracts[component] = parseVue(vue, `${name}.vue`).ui;
     const output = splitCompanions(
-      applyClassPlugin(vue, plugin, { component, filename: `${name}.vue` })
+      applyClassPlugin(vue, plugin, { component, filename: `${name}.vue`, motionRuntimePath: "./ui-motion" })
         .source,
       name,
     );
@@ -71,6 +72,7 @@ export async function generateLibrary(options: {
     },
   };
   if (compatible && !explicit) files["IconButton.vue"] = iconButtonSource();
+  if (Object.values(plugin.components).some(c => Object.keys(c.motion ?? {}).length)) files["ui-motion.ts"] = motionRuntimeSource;
   if (plugin.name === "shadcn-ui") files["THIRD-PARTY-NOTICES.md"] = notice;
   files["index.ts"] =
     Object.keys(files)
@@ -84,6 +86,7 @@ export async function generateLibrary(options: {
         revision: plugin.provenance.revision,
         components: Object.keys(plugin.components),
         contracts,
+        motion: Object.fromEntries(Object.entries(plugin.components).filter(([, c]) => Object.keys(c.motion ?? {}).length).map(([name, c]) => [name, c.motion])),
         compositions,
         styling: ["class-variance-authority", "Tailwind CSS 4"],
         implementation: "local html-ui",

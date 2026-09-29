@@ -14,7 +14,7 @@ for (const [name, source] of Object.entries(files))
   writeFileSync(resolve(out, name), source);
 writeFileSync(
   resolve(out, "tsconfig.json"),
-  readFileSync(".test-output/catalog/tsconfig.json"),
+  JSON.stringify({ ...JSON.parse(readFileSync(".test-output/catalog/tsconfig.json", "utf8")), compilerOptions: { ...JSON.parse(readFileSync(".test-output/catalog/tsconfig.json", "utf8")).compilerOptions, noUncheckedIndexedAccess: true } }),
 );
 const check = () =>
   execFileSync(
@@ -45,6 +45,13 @@ check();
 console.log(
   "PASS: library including local composition typechecks; invalid variant rejected",
 );
+writeFileSync(resolve(out, "Motion.vue"), `<script setup lang="ts" vapor>import Accordion from './Accordion.vue'</script><template><Accordion :motion="{content:{expanded:{preset:'disclosure',duration:'250ms'}}}"><template #summary>Heading</template>Body</Accordion></template>`);
+check();
+writeFileSync(resolve(out, "Motion.vue"), `<script setup lang="ts" vapor>import Accordion from './Accordion.vue'</script><template><Accordion :motion="{content:{expanded:{preset:'unknown'}}}"><template #summary>Heading</template>Body</Accordion></template>`);
+try { check(); throw new Error("invalid motion preset accepted"); }
+catch (e) { if (!String((e as any).stdout).includes("unknown")) throw e; }
+finally { rmSync(resolve(out, "Motion.vue")); }
+console.log("PASS: motion overrides typecheck; invalid preset rejected");
 // Parts may style different values of one public axis.
 const partial = JSON.parse(
   readFileSync("src/plugins/builtin/shadcn-ui.json", "utf8"),

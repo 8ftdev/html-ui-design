@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { importCva } from "../src/plugins/import-cva";
 import { parsePlugin, pluginSchema } from "../src/plugins/schema";
 import { z } from "zod";
+import { addNativeBatch } from "./plugin-batch-one";
 const raw = readFileSync(
   "tests/fixtures/plugins/shadcn-base-nova.registry.json",
   "utf8",
@@ -23,6 +24,12 @@ const button = JSON.parse(
     "[&>svg",
   ),
 ); // Local Icon owns nested SVG styling.
+// CVA does not resolve conflicting Tailwind utilities. Keep the transparent
+// border on the variants that need it, so outline's border token is authoritative.
+button.base = button.base.map((value: string) => value.split(/\s+/).filter(token => token !== "border-transparent").join(" "));
+for (const [variant, values] of Object.entries(button.variants.variant)) {
+  if (variant !== "outline") (values as string[]).unshift("border-transparent");
+}
 const input = source("input").match(/className=\{cn\(\s*"([^"]+)"/)![1];
 const p: any = {
   pluginVersion: 1,
@@ -141,6 +148,7 @@ grid.axisTypes = {
 };
 grid.defaultVariants = { gap: "default", columns: "1" };
 component("grid", { root: grid }, { default: "default" });
+addNativeBatch(p, source);
 writeFileSync(
   "src/plugins/builtin/shadcn-ui.json",
   JSON.stringify(parsePlugin(p), null, 2) + "\n",

@@ -1,26 +1,50 @@
 # UI plugin support
 
-Pinned component-index reference: https://ui.shadcn.com/docs/components (2026-09-28). This table describes class-plugin support, not the older declaration-recipe coverage. Partial means the documented local building block works but is not a drop-in upstream API.
+The builtin `shadcn-ui` plugin generates **17 building blocks**: 16 mapped primitives and one local composition (IconButton). Vue/Vapor is supported; React is not emitted.
+
+This matrix describes **plugin contracts**, not legacy declaration recipes. The legacy mode compiles 40 catalog entries; that does not grant those entries plugin support. Partial means the local native adaptation works within the stated boundary, not upstream API equivalence.
+
+Reference: https://ui.shadcn.com/docs/components (2026-09-28). Machine-readable coverage: `src/plugins/builtin/support.json`. Regenerate with `bun run support:build`; detect drift with `bun run support:check` after `bun run test:catalog`.
+
+## Generated contracts
+
+| Component | Primitive / composition | Styled parts | Public slots | Presentation axes | Motion | Boundary |
+| --- | --- | --- | --- | --- | --- | --- |
+| accordion | accordion | root, content, trigger | summary, default | — | content.expanded → disclosure (WAAPI) | One native details/summary item; shared name supports exclusive groups. No disabled item, roving focus, generated indicator, upstream panel lifecycle. |
+| avatar | avatar | root | — | size: default/sm/lg | CSS / none | Native image with required src/alt and default/sm/lg sizes. App owns image failure handling; fallback, badge and group APIs excluded. |
+| button | button | root | default | variant: default/outline/secondary/ghost/destructive/link; size: default/xs/sm/lg/icon/icon-xs/icon-sm/icon-lg | CSS / none | Native button + pinned Base Nova CVA; external Base UI behaviors excluded. |
+| card | card | root | default | — | CSS / none | Native single surface with adapted spacing; upstream Card subcomponents excluded. |
+| checkbox | checkbox | root, control | default | — | CSS / none | Native checked control adaptation; no indicator/indeterminate API. |
+| collapsible | collapsible | root, content, trigger | summary, default | — | content.expanded → disclosure (WAAPI) | Native details/summary with open model and toggle event. No arbitrary external trigger, disabled prop. |
+| field | field | root, label, description | label, control, description | orientation: vertical/horizontal/responsive | CSS / none | Local label/control/description slots, scoped id and vertical/horizontal/responsive orientation. App connects control id and aria-describedby; no error aggregation or validation engine. |
+| input | input | root, control | default | — | CSS / none | Base Nova classes on native labeled input; no full Base UI API equivalence. |
+| native-select | select | root, control | default, options | size: default/sm | CSS / none | Native labeled select with default/sm sizes, options slot, input/change events and browser arrow. No selection model prop; application reads events or uses selected options. |
+| progress | progress | root | — | — | CSS / none | Labeled native progress with value/max and indeterminate when value is omitted. Native bar adaptation; no separate Track, Indicator, Label or Value components. |
+| scroll-area | scroll-area | root | default | — | CSS / none | Focusable labeled region with native overflow and a default max-height. No custom scrollbar/drag API; application supplies content and can override constraints. |
+| separator | separator | root | — | — | CSS / none | Native horizontal thematic hr. No decorative or vertical semantics API; use layout CSS for decorative dividers. |
+| switch | switch | root, control | default | size: default/sm | CSS / none | Labeled native checkbox with switch role, checked model, reset, disabled and default/sm sizes. CSS draws the thumb; no indeterminate or external Thumb component. |
+| grid | grid | root | default | gap: none/xs/sm/default/lg/xl; columns: 1/2/3/4; smColumns: 1/2/3/4; mdColumns: 1/2/3/4 | CSS / none | html-ui local building block, not an upstream shadcn contract. |
+| icon | icon | root | default | — | CSS / none | html-ui local building block, not an upstream shadcn contract. |
+| icon-button | button + icon | inherited | default | — | CSS / none | html-ui local building block, not an upstream shadcn contract. |
+| fieldset | fieldset | root, legend | legend, default | — | CSS / none | Adapts shadcn FieldSet/FieldLegend from the field registry to native fieldset/legend. Disabled propagates to descendant native controls (first legend exception applies). |
+
+Native state sources and behavioral scope are recorded per part in the JSON report. Those sources describe the primitive’s capabilities; they do not imply every state has a separate visual recipe. Classes/styles/unstyled overrides remain available for every mapped part. Motion can be disabled with `motion=false`; unstyled also disables generated motion.
+
+## Not yet mapped
 
 | Component | Status | Boundary |
 | --- | --- | --- |
-| accordion | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | alert | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | alert-dialog | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | aspect-ratio | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | attachment | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| avatar | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | badge | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | breadcrumb | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | bubble | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| button | partial | Native button + pinned Base Nova CVA; external Base UI behaviors excluded. |
 | button-group | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | calendar | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| card | partial | Native single surface with adapted spacing; upstream Card subcomponents excluded. |
 | carousel | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | chart | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| checkbox | partial | Native checked control adaptation; no indicator/indeterminate API. |
-| collapsible | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | combobox | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | command | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | context-menu | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
@@ -31,8 +55,6 @@ Pinned component-index reference: https://ui.shadcn.com/docs/components (2026-09
 | drawer | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | dropdown-menu | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | empty | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| field | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| input | partial | Base Nova classes on native labeled input; no full Base UI API equivalence. |
 | input-group | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | input-otp | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | item | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
@@ -42,23 +64,18 @@ Pinned component-index reference: https://ui.shadcn.com/docs/components (2026-09
 | menubar | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | message | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | message-scroller | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| native-select | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | navigation-menu | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | pagination | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | popover | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| progress | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | questionnaire | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | radio-group | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | resizable | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| scroll-area | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | select | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| separator | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | sheet | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | sidebar | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | skeleton | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | slider | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | spinner | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| switch | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | table | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | tabs | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | textarea | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
@@ -68,8 +85,5 @@ Pinned component-index reference: https://ui.shadcn.com/docs/components (2026-09
 | toolbar | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | tooltip | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
 | typography | unsupported | No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract. |
-| grid | supported-extension | html-ui local building block, not an upstream shadcn contract. |
-| icon | supported-extension | html-ui local building block, not an upstream shadcn contract. |
-| icon-button | supported-extension | html-ui local building block, not an upstream shadcn contract. |
 
-Button SVG selectors are restricted to direct SVG children so shared Icon components own their own sizing. Card integrates surface padding instead of generating upstream CardContent wrappers. Input and Checkbox retain html-ui’s labeled native anatomy.
+Native disclosure content wrappers are now explicit owned parts. Accordion remains one disclosure item; use the same nonempty name for exclusive groups. The motion helper is generated locally once as ui-motion.ts and reused by Accordion and Collapsible. Standalone pipe output embeds that same helper. No external component or animation implementation is imported.

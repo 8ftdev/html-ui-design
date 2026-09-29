@@ -8,6 +8,7 @@ import {
 import MagicString from "magic-string";
 import { parseVue } from "./parse.js";
 import { cleanGenerated, digest } from "./transform.js";
+import { injectMotion } from "../motion/inject.js";
 import { parsePlugin, type UIPlugin } from "../plugins/schema.js";
 const stamp = /^<!-- html-ui-plugin:([a-f0-9]{20}):([a-f0-9]{20}) -->\n/;
 const js = (v: unknown) =>
@@ -15,7 +16,7 @@ const js = (v: unknown) =>
 export function applyClassPlugin(
   source: string,
   raw: unknown,
-  options: { component: string; filename: string },
+  options: { component: string; filename: string; motionRuntimePath?: string },
 ): { source: string; warnings: string[] } {
   const plugin = parsePlugin(raw),
     hash = digest(JSON.stringify(plugin)),
@@ -82,7 +83,7 @@ export function applyClassPlugin(
   > = {};
   for (const r of Object.values(component.parts))
     for (const [a, choices] of Object.entries(r.variants)) {
-      if (native.has(a) || ["classes", "styles", "unstyled"].includes(a))
+      if (native.has(a) || ["classes", "styles", "unstyled"].includes(a) || (a === "motion" && Object.keys(component.motion ?? {}).length))
         throw new Error(`presentation prop collision: ${a}`);
       axes[a] ??= {
         type: r.axisTypes[a],
@@ -305,6 +306,7 @@ export function applyClassPlugin(
               js(component.slots[member.key.value]),
             );
     }
+  injectMotion(source, input, component, edits, options.motionRuntimePath);
   const body = edits.toString();
   return {
     source: `<!-- html-ui-plugin:${hash}:${digest(body)} -->\n${body}`,

@@ -98,3 +98,53 @@ Native input reset baselines remain implemented by html-ui. Application validati
 Variant axes use camelCase names. Vue-reserved props, event-like names (`onClick`), and CVA's `class`/`className` are rejected. At least one part is required; an empty class recipe on a real part is valid. Component names cannot contain empty hyphenated segments, and output names are checked case-insensitively before generating files.
 
 Automatic IconButton is emitted only when local `button` and `icon` mappings provide the required default slots, a variant axis, and a size axis containing `icon`. Otherwise the library manifest explains why that optional composition was omitted. An explicit IconButton mapping takes precedence and is never overwritten.
+
+## Native contract batch and motion
+
+The builtin now maps 16 native primitives and emits local IconButton, for 17 building blocks. The first expansion adds Accordion, Collapsible, Avatar, Field, Fieldset, Separator, Progress, Switch, ScrollArea, and NativeSelect. See the generated support matrix for anatomy, slots, axes and limitations. NativeSelect maps the producer's `select`; Fieldset adapts the registry's FieldSet.
+
+Motion recipes are optional plugin fields. This release validates one supported preset: `content.expanded` on a native details/summary disclosure with an owned content div and an expanded source bound to root.open.
+
+```ts
+motion: {
+  content: {
+    expanded: {
+      preset: 'disclosure',
+      duration: 'var(--motion-duration-normal, 180ms)',
+      easing: 'var(--motion-easing-standard, ease-out)',
+    },
+  },
+}
+```
+
+Library output includes a shared, editable `ui-motion.ts` helper; Accordion and Collapsible import it locally. Standalone pipe output embeds the same implementation. WAAPI animates the measured content height and opacity, retains physical open while closing, and reports the logical open state to the generated model. Rapid reversals cancel the previous effect. Clipping and box sizing live in the WAAPI effect, so caller inline styles and their priorities are never rewritten, including changes made during animation. Closed content becomes inert during exit; focus returns to summary when necessary. Removing the component disposes the effect and listeners. Initial hydration is never animated. Reduced motion, unavailable WAAPI, or an application `!important` rule preventing the effect’s border-box sizing settles immediately. Native exclusive name groups remain native; an automatic sibling closure may settle immediately rather than play an exit effect.
+
+Set `motion=false` to disable it. `unstyled` also disables generated motion. Override only timing while keeping the preset:
+
+```vue
+<Accordion
+  v-model:open="expanded"
+  :motion="{ content: { expanded: { duration: '300ms' } } }"
+>
+  <template #summary>Account details</template>
+  <Grid><p>Content</p><Button>Edit</Button></Grid>
+</Accordion>
+```
+
+Simple state transitions remain CSS recipes. Switch uses the shared `--motion-duration-fast` token (150ms fallback), and reduced-motion disables its transition. Styling dependencies remain CVA and Tailwind; no animation package or external component implementation is required.
+
+Field's control slot receives `id`; the application assigns that id and `aria-describedby` to a labelable control. Progress omits value for indeterminate state, including reactive transitions back from a determinate value. NativeSelect emits original input/change events; it does not add a model prop. ScrollArea defaults to max-h-64 with native scrolling; use part styles or a custom recipe to replace that constraint.
+
+The batch integration fixtures are `tests/integration/html-ui-plugin-batch-check.vue` and `html-ui-plugin-batch.spec.ts`. The Nuxt dashboard route is `/html-ui-plugin-batch-check`. Tailwind must explicitly scan the generated batch recipes (`@source "../../components/html-ui-plugin-batch"` from its CSS location).
+
+### Reproduce the batch preview
+
+Build the local producer and Vue converter binaries, then run `bun run test:catalog` here to prepare the real pipeline fixtures. Generate the library with:
+
+```sh
+bun scripts/generate-ui-library.ts /path/to/app/components/html-ui-plugin-batch /path/to/theme.css
+```
+
+Copy `tests/integration/html-ui-plugin-batch-check.vue` into the Nuxt app's pages and `tests/integration/html-ui-plugin-batch.spec.ts` into its Playwright test directory. Add a Tailwind `@source` for the generated folder. The fixture uses the dashboard's `~` alias and semantic theme utilities; it does not import upstream component implementations. Run the fixture tests against dev and production with the host app's three-browser configuration.
+
+The imported Button recipe places its transparent border on the variants that need it, rather than its shared base. This prevents the base utility from overriding the outline border token without adding a runtime class merger.
