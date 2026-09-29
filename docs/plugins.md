@@ -1,6 +1,8 @@
 # UI contract plugins
 
-A plugin supplies typed variants and class recipes to local html-ui primitives. It does not install Base UI/Radix components or implement missing behavior. Vue/Vapor is the first backend. Tailwind CSS 4 and class-variance-authority 0.7.1 are consumer styling dependencies; the generator does not compile utility CSS.
+A plugin supplies typed variants and class recipes to local html-ui primitives. Reviewed interaction profiles can generate shared local behavior; unmapped adapter requirements remain errors. It does not install Base UI/Radix components. Vue/Vapor is the first backend. Tailwind CSS 4 and class-variance-authority 0.7.1 are consumer styling dependencies; the generator does not compile utility CSS.
+
+The library now emits 69 building blocks. See [remaining adaptations](remaining-contracts.md) for local interaction helpers and the boundaries of native date, datalist, chart, carousel and content alternatives.
 
 ## Generate one component
 

@@ -3,14 +3,14 @@
   "reference": "https://ui.shadcn.com/docs/components",
   "snapshot": "2026-09-29",
   "plugin": "shadcn-ui",
-  "revision": "6b6fdcde7601c5e9cecbaef8f2228a2604d5b4435accb3242b1b155a049a6f8e",
+  "revision": "e5677bc11cb572f753bfa16b9746d3101ee54e25f1111b3c4d7e601f9180e278",
   "summary": {
-    "mappedPrimitives": 36,
+    "mappedPrimitives": 68,
     "compositions": 1,
-    "total": 37
+    "total": 69
   },
   "legacyDeclarationMode": {
-    "catalogCount": 58,
+    "catalogCount": 70,
     "establishesPluginSupport": false
   },
   "components": {
@@ -70,6 +70,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {
         "content": {
           "expanded": {
@@ -108,11 +109,114 @@
         "title": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "alert-dialog": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native modal alertdialog, title/description IDs, command buttons plus local showModal/close helper. Application supplies a description and least-destructive autofocus action; no policy engine.",
+      "primitive": "alert-dialog",
+      "parts": [
+        "root",
+        "trigger",
+        "dialog",
+        "title",
+        "close"
+      ],
+      "slots": [
+        "trigger",
+        "title",
+        "default",
+        "close"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "close": {
+          "active": {
+            "source": {
+              "node": "close",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "close",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "close",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "close",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "dialog": {
+          "open": {
+            "source": {
+              "node": "dialog",
+              "attribute": "open",
+              "present": true
+            }
+          }
+        },
+        "root": {},
+        "title": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": "dialog",
+      "motion": {}
     },
     "aspect-ratio": {
       "status": "partial",
@@ -135,11 +239,39 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "attachment": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native attachment link with href/download and focus styles. Application owns upload, file validation and previews.",
+      "primitive": "attachment",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {
+          "focusVisible": {
+            "source": {
+              "node": "root",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "root",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "avatar": {
       "status": "partial",
@@ -160,6 +292,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "badge": {
@@ -186,6 +319,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "breadcrumb": {
@@ -205,11 +339,26 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "bubble": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local message surface; caller owns sender semantics, content and streaming state.",
+      "primitive": "bubble",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "button": {
       "status": "partial",
@@ -270,6 +419,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "button-group": {
@@ -292,11 +442,66 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "calendar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native single-date browser picker alternative. No inline month grid, range or disabled-day API; browser owns calendar appearance.",
+      "primitive": "date-field",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "card": {
       "status": "partial",
@@ -313,15 +518,47 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "carousel": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Focusable native horizontal scroll-snap region, caller-owned slides. No loop, autoplay, selection model or generated arrow controls.",
+      "primitive": "carousel",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "chart": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Semantic figure/caption around caller-supplied SVG, canvas or accessible data table. No plotting library, axes, series or data engine.",
+      "primitive": "chart",
+      "parts": [
+        "root",
+        "caption"
+      ],
+      "slots": [
+        "default",
+        "caption"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "caption": {},
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "checkbox": {
       "status": "partial",
@@ -384,6 +621,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "collapsible": {
@@ -442,6 +680,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {
         "content": {
           "expanded": {
@@ -453,28 +692,395 @@
       }
     },
     "combobox": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native input/datalist suggestion alternative, with label and options slots. No custom listbox, enforced selection, filtering callback or controlled value model.",
+      "primitive": "autocomplete",
+      "parts": [
+        "root",
+        "control",
+        "options"
+      ],
+      "slots": [
+        "default",
+        "options"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "options": {},
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "command": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native input/datalist command-search building block. Application dispatches commands; no command palette, fuzzy ranking or global shortcuts.",
+      "primitive": "autocomplete",
+      "parts": [
+        "root",
+        "control",
+        "options"
+      ],
+      "slots": [
+        "default",
+        "options"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "options": {},
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "context-menu": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Flat native popover menu with local right-click/Shift+F10 invocation, arrows/Home/End and focus return. Caller supplies menuitem roles/name. Centered surface; no pointer placement, submenus or typeahead.",
+      "primitive": "context-menu",
+      "parts": [
+        "root",
+        "trigger",
+        "popup"
+      ],
+      "slots": [
+        "trigger",
+        "default"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "popup": {
+          "open": {
+            "source": {
+              "node": "popup",
+              "pseudo": "popover-open"
+            }
+          }
+        },
+        "root": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "adapter-required",
+      "interaction": "context-menu",
+      "motion": {}
     },
     "data-table": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native Table composition surface with caller-owned semantic rows and caption. Application owns sorting, selection, pagination and data modeling.",
+      "primitive": "table",
+      "parts": [
+        "root",
+        "table",
+        "caption",
+        "head",
+        "body",
+        "foot"
+      ],
+      "slots": [
+        "caption",
+        "head",
+        "default",
+        "foot"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "body": {},
+        "caption": {},
+        "foot": {},
+        "head": {},
+        "root": {},
+        "table": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "date-picker": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native browser date picker with ISO string value model, constraints and reset. No custom calendar popup, range or timezone conversion.",
+      "primitive": "date-field",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "dialog": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native modal dialog, labeled title, native Escape/focus restoration and local command fallback. No controlled open model, portal abstraction or nested trigger slots.",
+      "primitive": "dialog",
+      "parts": [
+        "root",
+        "trigger",
+        "dialog",
+        "title",
+        "close"
+      ],
+      "slots": [
+        "trigger",
+        "title",
+        "default",
+        "close"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "close": {
+          "active": {
+            "source": {
+              "node": "close",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "close",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "close",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "close",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "dialog": {
+          "open": {
+            "source": {
+              "node": "dialog",
+              "attribute": "open",
+              "present": true
+            }
+          }
+        },
+        "root": {},
+        "title": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": "dialog",
+      "motion": {}
     },
     "direction": {
       "status": "partial",
@@ -491,15 +1097,188 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "drawer": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native edge-positioned modal dialog with local command helper. No drag/swipe gestures or snap points.",
+      "primitive": "drawer",
+      "parts": [
+        "root",
+        "trigger",
+        "dialog",
+        "title",
+        "close"
+      ],
+      "slots": [
+        "trigger",
+        "title",
+        "default",
+        "close"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "close": {
+          "active": {
+            "source": {
+              "node": "close",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "close",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "close",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "close",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "dialog": {
+          "open": {
+            "source": {
+              "node": "dialog",
+              "attribute": "open",
+              "present": true
+            }
+          }
+        },
+        "root": {},
+        "title": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": "dialog",
+      "motion": {}
     },
     "dropdown-menu": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native auto popover plus local flat-menu arrows/Home/End, disabled skipping, activation dismissal, Escape focus return and trigger ARIA. Caller supplies menuitem roles/name; no submenus, typeahead or radio/checkbox selection policy.",
+      "primitive": "menu",
+      "parts": [
+        "root",
+        "trigger",
+        "popup"
+      ],
+      "slots": [
+        "trigger",
+        "default"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "popup": {
+          "open": {
+            "source": {
+              "node": "popup",
+              "pseudo": "popover-open"
+            }
+          }
+        },
+        "root": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "adapter-required",
+      "interaction": "menu",
+      "motion": {}
     },
     "empty": {
       "status": "partial",
@@ -534,6 +1313,7 @@
         "title": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "field": {
@@ -563,6 +1343,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "input": {
@@ -620,6 +1401,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "input-group": {
@@ -725,11 +1507,66 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "input-otp": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native one-time-code numeric string input with native value/reset. No segmented slots or focus controller.",
+      "primitive": "otp-field",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "item": {
       "status": "partial",
@@ -770,6 +1607,7 @@
         "title": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "kbd": {
@@ -787,6 +1625,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "label": {
@@ -804,23 +1643,80 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "marker": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local inline transcript marker; no streaming boundary or layout measurement.",
+      "primitive": "marker",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "menubar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled horizontal roving menuitem surface. Caller provides menuitem controls; no submenu tree or popup coordination.",
+      "primitive": "menubar",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "adapter-required",
+      "interaction": "toolbar",
+      "motion": {}
     },
     "message": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled article for caller-owned message contents and local Bubble/Icon/actions. No AI SDK or transport dependency.",
+      "primitive": "message",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "message-scroller": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled focusable native conversation overflow region. Application owns streaming announcements and auto-scroll; no forced follow or virtual list.",
+      "primitive": "message-scroller",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "native-select": {
       "status": "partial",
@@ -883,11 +1779,26 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "navigation-menu": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled native navigation with caller-owned links, normal tab order and aria-current. No dropdown controller or roving menu semantics.",
+      "primitive": "navigation-menu",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "pagination": {
       "status": "partial",
@@ -906,11 +1817,82 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "popover": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native auto popover with light dismissal and toggle event. Centered default surface; editable placement, no anchor collision or custom keyboard widget.",
+      "primitive": "popover",
+      "parts": [
+        "root",
+        "trigger",
+        "popup"
+      ],
+      "slots": [
+        "trigger",
+        "default"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "popup": {
+          "open": {
+            "source": {
+              "node": "popup",
+              "pseudo": "popover-open"
+            }
+          }
+        },
+        "root": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": "popover",
+      "motion": {}
     },
     "progress": {
       "status": "partial",
@@ -932,11 +1914,36 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "questionnaire": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native fieldset/legend composed from local form primitives. Application owns answers, validation, branching and submission.",
+      "primitive": "questionnaire",
+      "parts": [
+        "root",
+        "legend"
+      ],
+      "slots": [
+        "legend",
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "legend": {},
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "root",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "radio-group": {
       "status": "partial",
@@ -963,11 +1970,26 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "resizable": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native CSS resize surface; no split panes, keyboard resize handle or panel persistence.",
+      "primitive": "resizable",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "scroll-area": {
       "status": "partial",
@@ -984,11 +2006,72 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "select": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native labeled select alternative, browser keyboard and popup. No custom listbox/portal, controlled value model or upstream Select API.",
+      "primitive": "select",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default",
+        "options"
+      ],
+      "axes": {
+        "size": [
+          "default",
+          "sm"
+        ]
+      },
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "separator": {
       "status": "partial",
@@ -1003,15 +2086,132 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "sheet": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local Drawer adaptation with native modal/focus behavior. No generated provider or mobile navigation logic.",
+      "primitive": "drawer",
+      "parts": [
+        "root",
+        "trigger",
+        "dialog",
+        "title",
+        "close"
+      ],
+      "slots": [
+        "trigger",
+        "title",
+        "default",
+        "close"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "close": {
+          "active": {
+            "source": {
+              "node": "close",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "close",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "close",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "close",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "dialog": {
+          "open": {
+            "source": {
+              "node": "dialog",
+              "attribute": "open",
+              "present": true
+            }
+          }
+        },
+        "root": {},
+        "title": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": "dialog",
+      "motion": {}
     },
     "sidebar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled complementary surface for caller-owned links and local primitives. Application composes Sheet for mobile; no provider, persistence or collapse engine.",
+      "primitive": "sidebar",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "skeleton": {
       "status": "partial",
@@ -1026,6 +2226,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "slider": {
@@ -1071,6 +2272,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "spinner": {
@@ -1088,6 +2290,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "switch": {
@@ -1156,6 +2359,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "table": {
@@ -1186,11 +2390,29 @@
         "table": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "tabs": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local automatic-activation tab adapter: arrows/Home/End, native disabled skipping, roving focus and panel visibility. Caller supplies connected IDs/roles; no controlled selection model or generated tab/panel components.",
+      "primitive": "tabs",
+      "parts": [
+        "root",
+        "list"
+      ],
+      "slots": [
+        "tabs",
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "list": {},
+        "root": {}
+      },
+      "behavior": "adapter-required",
+      "interaction": "tabs",
+      "motion": {}
     },
     "textarea": {
       "status": "partial",
@@ -1254,27 +2476,198 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "toast": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Persistent polite native status region; insert content after mount. Application owns queue, timeout, actions and dismissal; no notification manager.",
+      "primitive": "notification",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "interaction": null,
+      "motion": {}
     },
     "toggle": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native button plus local pressed controller and typed update:pressed model. Stable caller-owned label; variants inherit Button. No external primitive.",
+      "primitive": "toggle",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "root": {
+          "active": {
+            "source": {
+              "node": "root",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "root",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "root",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "root",
+              "pseudo": "hover"
+            }
+          },
+          "pressed": {
+            "source": {
+              "node": "root",
+              "attribute": "aria-pressed",
+              "value": "true"
+            }
+          }
+        }
+      },
+      "behavior": "adapter-required",
+      "interaction": "toggle",
+      "motion": {}
     },
     "toggle-group": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled multi-toggle group with local horizontal roving navigation. Compose local Toggle children; application owns their pressed models. No exclusive selection or vertical mode.",
+      "primitive": "toggle-group",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "adapter-required",
+      "interaction": "toggle-group",
+      "motion": {}
     },
     "toolbar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled local horizontal roving control toolbar, Home/End and RTL. Text/select controls retain editing keys. No vertical mode or disabled-group prop.",
+      "primitive": "toolbar",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "adapter-required",
+      "interaction": "toolbar",
+      "motion": {}
     },
     "tooltip": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local noninteractive tooltip on trigger focus/hover, hover persistence and Escape dismissal. Caller supplies unique ID and text; no delay/provider or collision positioning.",
+      "primitive": "tooltip",
+      "parts": [
+        "root",
+        "trigger",
+        "tooltip"
+      ],
+      "slots": [
+        "trigger",
+        "default"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "root": {},
+        "tooltip": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "adapter-required",
+      "interaction": "tooltip",
+      "motion": {}
     },
     "typography": {
       "status": "supported-extension",
@@ -1291,6 +2684,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "grid": {
@@ -1335,6 +2729,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "icon": {
@@ -1352,6 +2747,7 @@
         "root": {}
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "icon-button": {
@@ -1391,6 +2787,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     },
     "radio": {
@@ -1454,6 +2851,7 @@
         }
       },
       "behavior": "native",
+      "interaction": null,
       "motion": {}
     }
   }

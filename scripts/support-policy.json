@@ -11,16 +11,16 @@
       "reason": "Native role=alert with title, decorative icon and description slots. Application owns announcements, actions and dismissal."
     },
     "alert-dialog": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native modal alertdialog, title/description IDs, command buttons plus local showModal/close helper. Application supplies a description and least-destructive autofocus action; no policy engine."
     },
     "aspect-ratio": {
       "status": "partial",
       "reason": "Native container with square/video/photo CSS ratio recipes; styles.root.aspectRatio accepts custom ratios. Intrinsic oversized content may increase height; no numeric upstream ratio prop."
     },
     "attachment": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native attachment link with href/download and focus styles. Application owns upload, file validation and previews."
     },
     "avatar": {
       "status": "partial",
@@ -35,8 +35,8 @@
       "reason": "Labeled nav and ordered list; caller supplies semantic li, links and aria-current=page. CSS decorative separators; no routing, dropdown or ellipsis controller."
     },
     "bubble": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local message surface; caller owns sender semantics, content and streaming state."
     },
     "button": {
       "status": "partial",
@@ -47,20 +47,20 @@
       "reason": "Labeled group of local Button children, horizontal/vertical presentation. Buttons retain their own recipes and normal tab order; no toolbar/roving focus or arbitrary nested anatomy."
     },
     "calendar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native single-date browser picker alternative. No inline month grid, range or disabled-day API; browser owns calendar appearance."
     },
     "card": {
       "status": "partial",
       "reason": "Native single surface with adapted spacing; upstream Card subcomponents excluded."
     },
     "carousel": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Focusable native horizontal scroll-snap region, caller-owned slides. No loop, autoplay, selection model or generated arrow controls."
     },
     "chart": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Semantic figure/caption around caller-supplied SVG, canvas or accessible data table. No plotting library, axes, series or data engine."
     },
     "checkbox": {
       "status": "partial",
@@ -71,40 +71,40 @@
       "reason": "Native details/summary with open model and toggle event. No arbitrary external trigger, disabled prop."
     },
     "combobox": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native input/datalist suggestion alternative, with label and options slots. No custom listbox, enforced selection, filtering callback or controlled value model."
     },
     "command": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native input/datalist command-search building block. Application dispatches commands; no command palette, fuzzy ranking or global shortcuts."
     },
     "context-menu": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Flat native popover menu with local right-click/Shift+F10 invocation, arrows/Home/End and focus return. Caller supplies menuitem roles/name. Centered surface; no pointer placement, submenus or typeahead."
     },
     "data-table": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native Table composition surface with caller-owned semantic rows and caption. Application owns sorting, selection, pagination and data modeling."
     },
     "date-picker": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native browser date picker with ISO string value model, constraints and reset. No custom calendar popup, range or timezone conversion."
     },
     "dialog": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native modal dialog, labeled title, native Escape/focus restoration and local command fallback. No controlled open model, portal abstraction or nested trigger slots."
     },
     "direction": {
       "status": "partial",
       "reason": "Native div dir inheritance with ltr/rtl/auto. Logical CSS follows the browser; no JavaScript DirectionProvider/useDirection context."
     },
     "drawer": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native edge-positioned modal dialog with local command helper. No drag/swipe gestures or snap points."
     },
     "dropdown-menu": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native auto popover plus local flat-menu arrows/Home/End, disabled skipping, activation dismissal, Escape focus return and trigger ARIA. Caller supplies menuitem roles/name; no submenus, typeahead or radio/checkbox selection policy."
     },
     "empty": {
       "status": "partial",
@@ -123,8 +123,8 @@
       "reason": "Single native labeled text/email/password input with value model, native constraints/reset and inline start/end addons. Label is separate from interactive addon buttons. Unique id required; application owns addon disabled state. No textarea/block addons or addon click-to-focus handler."
     },
     "input-otp": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native one-time-code numeric string input with native value/reset. No segmented slots or focus controller."
     },
     "item": {
       "status": "partial",
@@ -139,72 +139,72 @@
       "reason": "Native label with htmlFor association or one wrapped labelable control. No disabled state of its own; avoid nested labels."
     },
     "marker": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local inline transcript marker; no streaming boundary or layout measurement."
     },
     "menubar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled horizontal roving menuitem surface. Caller provides menuitem controls; no submenu tree or popup coordination."
     },
     "message": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled article for caller-owned message contents and local Bubble/Icon/actions. No AI SDK or transport dependency."
     },
     "message-scroller": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled focusable native conversation overflow region. Application owns streaming announcements and auto-scroll; no forced follow or virtual list."
     },
     "native-select": {
       "status": "partial",
       "reason": "Native labeled select with default/sm sizes, options slot, input/change events and browser arrow. No selection model prop; application reads events or uses selected options."
     },
     "navigation-menu": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled native navigation with caller-owned links, normal tab order and aria-current. No dropdown controller or roving menu semantics."
     },
     "pagination": {
       "status": "partial",
       "reason": "Labeled native nav and ul; caller supplies li, page links and aria-current=page. Shared link recipes; no routing, page calculations, disabled anchors or generated previous/next controls."
     },
     "popover": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native auto popover with light dismissal and toggle event. Centered default surface; editable placement, no anchor collision or custom keyboard widget."
     },
     "progress": {
       "status": "partial",
       "reason": "Labeled native progress with value/max and indeterminate when value is omitted. Native bar adaptation; no separate Track, Indicator, Label or Value components."
     },
     "questionnaire": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native fieldset/legend composed from local form primitives. Application owns answers, validation, branching and submission."
     },
     "radio-group": {
       "status": "partial",
       "reason": "Native fieldset/legend with scoped shared name, bubbling change and disabled propagation. Compose local Radio children. Selection/arrow keys/reset are native; application reads change or FormData. No controlled group model or generated options."
     },
     "resizable": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native CSS resize surface; no split panes, keyboard resize handle or panel persistence."
     },
     "scroll-area": {
       "status": "partial",
       "reason": "Focusable labeled region with native overflow and a default max-height. No custom scrollbar/drag API; application supplies content and can override constraints."
     },
     "select": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native labeled select alternative, browser keyboard and popup. No custom listbox/portal, controlled value model or upstream Select API."
     },
     "separator": {
       "status": "partial",
       "reason": "Native horizontal thematic hr. No decorative or vertical semantics API; use layout CSS for decorative dividers."
     },
     "sheet": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local Drawer adaptation with native modal/focus behavior. No generated provider or mobile navigation logic."
     },
     "sidebar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled complementary surface for caller-owned links and local primitives. Application composes Sheet for mobile; no provider, persistence or collapse engine."
     },
     "skeleton": {
       "status": "partial",
@@ -227,32 +227,32 @@
       "reason": "Native table, required caption and body rows, optional header/footer slots inside a focusable scroll container. Caller owns semantic rows/cells. No sorting, selection or virtualization."
     },
     "tabs": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local automatic-activation tab adapter: arrows/Home/End, native disabled skipping, roving focus and panel visibility. Caller supplies connected IDs/roles; no controlled selection model or generated tab/panel components."
     },
     "textarea": {
       "status": "partial",
       "reason": "Native enclosing label and multiline control with value model, input/change, reset, disabled, readonly and constraints. No autosize JS or validation engine; field-sizing-content is progressive enhancement."
     },
     "toast": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Persistent polite native status region; insert content after mount. Application owns queue, timeout, actions and dismissal; no notification manager."
     },
     "toggle": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native button plus local pressed controller and typed update:pressed model. Stable caller-owned label; variants inherit Button. No external primitive."
     },
     "toggle-group": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled multi-toggle group with local horizontal roving navigation. Compose local Toggle children; application owns their pressed models. No exclusive selection or vertical mode."
     },
     "toolbar": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled local horizontal roving control toolbar, Home/End and RTL. Text/select controls retain editing keys. No vertical mode or disabled-group prop."
     },
     "tooltip": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Local noninteractive tooltip on trigger focus/hover, hover persistence and Escape dismissal. Caller supplies unique ID and text; no delay/provider or collision positioning."
     },
     "typography": {
       "status": "supported-extension",

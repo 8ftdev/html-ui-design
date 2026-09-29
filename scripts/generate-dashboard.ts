@@ -29,6 +29,11 @@ const names = execFileSync(producer, ["--list"], { encoding: "utf8" })
 	.split("\n");
 const imports: string[] = [],
 	examples: string[] = [];
+// Keep the original contract-check route stable while new batches use their
+// own focused preview routes. The generated SFC catalog still covers all names.
+const compatibilityExamples = new Set(
+  'accordion alert aspect-ratio autocomplete avatar badge breadcrumb button button-group card checkbox collapsible direction empty field fieldset grid icon input input-group item kbd label pagination progress radio radio-group scroll-area select separator skeleton slider spinner switch table textarea typography'.split(' '),
+);
 function writeOwned(path: string, text: string) {
 	if (existsSync(path) && !readFileSync(path, "utf8").startsWith(owner))
 		throw new Error(`refusing to overwrite non-fixture ${path}`);
@@ -68,9 +73,10 @@ for (const name of names) {
 			.map((x) => x[0]!.toUpperCase() + x.slice(1))
 			.join("");
 	writeOwned(join(destination, component + ".vue"), themed(vue));
-	imports.push(
-		`import ${component} from '~/components/html-ui-generated/${component}.vue'`,
-	);
+	if (compatibilityExamples.has(name))
+		imports.push(
+			`import ${component} from '~/components/html-ui-generated/${component}.vue'`,
+		);
 	const script = parseSFC(vue).descriptor.scriptSetup!.content;
 	const ast = parseTS(script, { sourceType: "module", plugins: ["typescript"] })
 		.program.body;
@@ -128,12 +134,13 @@ for (const name of names) {
 	const children = slots
 		.map(
 			(slot) =>
-				`<template #${slot}>${slot === "options" && ["select", "autocomplete"].includes(name) ? '<option value="one">One</option>' : slot === "tabs" ? '<button role="tab">One</button>' : slot === "panels" ? '<div role="tabpanel">One</div>' : name + " " + slot}</template>`,
+				`<template #${slot}>${name === 'table' && slot === 'head' ? '<tr><th scope="col">Report</th></tr>' : name === 'table' && (slot === 'rows' || slot === 'default') ? '<tr><td>Quarter one</td></tr>' : name === 'table' && slot === 'foot' ? '<tr><td>One report</td></tr>' : slot === "options" && ["select", "autocomplete"].includes(name) ? '<option value="one">One</option>' : slot === "tabs" ? '<button role="tab">One</button>' : slot === "panels" ? '<div role="tabpanel">One</div>' : name + " " + slot}</template>`,
 		)
 		.join("");
-	examples.push(
-		`<section data-catalog-component="${name}" class="space-y-2"><h2 class="text-lg font-semibold">${name}</h2><${component} ${attributes.join(" ")}>${children}</${component}></section>`,
-	);
+	if (compatibilityExamples.has(name))
+		examples.push(
+			`<section data-catalog-component="${name}" class="space-y-2"><h2 class="text-lg font-semibold">${name}</h2><${component} ${attributes.join(" ")}>${children}</${component}></section>`,
+		);
 	if (name === "button")
 		for (const [label, recipe] of Object.entries({
 			Replace: {

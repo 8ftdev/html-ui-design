@@ -20,7 +20,7 @@ for(const [name,mapping] of Object.entries(plugin.components)){
  components[name]={...components[name],primitive:mapping.primitive,parts:Object.keys(mapping.parts),slots,
   axes:Object.fromEntries(Object.values(mapping.parts).flatMap(r=>Object.entries(r.variants).map(([name,choices])=>[name,Object.keys(choices)]))),
   nativeStates:Object.fromEntries(Object.entries(contract.parts).map(([part,p])=>[part,p.state??{}])),
-  behavior:contract.behavior.kind,motion:mapping.motion??{},
+  behavior:contract.behavior.kind,interaction:mapping.interaction??null,motion:mapping.motion??{},
  };
 }
 components['icon-button']={...components['icon-button'],composition:['button','icon'],parts:[],slots:['default']};
@@ -36,8 +36,12 @@ for(const [name,c] of Object.entries(components).filter(([,c])=>c.status!=='unsu
  const axes=Object.entries(c.axes??{}).map(([k,v]:[string,any])=>`${k}: ${v.join('/')}`).join('; ');
  doc.push(`| ${name} | ${c.primitive??c.composition?.join(' + ')} | ${c.parts.join(', ')||'inherited'} | ${c.slots.join(', ')||'—'} | ${axes||'—'} | ${Object.keys(c.motion??{}).length?'content.expanded → disclosure (WAAPI)':'CSS / none'} | ${c.reason} |`);
 }
-doc.push('', 'Native state sources and behavioral scope are recorded per part in the JSON report. Those sources describe the primitive’s capabilities; they do not imply every state has a separate visual recipe. Classes/styles/unstyled overrides remain available for every mapped part. Motion can be disabled with `motion=false`; unstyled also disables generated motion.', '', '## Not yet mapped','', '| Component | Status | Boundary |','| --- | --- | --- |');
-for(const [name,c] of Object.entries(components).filter(([,c])=>c.status==='unsupported'))doc.push(`| ${name} | unsupported | ${c.reason} |`);
+doc.push('', 'Native state sources and behavioral scope are recorded per part in the JSON report. Those sources describe the primitive’s capabilities; they do not imply every state has a separate visual recipe. Classes/styles/unstyled overrides remain available for every mapped part. Motion can be disabled with `motion=false`; unstyled also disables generated motion.');
+const unsupported=Object.entries(components).filter(([,c])=>c.status==='unsupported');
+if(unsupported.length){
+ doc.push('', '## Not yet mapped','', '| Component | Status | Boundary |','| --- | --- | --- |');
+ for(const [name,c] of unsupported)doc.push(`| ${name} | unsupported | ${c.reason} |`);
+}
 doc.push('', 'Native disclosure content wrappers are now explicit owned parts. Accordion remains one disclosure item; use the same nonempty name for exclusive groups. The motion helper is generated locally once as ui-motion.ts and reused by Accordion and Collapsible. Standalone pipe output embeds that same helper. No external component or animation implementation is imported.','');
 for(const [path,text] of [['src/plugins/builtin/support.json',JSON.stringify(report,null,2)+'\n'],['docs/support.md',doc.join('\n')]]){
  if(process.argv.includes('--check')){if(readFileSync(path,'utf8')!==text)throw new Error(`support artifact is stale: ${path}`)}else writeFileSync(path,text);

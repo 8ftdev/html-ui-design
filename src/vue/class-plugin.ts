@@ -9,6 +9,7 @@ import MagicString from "magic-string";
 import { parseVue } from "./parse.js";
 import { cleanGenerated, digest } from "./transform.js";
 import { injectMotion } from "../motion/inject.js";
+import {injectInteraction,validateInteraction} from '../interaction/inject.js';
 import { parsePlugin, type UIPlugin } from "../plugins/schema.js";
 const stamp = /^<!-- html-ui-plugin:([a-f0-9]{20}):([a-f0-9]{20}) -->\n/;
 const js = (v: unknown) =>
@@ -16,7 +17,7 @@ const js = (v: unknown) =>
 export function applyClassPlugin(
   source: string,
   raw: unknown,
-  options: { component: string; filename: string; motionRuntimePath?: string },
+  options: { component: string; filename: string; motionRuntimePath?: string; interactionRuntimePath?:string },
 ): { source: string; warnings: string[] } {
   const plugin = parsePlugin(raw),
     hash = digest(JSON.stringify(plugin)),
@@ -40,7 +41,8 @@ export function applyClassPlugin(
     throw new Error(
       `plugin has no mapping for primitive ${input.ui.component}`,
     );
-  if (input.ui.behavior.kind === "adapter-required")
+  validateInteraction(input,component);
+  if (input.ui.behavior.kind === "adapter-required" && !component.interaction)
     throw new Error(`${input.ui.component} needs an interaction adapter`);
   for (const [part] of Object.entries(component.parts))
     if (!input.ui.parts[part]) throw new Error(`unknown part ${part}`);
@@ -101,7 +103,7 @@ export function applyClassPlugin(
     throw new Error("reserved generated recipe identifier collision");
   edits.appendLeft(
     offset,
-    `\nimport { cva as uiCva } from 'class-variance-authority'\nimport type { CSSProperties as UiCSSProperties } from 'vue'\n`,
+    `\nimport { cva as uiCva } from 'class-variance-authority'\nimport type { CSSProperties as UiCSSProperties, HTMLAttributes as UiHTMLAttributes } from 'vue'\n`,
   );
   const partUnion = Object.keys(component.parts).map(js).join(" | ");
   const types = Object.entries(axes)
@@ -110,9 +112,22 @@ export function applyClassPlugin(
         `  ${js(a)}?: ${x.type === "boolean" ? "boolean" : [...x.values].map(js).join(" | ")};`,
     )
     .join("\n");
+  const propName = (name: string) => name.replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
+  const forwardNames = options.component === 'button'
+    ? ['id','role','tabindex','title','dir','inert','aria-label','aria-labelledby','aria-describedby','aria-controls','aria-selected','aria-disabled','aria-current','aria-haspopup','aria-expanded','aria-pressed']
+        .filter(name=>!native.has(propName(name)))
+    : [];
+  // Vue normalizes hyphenated component attributes to camelCase prop names.
+  // Keep the DOM spelling for the binding, but read the normalized prop.
+  const forwarded=forwardNames.map(name=>`  ${js(propName(name))}?: UiHTMLAttributes[${js(name)}];`).join('\n');
+  if(forwardNames.length){
+    const root=input.nodes.find(n=>n.part==='root');
+    if(!root||root.tag!=='button')throw new Error('Button HTML attributes require a native button root');
+    edits.appendLeft(root.start,forwardNames.map(name=>` :${name}="_htmlUiProps['${propName(name)}']"`).join(''));
+  }
   edits.appendLeft(
     offset + props.body.end! - 1,
-    `\n${types}\n  classes?: Partial<Record<${partUnion}, string>>;\n  styles?: Partial<Record<${partUnion}, UiCSSProperties>>;\n  unstyled?: boolean;\n`,
+    `\n${types}\n${forwarded}\n  classes?: Partial<Record<${partUnion}, string>>;\n  styles?: Partial<Record<${partUnion}, UiCSSProperties>>;\n  unstyled?: boolean;\n`,
   );
   for (const n of ast.program.body)
     if (n.type === "VariableDeclaration")
@@ -132,6 +147,12 @@ export function applyClassPlugin(
             ([a, x]) =>
               `${js(a)}: ${x.default === undefined ? "undefined" : js(x.default)}`,
           );
+          // Vue casts absent Booleanish props to false unless the default is
+          // explicitly undefined. An absent aria-pressed/expanded attribute
+          // must stay absent on ordinary buttons.
+          entries.push(...forwardNames
+            .filter(name => ["aria-selected", "aria-disabled", "aria-current", "aria-haspopup", "aria-expanded", "aria-pressed"].includes(name))
+            .map(name => `${js(propName(name))}: undefined`));
           if (entries.length)
             edits.appendLeft(
               offset + defaults.end! - 1,
@@ -307,6 +328,7 @@ export function applyClassPlugin(
             );
     }
   injectMotion(source, input, component, edits, options.motionRuntimePath);
+  injectInteraction(source,input,component,edits,options.interactionRuntimePath);
   const body = edits.toString();
   return {
     source: `<!-- html-ui-plugin:${hash}:${digest(body)} -->\n${body}`,

@@ -5,7 +5,7 @@ test('support report names every generated mapping and explains legacy scope sep
  const p=await loadPlugin('shadcn-ui');
  const report=await Bun.file('src/plugins/builtin/support.json').json();
  expect(report.contractVersion).toBe(2);
- expect(report.legacyDeclarationMode).toEqual({catalogCount:58,establishesPluginSupport:false});
+ expect(report.legacyDeclarationMode).toEqual({catalogCount:70,establishesPluginSupport:false});
  for(const [name,mapping] of Object.entries(p.components)){
   const entry=report.components[name];
   expect(entry.primitive).toBe(mapping.primitive);
@@ -14,7 +14,8 @@ test('support report names every generated mapping and explains legacy scope sep
  }
  expect(report.components.accordion.motion.content.expanded.preset).toBe('disclosure');
  expect(report.components.accordion.nativeStates.content.expanded.source.attribute).toBe('open');
- expect(report.components.tabs.status).toBe('unsupported');
+ expect(report.components.tabs.status).toBe('partial');
+ expect(report.components.tabs.interaction).toBe('tabs');
 });
 test('coverage regeneration check succeeds without changing published artifacts',()=>{
  expect(execFileSync('bun',['scripts/build-support.ts','--check'],{encoding:'utf8'})).toContain('current');

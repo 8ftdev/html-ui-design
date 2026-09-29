@@ -54,6 +54,20 @@
             "type": "string",
             "minLength": 1
           },
+          "interaction": {
+            "type": "string",
+            "enum": [
+              "dialog",
+              "popover",
+              "tabs",
+              "menu",
+              "context-menu",
+              "toolbar",
+              "toggle",
+              "toggle-group",
+              "tooltip"
+            ]
+          },
           "parts": {
             "minProperties": 1,
             "type": "object",

@@ -3,7 +3,7 @@
   "name": "shadcn-ui",
   "provenance": {
     "source": "shadcn registry/base-nova (2026-09-29)",
-    "revision": "6b6fdcde7601c5e9cecbaef8f2228a2604d5b4435accb3242b1b155a049a6f8e",
+    "revision": "e5677bc11cb572f753bfa16b9746d3101ee54e25f1111b3c4d7e601f9180e278",
     "license": "MIT; shadcn"
   },
   "tokens": [
@@ -20,7 +20,9 @@
     "input",
     "ring",
     "card",
-    "card-foreground"
+    "card-foreground",
+    "popover",
+    "popover-foreground"
   ],
   "components": {
     "button": {
@@ -1523,6 +1525,1748 @@
         }
       ],
       "hooks": []
+    },
+    "dialog": {
+      "primitive": "dialog",
+      "interaction": "dialog",
+      "parts": {
+        "root": {
+          "base": [
+            "contents"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "dialog": {
+          "base": [
+            "fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl border border-border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50 open:flex open:flex-col open:gap-4"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "title": {
+          "base": [
+            "text-lg font-semibold"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "close": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "trigger": "trigger",
+        "title": "title",
+        "content": "default",
+        "close": "close"
+      },
+      "requirements": []
+    },
+    "alert-dialog": {
+      "primitive": "alert-dialog",
+      "interaction": "dialog",
+      "parts": {
+        "root": {
+          "base": [
+            "contents"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "dialog": {
+          "base": [
+            "fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl border border-border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50 open:flex open:flex-col open:gap-4"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "title": {
+          "base": [
+            "text-lg font-semibold"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "close": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "trigger": "trigger",
+        "title": "title",
+        "content": "default",
+        "close": "close"
+      },
+      "requirements": []
+    },
+    "drawer": {
+      "primitive": "drawer",
+      "interaction": "dialog",
+      "parts": {
+        "root": {
+          "base": [
+            "contents"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "dialog": {
+          "base": [
+            "fixed inset-y-0 start-auto end-0 m-0 h-dvh max-h-dvh w-full max-w-sm overflow-y-auto border border-border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50 open:flex open:flex-col open:gap-4"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "title": {
+          "base": [
+            "text-lg font-semibold"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "close": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "trigger": "trigger",
+        "title": "title",
+        "content": "default",
+        "close": "close"
+      },
+      "requirements": []
+    },
+    "sheet": {
+      "primitive": "drawer",
+      "interaction": "dialog",
+      "parts": {
+        "root": {
+          "base": [
+            "contents"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "dialog": {
+          "base": [
+            "fixed inset-y-0 start-auto end-0 m-0 h-dvh max-h-dvh w-full max-w-sm overflow-y-auto border border-border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50 open:flex open:flex-col open:gap-4"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "title": {
+          "base": [
+            "text-lg font-semibold"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "close": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "trigger": "trigger",
+        "title": "title",
+        "content": "default",
+        "close": "close"
+      },
+      "requirements": []
+    },
+    "popover": {
+      "primitive": "popover",
+      "interaction": "popover",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-block"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "popup": {
+          "base": [
+            "fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-sm overflow-auto rounded-lg border border-border bg-popover p-4 text-popover-foreground shadow-md"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "trigger": "trigger",
+        "content": "default"
+      },
+      "requirements": []
+    },
+    "navigation-menu": {
+      "primitive": "navigation-menu",
+      "parts": {
+        "root": {
+          "base": [
+            "flex min-w-0 flex-wrap items-center gap-2 text-sm [&_a]:inline-flex [&_a]:items-center [&_a]:rounded-lg [&_a]:px-3 [&_a]:py-2 [&_a:hover]:bg-muted [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-ring [&_a[aria-current=page]]:bg-muted"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "content": "default"
+      },
+      "requirements": []
+    },
+    "input-otp": {
+      "primitive": "otp-field",
+      "parts": {
+        "root": {
+          "base": [
+            "grid gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-9 w-full min-w-0 rounded-lg border border-input bg-transparent px-3 font-mono tracking-widest outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50 user-invalid:border-destructive"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": []
+    },
+    "date-picker": {
+      "primitive": "date-field",
+      "parts": {
+        "root": {
+          "base": [
+            "grid gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": []
+    },
+    "calendar": {
+      "primitive": "date-field",
+      "parts": {
+        "root": {
+          "base": [
+            "grid gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": []
+    },
+    "combobox": {
+      "primitive": "autocomplete",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "options": {
+          "base": [
+            ""
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default",
+        "options": "options"
+      },
+      "requirements": []
+    },
+    "command": {
+      "primitive": "autocomplete",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "options": {
+          "base": [
+            ""
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default",
+        "options": "options"
+      },
+      "requirements": []
+    },
+    "select": {
+      "primitive": "select",
+      "parts": {
+        "root": {
+          "base": [
+            "grid gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "w-full min-w-0 appearance-auto rounded-lg border border-input bg-background px-2.5 text-sm font-normal outline-none transition-colors motion-reduce:transition-none hover:bg-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 dark:hover:bg-input/50"
+          ],
+          "variants": {
+            "size": {
+              "default": [
+                "h-8 py-1"
+              ],
+              "sm": [
+                "h-7 py-0.5"
+              ]
+            }
+          },
+          "axisTypes": {
+            "size": "string"
+          },
+          "defaultVariants": {
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default",
+        "options": "options"
+      },
+      "requirements": []
+    },
+    "data-table": {
+      "primitive": "table",
+      "parts": {
+        "root": {
+          "base": [
+            "relative w-full min-w-0 overflow-x-auto rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "table": {
+          "base": [
+            "w-full caption-bottom text-sm [&_tr]:border-b [&_tr]:border-border [&_tbody>tr]:transition-colors [&_tbody>tr:hover]:bg-muted/50 [&_th]:h-10 [&_th]:px-2 [&_th]:text-start [&_th]:align-middle [&_th]:font-medium [&_th]:whitespace-nowrap [&_td]:p-2 [&_td]:align-middle [&_td]:whitespace-nowrap"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "caption": {
+          "base": [
+            "mt-4 text-sm text-muted-foreground"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "head": {
+          "base": [
+            "[&>tr]:border-b"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "body": {
+          "base": [
+            "[&>tr:last-child]:border-0"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "foot": {
+          "base": [
+            "border-t border-border bg-muted/50 font-medium empty:hidden [&>tr:last-child]:border-b-0"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "caption": "caption",
+        "head": "head",
+        "rows": "default",
+        "foot": "foot"
+      },
+      "requirements": []
+    },
+    "attachment": {
+      "primitive": "attachment",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-flex max-w-full items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground underline-offset-4 hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring [overflow-wrap:anywhere]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "bubble": {
+      "primitive": "bubble",
+      "parts": {
+        "root": {
+          "base": [
+            "min-w-0 rounded-xl bg-muted px-4 py-3 text-sm/relaxed text-foreground [overflow-wrap:anywhere]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "marker": {
+      "primitive": "marker",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "message": {
+      "primitive": "message",
+      "parts": {
+        "root": {
+          "base": [
+            "flex min-w-0 flex-col gap-2 text-sm"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "message-scroller": {
+      "primitive": "message-scroller",
+      "parts": {
+        "root": {
+          "base": [
+            "flex max-h-96 min-w-0 flex-col gap-4 overflow-y-auto overscroll-contain rounded-lg p-4 focus-visible:outline-2 focus-visible:outline-ring"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "carousel": {
+      "primitive": "carousel",
+      "parts": {
+        "root": {
+          "base": [
+            "flex w-full min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain rounded-lg p-2 focus-visible:outline-2 focus-visible:outline-ring [&>*]:w-full [&>*]:shrink-0 [&>*]:snap-start"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "chart": {
+      "primitive": "chart",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-3 rounded-xl border border-border bg-card p-4 text-card-foreground [&_svg]:max-w-full [&_canvas]:max-w-full"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "caption": {
+          "base": [
+            "text-sm text-muted-foreground"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default",
+        "caption": "caption"
+      },
+      "requirements": []
+    },
+    "resizable": {
+      "primitive": "resizable",
+      "parts": {
+        "root": {
+          "base": [
+            "h-48 min-h-24 w-full min-w-40 max-w-full resize overflow-auto rounded-lg border border-border p-4 focus-visible:outline-2 focus-visible:outline-ring"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "sidebar": {
+      "primitive": "sidebar",
+      "parts": {
+        "root": {
+          "base": [
+            "flex min-w-0 flex-col gap-4 rounded-xl border border-border bg-muted p-4 text-foreground"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "questionnaire": {
+      "primitive": "questionnaire",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-4 border-0 p-0 disabled:opacity-50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "legend": {
+          "base": [
+            "mb-1.5 text-base font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "legend": "legend",
+        "content": "default"
+      },
+      "requirements": []
+    },
+    "toast": {
+      "primitive": "notification",
+      "parts": {
+        "root": {
+          "base": [
+            "min-w-0 rounded-lg text-sm empty:hidden not-empty:border not-empty:border-border not-empty:bg-background not-empty:p-4 not-empty:shadow-md"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "tabs": {
+      "primitive": "tabs",
+      "interaction": "tabs",
+      "parts": {
+        "root": {
+          "base": [
+            "grid min-w-0 gap-3 [&>[role=tabpanel]]:rounded-lg [&>[role=tabpanel]]:p-4 [&>[role=tabpanel]]:focus-visible:outline-2 [&>[role=tabpanel]]:focus-visible:outline-ring"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "list": {
+          "base": [
+            "inline-flex w-fit max-w-full flex-wrap items-center gap-1 rounded-lg bg-muted p-1 [&>[role=tab]]:rounded-md [&>[role=tab]]:px-3 [&>[role=tab]]:py-1.5 [&>[role=tab]]:text-sm [&>[role=tab]]:text-muted-foreground [&>[role=tab]:hover]:bg-background/50 [&>[role=tab][aria-selected=true]]:bg-background [&>[role=tab][aria-selected=true]]:text-foreground [&>[role=tab][aria-selected=true]]:shadow-sm [&>[role=tab]:disabled]:opacity-50 [&>[role=tab]:focus-visible]:outline-2 [&>[role=tab]:focus-visible]:outline-ring"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "tabs": "tabs",
+        "panels": "default"
+      },
+      "requirements": []
+    },
+    "toggle": {
+      "primitive": "toggle",
+      "interaction": "toggle",
+      "parts": {
+        "root": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
+            "aria-pressed:bg-muted aria-pressed:text-foreground"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "ghost",
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": []
+    },
+    "toggle-group": {
+      "primitive": "toggle-group",
+      "interaction": "toggle-group",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-flex max-w-full flex-wrap items-center gap-1 rounded-lg border border-border p-1"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "content": "default"
+      },
+      "requirements": []
+    },
+    "toolbar": {
+      "primitive": "toolbar",
+      "interaction": "toolbar",
+      "parts": {
+        "root": {
+          "base": [
+            "flex max-w-full flex-wrap items-center gap-2 rounded-lg border border-border bg-background p-2"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "content": "default"
+      },
+      "requirements": []
+    },
+    "menubar": {
+      "primitive": "menubar",
+      "interaction": "toolbar",
+      "parts": {
+        "root": {
+          "base": [
+            "flex max-w-full flex-wrap items-center gap-1 rounded-lg border border-border bg-background p-1"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "content": "default"
+      },
+      "requirements": []
+    },
+    "dropdown-menu": {
+      "primitive": "menu",
+      "interaction": "menu",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-block"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "popup": {
+          "base": [
+            "fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-56 max-w-[calc(100%-2rem)] overflow-auto rounded-lg border border-border bg-popover p-1 text-popover-foreground shadow-md [&_[role^=menuitem]]:flex [&_[role^=menuitem]]:w-full [&_[role^=menuitem]]:items-center [&_[role^=menuitem]]:rounded-md [&_[role^=menuitem]]:px-2 [&_[role^=menuitem]]:py-1.5 [&_[role^=menuitem]]:text-start [&_[role^=menuitem]]:text-sm [&_[role^=menuitem]:focus]:bg-muted [&_[role^=menuitem]:focus]:outline-none [&_[role^=menuitem]:hover]:bg-muted [&_[role^=menuitem][aria-disabled=true]]:opacity-50 [&_[role^=menuitem]:disabled]:opacity-50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "trigger": "trigger",
+        "content": "default"
+      },
+      "requirements": []
+    },
+    "context-menu": {
+      "primitive": "context-menu",
+      "interaction": "context-menu",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-block"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "popup": {
+          "base": [
+            "fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-56 max-w-[calc(100%-2rem)] overflow-auto rounded-lg border border-border bg-popover p-1 text-popover-foreground shadow-md [&_[role^=menuitem]]:flex [&_[role^=menuitem]]:w-full [&_[role^=menuitem]]:items-center [&_[role^=menuitem]]:rounded-md [&_[role^=menuitem]]:px-2 [&_[role^=menuitem]]:py-1.5 [&_[role^=menuitem]]:text-start [&_[role^=menuitem]]:text-sm [&_[role^=menuitem]:focus]:bg-muted [&_[role^=menuitem]:focus]:outline-none [&_[role^=menuitem]:hover]:bg-muted [&_[role^=menuitem][aria-disabled=true]]:opacity-50 [&_[role^=menuitem]:disabled]:opacity-50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "trigger": "trigger",
+        "content": "default"
+      },
+      "requirements": []
+    },
+    "tooltip": {
+      "primitive": "tooltip",
+      "interaction": "tooltip",
+      "parts": {
+        "root": {
+          "base": [
+            "relative inline-block"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "border-transparent",
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "border-transparent",
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "border-transparent",
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "border-transparent",
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "border-transparent",
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        },
+        "tooltip": {
+          "base": [
+            "absolute bottom-full start-1/2 z-50 w-max max-w-64 -translate-x-1/2 rounded-md bg-foreground px-2 py-1 text-xs text-background shadow-md"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "trigger": "trigger",
+        "content": "default"
+      },
+      "requirements": []
     }
   }
 }

@@ -92,6 +92,23 @@ for(const [component,attrs,slot] of [['Direction','dir="sideways"','text'],['Ite
 }
 rmSync(resolve(out,"BatchThree.vue"));check();
 console.log('PASS: batch three scoped compositions and models typecheck; invalid direction, variant, required id, radio and slider types rejected');
+writeFileSync(resolve(out,'Remaining.vue'),`<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Toggle,DatePicker,Dialog,DropdownMenu,Button,Chart} from './index'
+const pressed=ref(false),date=ref('2026-09-29')
+</script><template>
+<Toggle v-model:pressed="pressed">Pin</Toggle><DatePicker v-model:value="date">Date</DatePicker>
+<Dialog id="consumer-dialog" title-id="consumer-title"><template #trigger>Open</template><template #title>Title</template>Body<template #close>Close</template></Dialog>
+<DropdownMenu id="consumer-menu" label="Actions"><template #trigger>Actions</template><Button role="menuitem">Save</Button></DropdownMenu>
+<Chart><svg role="img" aria-label="Trend"/><template #caption>Trend</template></Chart>
+</template>`);
+check();
+for(const [component,attrs,slot] of [['Toggle',':pressed="1"','Pin'],['DatePicker',':value="new Date()"','Date'],['DropdownMenu','id="missing-menu-label"','<template #trigger>Open</template>'],['InputOtp',':max-length="false"','Code']]){
+ writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}>${slot}</${component}></template>`);
+ try{check();throw new Error(`invalid ${component} props accepted`)}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
+}
+rmSync(resolve(out,'Remaining.vue'));check();
+console.log('PASS: remaining local consumers typecheck; invalid pressed/date/menu-label/OTP types rejected');
 // Parts may style different values of one public axis.
 const partial = JSON.parse(
   readFileSync("src/plugins/builtin/shadcn-ui.json", "utf8"),

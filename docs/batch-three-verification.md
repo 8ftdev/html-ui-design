@@ -28,7 +28,7 @@ The preview variable `readonly` collided with Nuxt nightly's auto-import transfo
 
 Live preview: http://localhost:4322/html-ui-plugin-batch-three-check. Generated components remain editable local files under apps/dashboard/app/components/html-ui-plugin-batch. The preview source and browser tests are in tests/integration in this repository.
 
-The preceding batch was committed and pushed to main in all three repositories: producer 1f3a01c, converter 3bbd22f, plugin 841c156. This third batch is ready for publication to main after fresh producer, converter, plugin, catalog, strict consumer and 24 live Nuxt browser checks. Existing unrelated dashboard/navbar changes are preserved.
+The preceding batch was committed and pushed to main in all three repositories: producer 1f3a01c, converter 3bbd22f, plugin 841c156. The third batch was later published to main as producer 3572c96, converter 3269c5a and plugin 43d16b4 after fresh producer, converter, plugin, catalog, strict consumer and 24 live Nuxt browser checks. Existing unrelated dashboard/navbar changes are preserved.
 
 The user updated /usr/local/bin/html-ui. Its SHA-256 matches the rebuilt producer binary. A complete 37-block library generated using that installed producer and the local converter typechecks successfully; regeneration with --check reports no changed files. The installed producer lists all 58 catalog entries. No system binary was replaced by the tool.
 
