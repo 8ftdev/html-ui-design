@@ -1,0 +1,50 @@
+{
+  "name": "html-ui-shadcn",
+  "version": "0.2.0",
+  "type": "module",
+  "bin": {
+    "html-ui-shadcn": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "docs",
+    "schemas"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "bun build src/cli.ts src/index.ts --target=node --packages=external --outdir=dist && tsc -p tsconfig.build.json",
+    "check": "tsc --noEmit",
+    "test": "bun test tests/*.test.ts tests/plugins",
+    "test:catalog": "bun scripts/catalog.ts",
+    "test:dashboard:generate": "bun scripts/generate-dashboard.ts",
+    "test:plugins": "bun scripts/test-plugin-library.ts"
+  },
+  "dependencies": {
+    "@babel/parser": "7.29.9",
+    "@vue/compiler-dom": "3.6.0-rc.9",
+    "@vue/compiler-sfc": "3.6.0-rc.9",
+    "class-variance-authority": "0.7.1",
+    "magic-string": "0.30.21",
+    "postcss": "8.5.28",
+    "postcss-value-parser": "4.2.0",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "26.0.0",
+    "@types/bun": "1.4.2",
+    "typescript": "5.9.3",
+    "vue": "3.6.0-rc.9",
+    "vue-tsc": "3.3.11",
+    "@playwright/test": "1.63.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema": "./schemas/ui-plugin.schema.json"
+  }
+}

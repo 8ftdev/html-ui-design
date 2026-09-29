@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "pluginVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "source",
+        "revision",
+        "license"
+      ],
+      "additionalProperties": false
+    },
+    "tokens": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "components": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[A-Za-z]\\w*(?:-\\w+)*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "primitive": {
+            "type": "string",
+            "minLength": 1
+          },
+          "parts": {
+            "minProperties": 1,
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "minLength": 1
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "variants": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^(?!(?:key|ref|class|className|style)$)(?!on[A-Z])[a-z][A-Za-z0-9]*$"
+                  },
+                  "additionalProperties": {
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "axisTypes": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^(?!(?:key|ref|class|className|style)$)(?!on[A-Z])[a-z][A-Za-z0-9]*$"
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "enum": [
+                      "string",
+                      "boolean"
+                    ]
+                  }
+                },
+                "defaultVariants": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^(?!(?:key|ref|class|className|style)$)(?!on[A-Z])[a-z][A-Za-z0-9]*$"
+                  },
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  }
+                },
+                "compoundVariants": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "when": {
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string",
+                          "minLength": 1,
+                          "pattern": "^(?!(?:key|ref|class|className|style)$)(?!on[A-Z])[a-z][A-Za-z0-9]*$"
+                        },
+                        "additionalProperties": {
+                          "anyOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            },
+                            {
+                              "minItems": 1,
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "classes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "when",
+                      "classes"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "base",
+                "variants",
+                "axisTypes",
+                "defaultVariants",
+                "compoundVariants"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "slots": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "minLength": 1
+            },
+            "additionalProperties": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "part": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "state": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "hook": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "part",
+                "description"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "hooks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "part": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "attribute": {
+                  "type": "string",
+                  "pattern": "^data-[a-z][a-z0-9-]*$"
+                },
+                "prop": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "part",
+                "attribute",
+                "prop"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "primitive",
+          "parts",
+          "slots",
+          "requirements"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "pluginVersion",
+    "name",
+    "provenance",
+    "tokens",
+    "components"
+  ],
+  "additionalProperties": false
+}

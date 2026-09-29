@@ -1,0 +1,274 @@
+{
+  "reference": "https://ui.shadcn.com/docs/components",
+  "snapshot": "2026-09-28",
+  "components": {
+    "accordion": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "alert": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "alert-dialog": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "aspect-ratio": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "attachment": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "avatar": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "badge": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "breadcrumb": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "bubble": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "button": {
+      "status": "partial",
+      "reason": "Native button + pinned Base Nova CVA; external Base UI behaviors excluded."
+    },
+    "button-group": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "calendar": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "card": {
+      "status": "partial",
+      "reason": "Native single surface with adapted spacing; upstream Card subcomponents excluded."
+    },
+    "carousel": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "chart": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "checkbox": {
+      "status": "partial",
+      "reason": "Native checked control adaptation; no indicator/indeterminate API."
+    },
+    "collapsible": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "combobox": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "command": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "context-menu": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "data-table": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "date-picker": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "dialog": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "direction": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "drawer": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "dropdown-menu": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "empty": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "field": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "input": {
+      "status": "partial",
+      "reason": "Base Nova classes on native labeled input; no full Base UI API equivalence."
+    },
+    "input-group": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "input-otp": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "item": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "kbd": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "label": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "marker": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "menubar": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "message": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "message-scroller": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "native-select": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "navigation-menu": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "pagination": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "popover": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "progress": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "questionnaire": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "radio-group": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "resizable": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "scroll-area": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "select": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "separator": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "sheet": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "sidebar": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "skeleton": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "slider": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "spinner": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "switch": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "table": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "tabs": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "textarea": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "toast": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "toggle": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "toggle-group": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "toolbar": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "tooltip": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "typography": {
+      "status": "unsupported",
+      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+    },
+    "grid": {
+      "status": "supported-extension",
+      "reason": "html-ui local building block, not an upstream shadcn contract."
+    },
+    "icon": {
+      "status": "supported-extension",
+      "reason": "html-ui local building block, not an upstream shadcn contract."
+    },
+    "icon-button": {
+      "status": "supported-extension",
+      "reason": "html-ui local building block, not an upstream shadcn contract."
+    }
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "pluginVersion": 1,
+  "name": "shadcn-ui",
+  "provenance": {
+    "source": "shadcn registry/base-nova (2026-09-28)",
+    "revision": "1d819f6bcabdbfd3f7a04502f512b0d14fd0dd1eddc1f66c60c51495103aba05",
+    "license": "MIT; shadcn"
+  },
+  "tokens": [
+    "background",
+    "foreground",
+    "primary",
+    "primary-foreground",
+    "secondary",
+    "secondary-foreground",
+    "muted",
+    "muted-foreground",
+    "destructive",
+    "border",
+    "input",
+    "ring",
+    "card",
+    "card-foreground"
+  ],
+  "components": {
+    "button": {
+      "primitive": "button",
+      "parts": {
+        "root": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+          ],
+          "variants": {
+            "variant": {
+              "default": [
+                "bg-primary text-primary-foreground hover:bg-primary/80"
+              ],
+              "outline": [
+                "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+              ],
+              "secondary": [
+                "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground"
+              ],
+              "ghost": [
+                "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50"
+              ],
+              "destructive": [
+                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40"
+              ],
+              "link": [
+                "text-primary underline-offset-4 hover:underline"
+              ]
+            },
+            "size": {
+              "default": [
+                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "xs": [
+                "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "sm": [
+                "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg:not([class*='size-'])]:size-3.5"
+              ],
+              "lg": [
+                "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
+              ],
+              "icon": [
+                "size-8"
+              ],
+              "icon-xs": [
+                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&>svg:not([class*='size-'])]:size-3"
+              ],
+              "icon-sm": [
+                "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg"
+              ],
+              "icon-lg": [
+                "size-9"
+              ]
+            }
+          },
+          "axisTypes": {
+            "variant": "string",
+            "size": "string"
+          },
+          "defaultVariants": {
+            "variant": "default",
+            "size": "default"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": [
+        {
+          "part": "root",
+          "state": "disabled",
+          "description": "Native disabled button"
+        }
+      ],
+      "hooks": [
+        {
+          "part": "root",
+          "attribute": "data-disabled",
+          "prop": "disabled"
+        }
+      ]
+    },
+    "input": {
+      "primitive": "input",
+      "parts": {
+        "root": {
+          "base": [
+            "grid gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": [
+        {
+          "part": "control",
+          "state": "disabled",
+          "description": "Native input disabled state"
+        }
+      ]
+    },
+    "checkbox": {
+      "primitive": "checkbox",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-flex items-center gap-2 text-sm"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "size-4 shrink-0 rounded border-input accent-primary focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-50 disabled:cursor-not-allowed"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
+      },
+      "requirements": [
+        {
+          "part": "control",
+          "state": "checked",
+          "description": "Native checked state"
+        }
+      ]
+    },
+    "card": {
+      "primitive": "card",
+      "parts": {
+        "root": {
+          "base": [
+            "flex flex-col gap-4 rounded-xl bg-card p-6 text-sm text-card-foreground ring-1 ring-foreground/10"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "icon": {
+      "primitive": "icon",
+      "parts": {
+        "root": {
+          "base": [
+            "inline-flex shrink-0 items-center justify-center [&>svg]:size-[var(--ui-icon-size,1rem)] [&>svg]:shrink-0 [&>svg]:pointer-events-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    },
+    "grid": {
+      "primitive": "grid",
+      "parts": {
+        "root": {
+          "base": [
+            "grid"
+          ],
+          "variants": {
+            "gap": {
+              "none": [
+                "gap-0"
+              ],
+              "xs": [
+                "gap-1"
+              ],
+              "sm": [
+                "gap-2"
+              ],
+              "default": [
+                "gap-4"
+              ],
+              "lg": [
+                "gap-6"
+              ],
+              "xl": [
+                "gap-8"
+              ]
+            },
+            "columns": {
+              "1": [
+                "grid-cols-1"
+              ],
+              "2": [
+                "grid-cols-2"
+              ],
+              "3": [
+                "grid-cols-3"
+              ],
+              "4": [
+                "grid-cols-4"
+              ]
+            },
+            "smColumns": {
+              "1": [
+                "sm:grid-cols-1"
+              ],
+              "2": [
+                "sm:grid-cols-2"
+              ],
+              "3": [
+                "sm:grid-cols-3"
+              ],
+              "4": [
+                "sm:grid-cols-4"
+              ]
+            },
+            "mdColumns": {
+              "1": [
+                "md:grid-cols-1"
+              ],
+              "2": [
+                "md:grid-cols-2"
+              ],
+              "3": [
+                "md:grid-cols-3"
+              ],
+              "4": [
+                "md:grid-cols-4"
+              ]
+            }
+          },
+          "axisTypes": {
+            "gap": "string",
+            "columns": "string",
+            "smColumns": "string",
+            "mdColumns": "string"
+          },
+          "defaultVariants": {
+            "gap": "default",
+            "columns": "1"
+          },
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "default": "default"
+      },
+      "requirements": []
+    }
+  }
+}

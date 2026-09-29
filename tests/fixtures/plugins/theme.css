@@ -1,0 +1,26 @@
+:root {
+	--background: #fff;
+	--foreground: #111;
+	--primary: #2345aa;
+	--primary-foreground: #fff;
+	--accent: #ddd;
+	--accent-foreground: #111;
+	--border: #ccc;
+	--input: #bbb;
+	--ring: #4567cc;
+	--radius: 0.5rem;
+	--muted: #eee;
+	--muted-foreground: #555;
+	--destructive: #b00;
+	--popover: #fff;
+	--popover-foreground: #111;
+}
+.dark {
+	--background: #111;
+	--foreground: #eee;
+	--primary: #abc;
+	--primary-foreground: #111;
+	--accent: #333;
+	--accent-foreground: #fff;
+}
+:root { --secondary: #eee; --secondary-foreground: #111; --card: #fff; --card-foreground: #111; }
