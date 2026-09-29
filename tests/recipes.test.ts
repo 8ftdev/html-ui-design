@@ -114,3 +114,14 @@ test('metadata states without a cascade order are diagnosed even with no default
  custom.ui.parts.root.state!.busy={source:{node:'root',attribute:'aria-busy',value:'true'}}
  expect(()=>emitCSS(custom,resolveRecipes(custom,theme,{},true).parts,'test')).toThrow(/order/)
 })
+
+test('readonly native state has a defined cascade before disabled', async () => {
+ const {execFileSync} = await import('node:child_process');
+ const source = execFileSync('.test-output/html-ui-to-vue-vapor', [], {input:execFileSync('.test-output/html-ui',['textarea']),encoding:'utf8'});
+ const textarea = parseVue(source,'Textarea.vue');
+ const resolved = resolveRecipes(textarea,theme,{components:{textarea:{control:{state:{readOnly:{background:'var(--muted)'}}}}}});
+ const css = emitCSS(textarea,resolved.parts,'readonly-test');
+ expect(css).toContain('[readonly]');
+ expect(css).toContain('@layer readOnly');
+ expect(css.indexOf('readOnly,')).toBeLessThan(css.indexOf('disabled,'));
+});

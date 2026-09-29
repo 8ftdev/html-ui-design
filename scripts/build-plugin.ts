@@ -4,6 +4,7 @@ import { importCva } from "../src/plugins/import-cva";
 import { parsePlugin, pluginSchema } from "../src/plugins/schema";
 import { z } from "zod";
 import { addNativeBatch } from "./plugin-batch-one";
+import { addCompositionBatch } from "./plugin-batch-two";
 const raw = readFileSync(
   "tests/fixtures/plugins/shadcn-base-nova.registry.json",
   "utf8",
@@ -35,7 +36,7 @@ const p: any = {
   pluginVersion: 1,
   name: "shadcn-ui",
   provenance: {
-    source: "shadcn registry/base-nova (2026-09-28)",
+    source: "shadcn registry/base-nova (2026-09-29)",
     revision: createHash("sha256").update(raw).digest("hex"),
     license: "MIT; shadcn",
   },
@@ -149,6 +150,7 @@ grid.axisTypes = {
 grid.defaultVariants = { gap: "default", columns: "1" };
 component("grid", { root: grid }, { default: "default" });
 addNativeBatch(p, source);
+addCompositionBatch(p, source);
 writeFileSync(
   "src/plugins/builtin/shadcn-ui.json",
   JSON.stringify(parsePlugin(p), null, 2) + "\n",

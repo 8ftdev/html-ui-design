@@ -148,3 +148,47 @@ bun scripts/generate-ui-library.ts /path/to/app/components/html-ui-plugin-batch 
 Copy `tests/integration/html-ui-plugin-batch-check.vue` into the Nuxt app's pages and `tests/integration/html-ui-plugin-batch.spec.ts` into its Playwright test directory. Add a Tailwind `@source` for the generated folder. The fixture uses the dashboard's `~` alias and semantic theme utilities; it does not import upstream component implementations. Run the fixture tests against dev and production with the host app's three-browser configuration.
 
 The imported Button recipe places its transparent border on the variants that need it, rather than its shared base. This prevents the base utility from overriding the outline border token without adding a runtime class merger.
+
+## Composition contract batch
+
+The second batch adds Alert, Badge, AspectRatio, Breadcrumb, ButtonGroup, Label, Skeleton, Spinner, Table and Textarea. All are local generated implementations. The total is 26 mapped primitives plus local IconButton. Sources are pinned in the Base Nova snapshot, with native adaptations and limitations recorded in the support matrix.
+
+```vue
+<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Card,Grid,Textarea,Button,ButtonGroup,Spinner,Badge,Table} from './ui'
+const notes=ref('')
+</script>
+<template>
+  <Card><form @submit.prevent="/* connect application logic */ undefined">
+    <Grid gap="lg">
+      <Textarea v-model:value="notes" name="notes" required :max-length="500">Notes</Textarea>
+      <ButtonGroup label="Form actions">
+        <Button type="submit"><Spinner aria-hidden="true"/>Save</Button>
+        <Button type="reset" variant="outline">Reset</Button>
+      </ButtonGroup>
+    </Grid>
+  </form></Card>
+  <Table>
+    <template #caption>Invoices</template>
+    <template #head><tr><th scope="col">Status</th></tr></template>
+    <tr><td><Badge variant="secondary">Paid</Badge></td></tr>
+  </Table>
+</template>
+```
+
+Textarea's default slot is its native label. It exposes `v-model:value`, input/change notifications, native form reset, disabled/required/readOnly, rows/cols, minLength/maxLength, placeholder/id/autocomplete/name. `classes.control`, `styles.control` and typed state overrides target the control independently. Native validity is recorded as `invalid`; the class recipe uses `user-invalid` so untouched required controls are not immediately painted as errors. `field-sizing-content` enhances compatible browsers; rows/min-height remain native fallbacks.
+
+ButtonGroup requires `label` (emitted as aria-label); orientation is horizontal or vertical. Its direct local Button children keep their shared recipes; group CSS only joins corners/borders and raises focused buttons. Breadcrumb's `label` defaults to Breadcrumb and may be localized. Its default slot takes li/links/current-page markup. Label uses `htmlFor` or wraps one control. These names avoid framework ambiguity between native aria attributes and declared props.
+
+Alert has title, icon and default description slots, with default/destructive variants. The icon is decorative and empty optional parts are hidden. Role alert does not guarantee that an initially rendered message is announced; the application controls insertion and updates. Badge is always a span, including its link presentation variant; use an anchor for navigation.
+
+Table owns caption, thead, tbody, tfoot and a keyboard-focusable horizontal scroll container. Caption and default rows are required slots; head and foot are optional. Supply native tr/th/td with scope relationships. Every owned section has a style part; row/cell presentation comes from the table recipe's descendant selectors. Sorting/selection/virtualization are not included.
+
+AspectRatio offers ratio=video/square/photo; custom numeric ratios use `styles.root.aspectRatio`. CSS aspect ratio is a preferred size, so oversized intrinsic content can grow the box. Skeleton is decorative aria-hidden content with no slot; size it with classes/styles. Spinner exposes a localized label and root/indicator parts. Their CSS pulse/spin stops under prefers-reduced-motion; the application owns loading lifecycle and aria-busy. These blocks do not need a new WAAPI preset.
+
+Use `aria-hidden="true"` when Spinner decorates an already labeled Button, so the status label does not change the button’s accessible name. Standalone loading indicators keep their localized status label. Native keyboard navigation and scrolling follow browser/platform settings; no handlers override Safari’s button tab preference or scroll-key behavior.
+
+The Vue emitter avoids writing an unchanged text value back after input. This matters for native minlength validation in Firefox/WebKit, which distinguish user edits from programmatic assignments. External value changes still synchronize; native reset restores the initial baseline.
+
+Destructive Alert/Badge text mixes the destructive token with 30% foreground in oklab. This adapts the semantic hue toward the paired readable foreground across light/dark surfaces; Alert description inherits the same text color. The dashboard regression checks at least 4.5:1 text contrast in both host themes. Theme owners still control the actual tokens and can override every part recipe.

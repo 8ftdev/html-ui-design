@@ -42,7 +42,7 @@ In declaration mode, these are generation-time overrides. The original exported 
 
 ## Compatibility and CSS ownership
 
-Input must conform to the [generated Vue profile](docs/profile.md). All 40 native catalog entries compile and typecheck in declaration mode. Class-plugin coverage is listed in [the support matrix](docs/support.md). Native behavior and adapter-required limitations remain unchanged. Accordion owns details/summary/content and has no native disabled state; tabs owns root/list only.
+Input must conform to the [generated Vue profile](docs/profile.md). All 50 catalog entries compile and typecheck in declaration mode. Class-plugin coverage is listed in [the support matrix](docs/support.md). Native behavior and adapter-required limitations remain unchanged. Accordion owns details/summary/content and has no native disabled state; tabs owns root/list only.
 
 The stylesheet uses the `html-ui` cascade layer and native scoped selectors. The initial layer-order statement is `theme, base, html-ui, components, utilities`; host stylesheets should establish the same order before declaring layers. Unlayered CSS intentionally takes precedence. A second unlayered reset can therefore override the recipes. A second theme provider must not redeclare the same variables with incompatible color formats. Keep one reset/theme owner when combining Tailwind and UnoCSS. The dashboard integration documents the concrete fix for its duplicate reset and theme.
 
@@ -65,4 +65,4 @@ After generation, run the dashboard's `check`, `build`, and `test` scripts from 
 
 Use `--plugin shadcn-ui` to emit typed CVA/Tailwind recipes on local html-ui implementations. Use `--out-dir` to generate the shared local library, with recipe/metadata companions. Tailwind and CVA are allowed dependencies; external component implementations are not used. See [plugin usage and custom contracts](docs/plugins.md), [support matrix](docs/support.md), and [source notices](docs/THIRD-PARTY-NOTICES.md).
 
-The class plugin currently emits 17 building blocks (16 primitives plus local IconButton). Accordion and Collapsible optionally share a local WAAPI disclosure helper; motion recipes and the native batch are documented in [plugin usage](docs/plugins.md#native-contract-batch-and-motion).
+The class plugin currently emits 27 building blocks (26 primitives plus local IconButton). Accordion and Collapsible optionally share a local WAAPI disclosure helper; motion recipes and the native batch are documented in [plugin usage](docs/plugins.md#native-contract-batch-and-motion).

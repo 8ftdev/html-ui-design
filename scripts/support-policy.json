@@ -1,22 +1,22 @@
 {
   "reference": "https://ui.shadcn.com/docs/components",
-  "snapshot": "2026-09-28",
+  "snapshot": "2026-09-29",
   "components": {
     "accordion": {
       "status": "partial",
       "reason": "One native details/summary item; shared name supports exclusive groups. No disabled item, roving focus, generated indicator, upstream panel lifecycle."
     },
     "alert": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native role=alert with title, decorative icon and description slots. Application owns announcements, actions and dismissal."
     },
     "alert-dialog": {
       "status": "unsupported",
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "aspect-ratio": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native container with square/video/photo CSS ratio recipes; styles.root.aspectRatio accepts custom ratios. Intrinsic oversized content may increase height; no numeric upstream ratio prop."
     },
     "attachment": {
       "status": "unsupported",
@@ -27,12 +27,12 @@
       "reason": "Native image with required src/alt and default/sm/lg sizes. App owns image failure handling; fallback, badge and group APIs excluded."
     },
     "badge": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Noninteractive span with default/secondary/destructive/outline/ghost/link presentation variants. No render-as-link or external primitive behavior."
     },
     "breadcrumb": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled nav and ordered list; caller supplies semantic li, links and aria-current=page. CSS decorative separators; no routing, dropdown or ellipsis controller."
     },
     "bubble": {
       "status": "unsupported",
@@ -43,8 +43,8 @@
       "reason": "Native button + pinned Base Nova CVA; external Base UI behaviors excluded."
     },
     "button-group": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled group of local Button children, horizontal/vertical presentation. Buttons retain their own recipes and normal tab order; no toolbar/roving focus or arbitrary nested anatomy."
     },
     "calendar": {
       "status": "unsupported",
@@ -135,8 +135,8 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "label": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native label with htmlFor association or one wrapped labelable control. No disabled state of its own; avoid nested labels."
     },
     "marker": {
       "status": "unsupported",
@@ -207,32 +207,32 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "skeleton": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Decorative aria-hidden placeholder; CSS pulse respects reduced motion. App owns shape overrides and loading-region aria-busy."
     },
     "slider": {
       "status": "unsupported",
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "spinner": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled native status with decorative CSS ring; reduced motion uses a static indicator. No icon package or loading lifecycle dependency."
     },
     "switch": {
       "status": "partial",
       "reason": "Labeled native checkbox with switch role, checked model, reset, disabled and default/sm sizes. CSS draws the thumb; no indeterminate or external Thumb component."
     },
     "table": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native table, required caption and body rows, optional header/footer slots inside a focusable scroll container. Caller owns semantic rows/cells. No sorting, selection or virtualization."
     },
     "tabs": {
       "status": "unsupported",
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "textarea": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native enclosing label and multiline control with value model, input/change, reset, disabled, readonly and constraints. No autosize JS or validation engine; field-sizing-content is progressive enhancement."
     },
     "toast": {
       "status": "unsupported",

@@ -11,6 +11,7 @@ export const stateOrder = [
 	"hover",
 	"active",
 	"invalid",
+	"readOnly",
 	"disabled",
 	"focusWithin",
 	"focusVisible",

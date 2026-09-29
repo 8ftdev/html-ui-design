@@ -1,16 +1,16 @@
 {
   "contractVersion": 2,
   "reference": "https://ui.shadcn.com/docs/components",
-  "snapshot": "2026-09-28",
+  "snapshot": "2026-09-29",
   "plugin": "shadcn-ui",
-  "revision": "dc1bdd47185d9369469c2d876139714bf38fb835dab67695c1ec470528c0b886",
+  "revision": "0ffce683c5a09bdede1c4e85c4e8a7a165a028ba39233dd2f5cfafc89f1f2dd2",
   "summary": {
-    "mappedPrimitives": 16,
+    "mappedPrimitives": 26,
     "compositions": 1,
-    "total": 17
+    "total": 27
   },
   "legacyDeclarationMode": {
-    "catalogCount": 40,
+    "catalogCount": 50,
     "establishesPluginSupport": false
   },
   "components": {
@@ -81,16 +81,61 @@
       }
     },
     "alert": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native role=alert with title, decorative icon and description slots. Application owns announcements, actions and dismissal.",
+      "primitive": "alert",
+      "parts": [
+        "root",
+        "icon",
+        "title",
+        "description"
+      ],
+      "slots": [
+        "icon",
+        "title",
+        "default"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "destructive"
+        ]
+      },
+      "nativeStates": {
+        "description": {},
+        "icon": {},
+        "root": {},
+        "title": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "alert-dialog": {
       "status": "unsupported",
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "aspect-ratio": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native container with square/video/photo CSS ratio recipes; styles.root.aspectRatio accepts custom ratios. Intrinsic oversized content may increase height; no numeric upstream ratio prop.",
+      "primitive": "aspect-ratio",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {
+        "ratio": [
+          "square",
+          "video",
+          "photo"
+        ]
+      },
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "attachment": {
       "status": "unsupported",
@@ -118,12 +163,49 @@
       "motion": {}
     },
     "badge": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Noninteractive span with default/secondary/destructive/outline/ghost/link presentation variants. No render-as-link or external primitive behavior.",
+      "primitive": "badge",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {
+        "variant": [
+          "default",
+          "secondary",
+          "destructive",
+          "outline",
+          "ghost",
+          "link"
+        ]
+      },
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "breadcrumb": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled nav and ordered list; caller supplies semantic li, links and aria-current=page. CSS decorative separators; no routing, dropdown or ellipsis controller.",
+      "primitive": "breadcrumb",
+      "parts": [
+        "root",
+        "list"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "list": {},
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "bubble": {
       "status": "unsupported",
@@ -191,8 +273,26 @@
       "motion": {}
     },
     "button-group": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled group of local Button children, horizontal/vertical presentation. Buttons retain their own recipes and normal tab order; no toolbar/roving focus or arbitrary nested anatomy.",
+      "primitive": "button-group",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {
+        "orientation": [
+          "horizontal",
+          "vertical"
+        ]
+      },
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "calendar": {
       "status": "unsupported",
@@ -495,8 +595,21 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "label": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native label with htmlFor association or one wrapped labelable control. No disabled state of its own; avoid nested labels.",
+      "primitive": "label",
+      "parts": [
+        "root"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "marker": {
       "status": "unsupported",
@@ -668,16 +781,40 @@
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "skeleton": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Decorative aria-hidden placeholder; CSS pulse respects reduced motion. App owns shape overrides and loading-region aria-busy.",
+      "primitive": "skeleton",
+      "parts": [
+        "root"
+      ],
+      "slots": [],
+      "axes": {},
+      "nativeStates": {
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "slider": {
       "status": "unsupported",
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "spinner": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Labeled native status with decorative CSS ring; reduced motion uses a static indicator. No icon package or loading lifecycle dependency.",
+      "primitive": "spinner",
+      "parts": [
+        "root",
+        "indicator"
+      ],
+      "slots": [],
+      "axes": {},
+      "nativeStates": {
+        "indicator": {},
+        "root": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "switch": {
       "status": "partial",
@@ -748,16 +885,102 @@
       "motion": {}
     },
     "table": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native table, required caption and body rows, optional header/footer slots inside a focusable scroll container. Caller owns semantic rows/cells. No sorting, selection or virtualization.",
+      "primitive": "table",
+      "parts": [
+        "root",
+        "table",
+        "caption",
+        "head",
+        "body",
+        "foot"
+      ],
+      "slots": [
+        "caption",
+        "head",
+        "default",
+        "foot"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "body": {},
+        "caption": {},
+        "foot": {},
+        "head": {},
+        "root": {},
+        "table": {}
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "tabs": {
       "status": "unsupported",
       "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
     },
     "textarea": {
-      "status": "unsupported",
-      "reason": "No class-plugin mapping in this release; a native catalog entry alone does not establish this UI contract."
+      "status": "partial",
+      "reason": "Native enclosing label and multiline control with value model, input/change, reset, disabled, readonly and constraints. No autosize JS or validation engine; field-sizing-content is progressive enhancement.",
+      "primitive": "textarea",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "readOnly": {
+            "source": {
+              "node": "control",
+              "attribute": "readonly",
+              "present": true
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "motion": {}
     },
     "toast": {
       "status": "unsupported",

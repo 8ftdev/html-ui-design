@@ -52,6 +52,27 @@ try { check(); throw new Error("invalid motion preset accepted"); }
 catch (e) { if (!String((e as any).stdout).includes("unknown")) throw e; }
 finally { rmSync(resolve(out, "Motion.vue")); }
 console.log("PASS: motion overrides typecheck; invalid preset rejected");
+writeFileSync(resolve(out, "BatchTwo.vue"), `<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Badge,Alert,AspectRatio,ButtonGroup,Button,Label,Table,Textarea,Spinner,Skeleton,Breadcrumb} from './index'
+const value=ref('hello')
+</script><template>
+<Badge variant="outline">Ready</Badge><Alert variant="destructive"><template #title>Failed</template>Retry</Alert>
+<AspectRatio ratio="photo" :styles="{root:{aspectRatio:'3 / 2'}}"/><ButtonGroup label="Actions" orientation="vertical"><Button>Save</Button></ButtonGroup>
+<Label html-for="notes">Notes</Label><Textarea id="notes" v-model:value="value" :min-length="2" :rows="3" read-only>Notes</Textarea>
+<Table><template #caption>Invoices</template><template #head><tr><th scope="col">Name</th></tr></template><tr><td>One</td></tr></Table>
+<Spinner label="Saving"/><Skeleton/><Breadcrumb><li><a href="/">Home</a></li></Breadcrumb>
+</template>`);
+check();
+for (const [component,attrs,slot] of [['Badge','variant="unknown"','test'],['AspectRatio','ratio="unknown"',''],['ButtonGroup','label="Actions" orientation="diagonal"',''],['Textarea',':rows="true"','Notes']] ) {
+ writeFileSync(resolve(out,"Invalid.vue"),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}>${slot}</${component}></template>`);
+ try { check(); throw new Error(`invalid ${component} props accepted`); }
+ catch(e) { if (!String((e as any).stdout).includes('error TS')) throw e; }
+ finally { rmSync(resolve(out,"Invalid.vue")); }
+}
+rmSync(resolve(out,"BatchTwo.vue"));
+check();
+console.log('PASS: batch two consumer compositions typecheck; invalid variant, ratio, orientation and textarea props rejected');
 // Parts may style different values of one public axis.
 const partial = JSON.parse(
   readFileSync("src/plugins/builtin/shadcn-ui.json", "utf8"),
