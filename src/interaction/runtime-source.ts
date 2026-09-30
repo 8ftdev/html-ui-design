@@ -1,6 +1,8 @@
+import {selectRuntimeSource} from './select-source';
+import {positionRuntimeSource} from './position-source';
 // One editable local helper per generated library; pipe output embeds it.
-export const interactionRuntimeSource=String.raw`
-export type UiInteraction = 'dialog'|'popover'|'tabs'|'menu'|'context-menu'|'toolbar'|'toggle'|'toggle-group'|'tooltip';
+const interactionBody=String.raw`
+export type UiInteraction = 'dialog'|'popover'|'tabs'|'menu'|'context-menu'|'toolbar'|'toggle'|'toggle-group'|'tooltip'|'select';
 export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: (pressed:boolean)=>void) {
   const cleanups: (()=>void)[]=[];
   const on=(node:EventTarget,type:string,handler:(event:any)=>void,capture=false)=>{node.addEventListener(type,handler,capture);cleanups.push(()=>node.removeEventListener(type,handler,capture))};
@@ -8,7 +10,9 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
   const disabled=(node:HTMLElement)=>node.matches(':disabled,[aria-disabled="true"],[inert]')||Boolean(node.closest('[inert]'));
   const notify=()=>root.dispatchEvent(new Event('change',{bubbles:true}));
   const part=(name:string)=>Array.from(root.querySelectorAll<HTMLElement>('[data-ui-part="'+name+'"]')).find(node=>node.dataset.ui===root.dataset.ui&&owned(node));
+  if(kind==='select')return uiSelect(root).dispose;
   const popup=part('popup'),trigger=part('trigger');
+  if(popup&&trigger&&['popover','menu','context-menu'].includes(kind))cleanups.push(uiPosition(trigger,popup));
   const visible=()=>Boolean(popup?.matches(':popover-open'));
   const show=()=>{if(popup&&!visible())popup.showPopover()};
   const hide=()=>{if(popup&&visible())popup.hidePopover()};
@@ -74,7 +78,7 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
     if(popup&&trigger){
       let openAtLast=false;
       const focus=(last=false)=>{const all=items();all.forEach(t=>t.tabIndex=-1);(last?all.at(-1):all[0])?.focus()};
-      on(popup,'toggle',(e:ToggleEvent)=>{trigger.setAttribute('aria-expanded',String(e.newState==='open'));if(e.newState==='open'){focus(openAtLast);openAtLast=false}});
+      on(popup,'toggle',(e:ToggleEvent)=>{trigger.setAttribute('aria-expanded',String(e.newState==='open'));if(e.newState==='open'){if(!popup.contains(root.ownerDocument.activeElement))focus(openAtLast);openAtLast=false}});
       on(trigger,'keydown',(e:KeyboardEvent)=>{if(disabled(trigger))return;if(e.key==='ArrowDown'||e.key==='ArrowUp'||(kind==='context-menu'&&e.shiftKey&&e.key==='F10')){e.preventDefault();openAtLast=e.key==='ArrowUp';show();focus(openAtLast)}});
       if(kind==='context-menu')on(root,'contextmenu',(e:MouseEvent)=>{if(!disabled(trigger)){e.preventDefault();show();focus()}});
       on(popup,'keydown',(e:KeyboardEvent)=>{
@@ -105,3 +109,6 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
   return ()=>cleanups.forEach(dispose=>dispose());
 }
 `;
+
+export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+selectRuntimeSource+interactionBody;
+export const inlineInteractionRuntimeSource=(positionRuntimeSource+selectRuntimeSource+interactionBody).replace(/^export /gm,'');

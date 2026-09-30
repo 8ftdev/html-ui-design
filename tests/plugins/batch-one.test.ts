@@ -9,13 +9,13 @@ const batch = [
   ['accordion', 'accordion', ['root', 'content', 'trigger']],
   ['collapsible', 'collapsible', ['root', 'content', 'trigger']],
   ['avatar', 'avatar', ['root']],
-  ['field', 'field', ['root', 'label', 'description']],
-  ['fieldset', 'fieldset', ['root', 'legend']],
+  ['field', 'field', ['root', 'content', 'label', 'description', 'error']],
+  ['fieldset', 'fieldset', ['root', 'legend', 'description']],
   ['separator', 'separator', ['root']],
   ['progress', 'progress', ['root']],
-  ['switch', 'switch', ['root', 'control']],
+  ['switch', 'switch', ['root', 'control', 'track', 'thumb']],
   ['scroll-area', 'scroll-area', ['root']],
-  ['native-select', 'select', ['root', 'control']],
+  ['native-select', 'select', ['root', 'control', 'chevron']],
 ] as const;
 for (const [name, primitive, parts] of batch) {
   test(`generates a compilable native ${name} with editable recipes and valid anatomy`, async () => {
@@ -42,7 +42,7 @@ test('avatar, switch and native select choose real size recipes; field orientati
   };
   expect(select('avatar','root',{size:'sm'})).toContain('size-6');
   expect(select('avatar','root',{size:'lg'})).toContain('size-10');
-  expect(select('switch','control',{size:'sm'})).toContain('w-6');
+  expect(select('switch','track',{size:'sm'})).toContain('w-6');
   expect(select('native-select','control',{size:'sm'})).toContain('h-7');
   expect(select('field','root',{orientation:'horizontal'})).toContain('grid-cols');
 });

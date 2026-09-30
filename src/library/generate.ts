@@ -1,4 +1,5 @@
 import { motionRuntimeSource } from "../motion/runtime-source.js";
+import {positionRuntimeSource} from '../interaction/position-source.js';
 import {interactionRuntimeSource} from '../interaction/runtime-source.js';
 import { notice } from "../plugins/builtin/notice.js";
 import { execFileSync } from "node:child_process";
@@ -74,7 +75,7 @@ export async function generateLibrary(options: {
   };
   if (compatible && !explicit) files["IconButton.vue"] = iconButtonSource();
   if (Object.values(plugin.components).some(c => Object.keys(c.motion ?? {}).length)) files["ui-motion.ts"] = motionRuntimeSource;
-  if(Object.values(plugin.components).some(c=>c.interaction))files['ui-interaction.ts']=interactionRuntimeSource;
+  if(Object.values(plugin.components).some(c=>c.interaction)){files['ui-interaction.ts']=interactionRuntimeSource;files['ui-position.ts']=positionRuntimeSource;}
   if (plugin.name === "shadcn-ui") files["THIRD-PARTY-NOTICES.md"] = notice;
   files["index.ts"] =
     Object.keys(files)

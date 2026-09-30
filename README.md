@@ -18,6 +18,14 @@ The application must load its theme stylesheet. Generated components retain `var
 
 This tool provides html-ui recipes using shadcn's token vocabulary. It does not install official shadcn components, copy their API, synthesize missing interaction adapters, or infer visual presets from `components.json.style`.
 
+Select and NativeSelect use separate producer contracts. Generate the portable styled Select with:
+
+```sh
+html-ui select-list | html-ui-to-vue-vapor | node ./dist/cli.js --framework vue --plugin shadcn-ui --theme ./theme.css > Select.vue
+```
+
+Use `html-ui select` for the NativeSelect alternative. The plugin resolves each primitive to its unique mapping. See [the compact Select contract](docs/plugins.md#portable-select-contract) for the typed options slot, form behavior and local styles.
+
 ## Part/state overrides
 
 Pass `--recipes recipes.json`:
@@ -42,7 +50,7 @@ In declaration mode, these are generation-time overrides. The original exported 
 
 ## Compatibility and CSS ownership
 
-Input must conform to the [generated Vue profile](docs/profile.md). All 70 catalog entries compile and typecheck in declaration mode. Class-plugin coverage is listed in [the support matrix](docs/support.md). Native behavior remains in the producer; reviewed local interaction helpers satisfy selected adapter-required profiles. Accordion owns details/summary/content and has no native disabled state; tabs owns root/list only.
+Input must conform to the [generated Vue profile](docs/profile.md). All 71 catalog entries compile and typecheck in declaration mode. Class-plugin coverage is listed in [the support matrix](docs/support.md). Native behavior remains in the producer; reviewed local interaction helpers satisfy selected adapter-required profiles. Accordion owns details/summary/content and has no native disabled state; tabs owns root/list only.
 
 The stylesheet uses the `html-ui` cascade layer and native scoped selectors. The initial layer-order statement is `theme, base, html-ui, components, utilities`; host stylesheets should establish the same order before declaring layers. Unlayered CSS intentionally takes precedence. A second unlayered reset can therefore override the recipes. A second theme provider must not redeclare the same variables with incompatible color formats. Keep one reset/theme owner when combining Tailwind and UnoCSS. The dashboard integration documents the concrete fix for its duplicate reset and theme.
 

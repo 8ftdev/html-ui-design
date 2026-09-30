@@ -8,11 +8,13 @@ export const stateOrder = [
 	"indeterminate",
 	"pressed",
 	"selected",
+	"highlighted",
 	"hover",
 	"active",
 	"invalid",
 	"readOnly",
 	"disabled",
+	"presentationDisabled",
 	"focusWithin",
 	"focusVisible",
 ];

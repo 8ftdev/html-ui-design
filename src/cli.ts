@@ -132,8 +132,10 @@ async function main() {
         const plugin = await loadPlugin(values.plugin!);
         const theme = await loadTheme(themePath);
         for (const token of plugin.tokens) theme.token(token, "value");
-        const component = parseVue(cleanGenerated(source), "Component.vue").ui
-          .component;
+        const primitive = parseVue(cleanGenerated(source), "Component.vue").ui.component;
+        const matches = Object.entries(plugin.components).filter(([,mapping])=>mapping.primitive===primitive).map(([name])=>name);
+        const component = plugin.components[primitive]?.primitive===primitive ? primitive : matches.length===1 ? matches[0]! : undefined;
+        if(!component)throw new Error(matches.length ? `ambiguous mappings for primitive ${primitive}: ${matches.join(', ')}; use library emission or an explicit plugin mapping` : `plugin has no mapping for primitive ${primitive}`);
         return applyClassPlugin(source, plugin, {
           component,
           filename: "Component.vue",

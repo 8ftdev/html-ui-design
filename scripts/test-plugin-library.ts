@@ -109,6 +109,17 @@ for(const [component,attrs,slot] of [['Toggle',':pressed="1"','Pin'],['DatePicke
 }
 rmSync(resolve(out,'Remaining.vue'));check();
 console.log('PASS: remaining local consumers typecheck; invalid pressed/date/menu-label/OTP types rejected');
+writeFileSync(resolve(out,'SelectConsumer.vue'),`<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Select,NativeSelect,Field} from './index'
+const status=ref('draft')
+</script><template><Field id="consumer-status"><template #label>Status</template><template #control="{id}"><Select :id="id" popup-id="consumer-options" name="status" v-model:value="status" size="sm" side="top" align="end" :classes="{option:'rounded-none'}" :styles="{popup:{maxHeight:'12rem'}}"><template #options><option value="draft">Draft</option><option value="published">Published</option></template></Select></template></Field><NativeSelect name="native-status">Native status<template #options><option value="draft">Draft</option></template></NativeSelect></template>`);
+check();rmSync(resolve(out,'SelectConsumer.vue'));
+for(const attrs of ['popup-id="choices"','id="choice" popup-id="choices" align="diagonal"','id="choice" popup-id="choices" :value="10"',`id="choice" popup-id="choices" :classes="{unknownPart: 'x'}"`]){
+ writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import Select from './Select.vue'</script><template><Select ${attrs}><template #options><option>One</option></template></Select></template>`);
+ try{check();throw new Error('invalid Select contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
+}
+check();console.log('PASS: compact Select and NativeSelect compositions typecheck; invalid id, placement, value and parts rejected');
 // Parts may style different values of one public axis.
 const partial = JSON.parse(
   readFileSync("src/plugins/builtin/shadcn-ui.json", "utf8"),

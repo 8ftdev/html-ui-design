@@ -6,6 +6,8 @@ import { z } from "zod";
 import { addNativeBatch } from "./plugin-batch-one";
 import { addCompositionBatch } from "./plugin-batch-two";
 import { addFormContentBatch } from "./plugin-batch-three";
+import { addSelectParity } from "./plugin-select-parity";
+import { addFormParity } from "./plugin-form-parity";
 import { addRemainingContracts } from "./plugin-remaining";
 const raw = readFileSync(
   "tests/fixtures/plugins/shadcn-base-nova.registry.json",
@@ -155,6 +157,8 @@ addNativeBatch(p, source);
 addCompositionBatch(p, source);
 addFormContentBatch(p, source);
 addRemainingContracts(p, source);
+addFormParity(p, source);
+addSelectParity(p, source);
 writeFileSync(
   "src/plugins/builtin/shadcn-ui.json",
   JSON.stringify(parsePlugin(p), null, 2) + "\n",

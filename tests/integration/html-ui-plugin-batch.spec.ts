@@ -75,7 +75,7 @@ test('theme recipes render avatar, native bars, separator and a constrained scro
  expect(await page.getByTestId('separator').evaluate(e=>e.getBoundingClientRect().height)).toBe(1)
  const bg=await page.locator('main').evaluate(e=>getComputedStyle(e).backgroundColor)
  await page.getByRole('button',{name:'Switch to dark theme'}).click();await expect.poll(()=>page.locator('main').evaluate(e=>getComputedStyle(e).backgroundColor)).not.toBe(bg)
- const sw=page.getByRole('switch',{name:'Email notifications'});const checked=await sw.evaluate(e=>getComputedStyle(e).backgroundColor);await sw.uncheck();await expect.poll(()=>sw.evaluate(e=>getComputedStyle(e).backgroundColor)).not.toBe(checked)
+ const sw=page.getByRole('switch',{name:'Email notifications'});const track=sw.locator('..').locator('[data-ui-part=track]');const checked=await track.evaluate(e=>getComputedStyle(e).backgroundColor);await sw.uncheck();await expect.poll(()=>track.evaluate(e=>getComputedStyle(e).backgroundColor)).not.toBe(checked)
 })
 
 test('reactive content styles survive animated and immediate changes',async({page})=>{

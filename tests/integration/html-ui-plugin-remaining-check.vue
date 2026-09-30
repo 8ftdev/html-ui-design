@@ -30,7 +30,7 @@ function reset(){notice.value=''}
      <DatePicker name="date" v-model:value="date" min="2026-01-01" max="2026-12-31">Report date</DatePicker><Calendar name="calendar" :value="date">Calendar alternative</Calendar>
      <Combobox name="project" list-id="projects">Project suggestions<template #options><option value="Atlas"/><option value="Orbit"/></template></Combobox>
      <Command name="command" list-id="commands">Command search<template #options><option value="New report"/><option value="Open settings"/></template></Command>
-     <Select name="status">Status<template #options><option value="draft">Draft</option><option value="published">Published</option></template></Select>
+     <Select id="remaining-status" popup-id="remaining-status-options" name="status">Status<template #options><option value="draft">Draft</option><option value="published">Published</option></template></Select>
      <InputOtp name="code" v-model:value="code" :max-length="6">Verification code</InputOtp>
      <Questionnaire name="questions"><template #legend>Notifications</template><Checkbox name="updates">Product updates</Checkbox></Questionnaire>
      <div><Button type="reset" variant="outline">Reset inputs</Button><output data-testid="date-value">{{date}}</output><output data-testid="code-value">{{code}}</output></div>

@@ -65,7 +65,8 @@
               "toolbar",
               "toggle",
               "toggle-group",
-              "tooltip"
+              "tooltip",
+              "select"
             ]
           },
           "parts": {

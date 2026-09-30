@@ -4,6 +4,8 @@ A plugin supplies typed variants and class recipes to local html-ui primitives. 
 
 The library now emits 69 building blocks. See [remaining adaptations](remaining-contracts.md) for local interaction helpers and the boundaries of native date, datalist, chart, carousel and content alternatives.
 
+The Nuxt gallery at `/html-ui-plugin-gallery` shows all 69 blocks as live examples beside their Vue imports and markup. Generate it from the dashboard's `html-ui-plugin-batch/ui-library.json` with `bun scripts/build-gallery.ts`; use `bun scripts/build-gallery.ts --check` to verify the checked-in gallery and dashboard page have not drifted. The builder requires an example and category for every manifest entry, so a new component cannot silently disappear from the gallery. Set `HTML_UI_DASHBOARD` to target a different dashboard checkout.
+
 ## Generate one component
 
 ```sh
@@ -81,13 +83,13 @@ The supplied coss Button recipe imports with all 70 size/variant selections pres
 
 Each generated primitive has typed `classes` and `styles` maps keyed by its parts, plus `unstyled`. Example: `<Input :classes="{ control: 'tracking-wide' }">Email</Input>`. `unstyled` suppresses recipe classes, preserving native behavior. Inline part styles can override individual style properties. Local recipe files are fully editable.
 
-Classes are additive; neither CVA nor this generator promises last-class-wins or resolves Tailwind conflicts. For a full replacement edit the recipe, select a custom plugin, or use `unstyled` with your own classes. State utility variants stay in the recipe and the consuming Tailwind build. No runtime nested `classes.state` API is claimed in this release.
+CVA selects recipe classes; Tailwind Merge resolves known conflicting utilities in recipe → part override → ordinary root class order. Ordinary root class/style props are explicitly consumed by the generated Vapor component. For a full replacement edit the recipe, select a custom plugin, or use `unstyled` with your own classes. State utility variants stay in the recipe and the consuming Tailwind build. No runtime nested `classes.state` API is claimed in this release.
 
 ## Building blocks
 
 - Button: variant, size, disabled, type, ariaLabel, default content, click event.
 - Input: enclosing label/default slot, text/email/password type, id, autocomplete, placeholder, required, disabled, `v-model:value`.
-- Checkbox: enclosing label/default slot, native checked/disabled/required, `v-model:checked`.
+- Checkbox: optional enclosing label/default slot, native checked/indeterminate/disabled/required, `v-model:checked`, and a local presentational indicator.
 - Card: one local surface/default slot; application owns headings and layout.
 - Grid: gap none/xs/sm/default/lg/xl; columns, smColumns, mdColumns are string choices 1–4. Default is one column and gap-4.
 - Icon: decorative container for local SVG content; accessible meaning belongs to the surrounding text/control. Shared `--ui-icon-size` can change sizing.
@@ -179,7 +181,7 @@ const notes=ref('')
 </template>
 ```
 
-Textarea's default slot is its native label. It exposes `v-model:value`, input/change notifications, native form reset, disabled/required/readOnly, rows/cols, minLength/maxLength, placeholder/id/autocomplete/name. `classes.control`, `styles.control` and typed state overrides target the control independently. Native validity is recorded as `invalid`; the class recipe uses `user-invalid` so untouched required controls are not immediately painted as errors. `field-sizing-content` enhances compatible browsers; rows/min-height remain native fallbacks.
+Textarea's default slot is its native label. It exposes `v-model:value`, input/change notifications, native form reset, disabled/required/readOnly, rows/cols, minLength/maxLength, placeholder/id/autocomplete/name. `classes.control`, `styles.control` and typed state overrides target the control independently. Native validity is recorded as `invalid`; the Nova recipe paints errors when the application supplies `aria-invalid="true"`, so untouched required controls are not immediately painted as errors. `field-sizing-content` enhances compatible browsers; rows/min-height remain native fallbacks.
 
 ButtonGroup requires `label` (emitted as aria-label); orientation is horizontal or vertical. Its direct local Button children keep their shared recipes; group CSS only joins corners/borders and raises focused buttons. Breadcrumb's `label` defaults to Breadcrumb and may be localized. Its default slot takes li/links/current-page markup. Label uses `htmlFor` or wraps one control. These names avoid framework ambiguity between native aria attributes and declared props.
 
@@ -234,3 +236,52 @@ InputGroup owns one native text/email/password input, an associated label and in
 RadioGroup supplies its shared name through the default slot. Native radios own exclusivity, arrow keys, required validity and form reset. Read selection through change events or FormData; there is no independent checked model per Radio. `defaultChecked` establishes the mount-time native reset baseline. Slider retains one native range control, numeric update events and browser sanitization; no multi-thumb or vertical abstraction is generated. Optional incoming value does not make the native update event optional.
 
 Empty owns visual title/media/description/action containers; callers supply heading semantics. Item is a noninteractive content row with independently styled parts; compose local actions in its slots. Its bounded media box centers icons and contains tall images. Pagination owns a labeled nav/list; callers supply li and links, destinations and aria-current. Typography styles supplied semantic HTML within a local wrapper; it is not the upstream Typeset CSS/API. Kbd displays a shortcut without registering it. Existing disclosure WAAPI and the protocol are unchanged.
+
+
+## Form-control parity foundation
+
+Input, Textarea, Checkbox, Radio, RadioGroup, Switch, Slider, NativeSelect, Field and Fieldset now adapt the pinned Base Nova recipes to their owned native DOM. Text controls use normal text weight; binary inputs expose separate decorative indicator parts, Switch exposes track/thumb, and NativeSelect exposes a decorative chevron. The underlying inputs still own form submission, selection, keyboard behavior, validity and reset. Forced colors restore native checkbox/radio/switch/select appearance and hide custom decorations.
+
+Control labels are optional so Field can supply an external label. Pass `id`, `ariaLabel`, `ariaLabelledby`, `ariaDescribedby` and `ariaInvalid` to the primitive; the generated bindings target its input/select/textarea, rather than its enclosing label. `ariaInvalid` uses the HTML strings `"true"` and `"false"`. Field's invalid/disabled props affect presentation; the application also sets the actual control attributes. Native Fieldset `disabled` propagates to descendant controls.
+
+Field owns root/content/label/description/error parts, with vertical, horizontal and responsive orientation. Its control slot supplies `id`; use descriptionId/errorId plus the matching control `aria-describedby` to connect help or validation text. Fieldset has an optional description and a legend/label legendVariant. These are compact local contracts, not the upstream compound component API.
+
+Checkbox's optional `indeterminate` property initializes and synchronizes the native property when that prop changes. Native activation clears it; an unrelated checked model update does not reapply it. The Vue emitter now tracks imperative bindings independently for this reason. Slider derives its fill percentage from the native sanitized value, respecting min/max, caller style overrides and RTL. It remains one native range input, without multiple thumbs or vertical mode.
+
+Class output merges in order: CVA recipe, `classes.part`, then ordinary root `class`, using tailwind-merge. Root style follows part style. `unstyled` suppresses the recipe while retaining explicit overrides. This resolves width/hover utility conflicts consistently, including caller-sized Skeletons. Generated local consumers require Vue, CVA and tailwind-merge; they import no external component implementation.
+
+The neutral-token integration page is `tests/integration/html-ui-form-parity.vue`; its browser regressions cover geometry, glyph masks, light/dark checked surfaces, native interaction/reset, label/error connections, forced colors and mobile overflow. NativeSelect remains distinct from the custom Select contract. Portable custom Select and shared positioning are documented below; Calendar, split panes, toast stacks and other audit gaps remain tracked in the support matrix.
+
+Validation for this batch: 70 producer → Vapor → theme outputs compile/typecheck; 166 plugin tests and strict generated consumers pass. Converter Go/race/vet, 79 compiler tests, four type checks and 48 browser checks pass. Nuxt nightly dashboard typecheck/build and 165 browser checks pass across Chromium, Firefox and WebKit (three workers). One existing Chromium menu-focus check failed once at higher parallel load; five isolated repeats and the final full suite passed. Native reset fill assertions wait for the model synchronization turn. Desktop dark and 390px mobile previews were inspected; the source design detector reported no findings.
+
+
+## Portable Select contract
+
+Select maps the separate `select-list` producer. NativeSelect continues to map the original `select`. Both remain local generated components. Standalone CLI emission resolves a unique plugin mapping from the incoming primitive; direct same-name mappings take precedence only when their primitive matches. Library emission selects the explicit plugin component.
+
+```vue
+<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Select} from './ui'
+const status=ref('draft')
+</script>
+<template>
+  <Select id="status" popup-id="status-options" name="status" v-model:value="status"
+    :classes="{trigger:'w-full',option:'rounded-none'}" :styles="{popup:{maxHeight:'12rem'}}">
+    Status
+    <template #options>
+      <option value="draft">Draft</option>
+      <optgroup label="Public"><option value="published">Published</option></optgroup>
+      <option value="archived" disabled>Archived</option>
+    </template>
+  </Select>
+</template>
+```
+
+The required unique `id` names the visible trigger; `popupId` names the owned listbox. Labels may be supplied through the default slot, Field, or control-targeted ARIA props. The native select proxy owns value, required validity, disabled inheritance, FormData and reset. `options` accepts native text options/optgroups; the adapter clones one owned option prototype, including its recipe/classes/styles. It does not export a separate SelectItem component. Dynamic options, external model updates and labels synchronize. Initial model selection establishes the native reset baseline.
+
+Public presentation axes are `size: default | sm`, `side: bottom | top` and `align: start | center | end`. The local `ui-position.ts` helper honors recipe/caller size limits, aligns in RTL, flips and bounds the top-layer popup, tracks scrolling/resizing and restores its owned geometry on disposal. It is shared by Select, Popover and flat menus; Tooltip retains its existing behavior. Focus stays on the trigger with aria-activedescendant. Arrows/Home/End navigate enabled choices, Enter/Space/click commit, Escape cancels, Tab commits and leaves, and typing finds text matches.
+
+Scope: one string value, text option content and native optgroups. No editable search, multiple selection, virtualization, item-aligned popup, async loading policy or upstream compound API. Combobox/Command remain native input/datalist alternatives; their custom adapters are subsequent work. The neutral light/dark fixture is `tests/integration/html-ui-select-parity.vue`. Use a normal text readout for reactive model diagnostics inside a resetting form: native `<output>` reset replaces its text nodes and can invalidate Vapor's text binding.
+
+Select batch verification (2026-09-30): 185 plugin tests, all 71 declaration-mode catalog outputs and strict plugin consumers pass; invalid Select IDs/placement/value/part overrides are rejected. Installed `/usr/local/bin/html-ui` SHA-256 matches the rebuilt producer and its standalone select-list → Vapor → shadcn pipeline compiles. Producer Go/race/vet and 54 browser checks pass; converter Go/race/vet, 80 compiler tests, four type checks and 48 browser checks pass. Nuxt nightly typecheck/build and 213 production browser checks pass across Chromium, Firefox and WebKit with three workers. Review verified native reset/model behavior and identified the external-label observer fix and stale docs; the final checks include those changes. The previous delayed menu-toggle focus race now has a deterministic regression and preserves navigation. The final source design scan reports no findings. Preview: `http://127.0.0.1:4343/html-ui-select-parity`.

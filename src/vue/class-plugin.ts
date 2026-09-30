@@ -94,16 +94,16 @@ export function applyClassPlugin(
       };
       for (const v of Object.keys(choices)) axes[a].values.add(v);
     }
-  for (const name of ["classes", "styles", "unstyled"])
+  for (const name of ["classes", "styles", "unstyled", "class", "style"])
     if (native.has(name))
       throw new Error(`presentation prop collision: ${name}`);
   const edits = new MagicString(source),
     offset = setup.loc.start.offset;
-  if (setup.content.includes("uiRecipe") || setup.content.includes("uiCva"))
+  if (["uiRecipe", "uiCva", "uiTwMerge", "uiNormalizeClass", "_uiRangeStyle"].some(name => setup.content.includes(name)))
     throw new Error("reserved generated recipe identifier collision");
   edits.appendLeft(
     offset,
-    `\nimport { cva as uiCva } from 'class-variance-authority'\nimport type { CSSProperties as UiCSSProperties, HTMLAttributes as UiHTMLAttributes } from 'vue'\n`,
+    `\nimport { cva as uiCva } from 'class-variance-authority'\nimport { twMerge as uiTwMerge } from 'tailwind-merge'\nimport { normalizeClass as uiNormalizeClass } from 'vue'\nimport type { CSSProperties as UiCSSProperties, HTMLAttributes as UiHTMLAttributes } from 'vue'\n`,
   );
   const partUnion = Object.keys(component.parts).map(js).join(" | ");
   const types = Object.entries(axes)
@@ -127,7 +127,7 @@ export function applyClassPlugin(
   }
   edits.appendLeft(
     offset + props.body.end! - 1,
-    `\n${types}\n${forwarded}\n  classes?: Partial<Record<${partUnion}, string>>;\n  styles?: Partial<Record<${partUnion}, UiCSSProperties>>;\n  unstyled?: boolean;\n`,
+    `\n${types}\n${forwarded}\n  class?: UiHTMLAttributes['class'];\n  style?: UiHTMLAttributes['style'];\n  classes?: Partial<Record<${partUnion}, string>>;\n  styles?: Partial<Record<${partUnion}, UiCSSProperties>>;\n  unstyled?: boolean;\n`,
   );
   for (const n of ast.program.body)
     if (n.type === "VariableDeclaration")
@@ -161,8 +161,30 @@ export function applyClassPlugin(
         }
       }
   let recipes = "\n";
+  const rangeFill = component.primitive === "slider" && !!component.parts.control;
+  if (rangeFill) {
+    // The emitter synchronizes this value ref from input/change, model changes,
+    // browser sanitization and form reset. Derive presentation from that ref.
+    const state = ast.program.body.flatMap(n => n.type === "VariableDeclaration" ? n.declarations : [])
+      .find(d => d.id.type === "Identifier" && /^_htmlUiState\d+$/.test(d.id.name) &&
+        d.init?.type === "CallExpression" && d.init.callee.type === "Identifier" &&
+        d.init.callee.name === "_htmlUiRef" && d.init.arguments[0]?.type === "MemberExpression" &&
+        d.init.arguments[0].object.type === "Identifier" && d.init.arguments[0].object.name === "_htmlUiProps" &&
+        ((d.init.arguments[0].property.type === "StringLiteral" && d.init.arguments[0].property.value === "value") ||
+          (!d.init.arguments[0].computed && d.init.arguments[0].property.type === "Identifier" && d.init.arguments[0].property.name === "value")));
+    if (!state || state.id.type !== "Identifier" || !["min", "max"].every(name => native.has(name)))
+      throw new Error("slider fill requires the native reactive value and bounds");
+    recipes += `const _uiRangeStyle = () => {
+  const min = Number.isFinite(_htmlUiProps.min) ? _htmlUiProps.min! : 0
+  const max = Number.isFinite(_htmlUiProps.max) ? _htmlUiProps.max! : 100
+  const value = ${state.id.name}.value ?? (min + max) / 2
+  const fill = max > min && Number.isFinite(value) ? Math.min(100, Math.max(0, (value - min) / (max - min) * 100)) : 0
+  return { '--ui-slider-fill': String(fill) + '%' }
+}\n`;
+  }
   const quote = (s: string) => `'${s}'`;
   const expressions: Record<string, string> = {};
+  const styles: Record<string, string> = {};
   let index = 0;
   for (const [part, r] of Object.entries(component.parts)) {
     const name = `uiRecipe${index++}`;
@@ -185,10 +207,21 @@ export function applyClassPlugin(
       })),
     };
     recipes += `const ${name} = uiCva(${js(r.base)}, ${JSON.stringify(config, null, 2).replace(/<\/script/gi, "<\\/script")})\n`;
+    styles[part] = part === "root"
+      ? `[_htmlUiProps.styles?.[${quote(part)}], _htmlUiProps.style]`
+      : rangeFill && part === "control"
+        ? `[_htmlUiProps.unstyled ? undefined : _uiRangeStyle(), _htmlUiProps.styles?.[${quote(part)}]]`
+        : `_htmlUiProps.styles?.[${quote(part)}]`;
     expressions[part] =
-      `[_htmlUiProps.unstyled ? undefined : ${name}({ ${Object.keys(r.variants)
+      `uiTwMerge(_htmlUiProps.unstyled ? undefined : ${name}({ ${Object.keys(r.variants)
         .map((a) => `${quote(a)}: _htmlUiProps[${quote(a)}]`)
-        .join(", ")} }), _htmlUiProps.classes?.[${quote(part)}]]`;
+        .join(", ")} }), _htmlUiProps.classes?.[${quote(part)}]${part === "root" ? ", uiNormalizeClass(_htmlUiProps.class)" : ""})`;
+  }
+  // Native caller class/style still belong to the root when a custom recipe
+  // maps only inner parts. Consume and bind them explicitly in both cases.
+  if (!component.parts.root) {
+    expressions.root = "uiNormalizeClass(_htmlUiProps.class)";
+    styles.root = "_htmlUiProps.style";
   }
   edits.appendLeft(setup.loc.end.offset, recipes);
   const attributes = [
@@ -228,7 +261,7 @@ export function applyClassPlugin(
         const node = input.nodes.find((x) => x.part === part)!;
         edits.appendLeft(
           node.start,
-          ` :class="${esc(expressions[part])}" :style="${esc(`_htmlUiProps.styles?.[${quote(part)}]`)}"`,
+          ` :class="${esc(expressions[part])}" :style="${esc(styles[part])}"`,
         );
         for (const h of component.hooks ?? [])
           if (h.part === part) {

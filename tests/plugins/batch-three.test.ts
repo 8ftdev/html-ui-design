@@ -11,7 +11,7 @@ const batch = [
  ['input-group','input-group',['root','label','surface','start','control','end']],
  ['kbd','kbd',['root']], ['pagination','pagination',['root','list']],
  ['typography','typography',['root']], ['direction','direction',['root']],
- ['radio-group','radio-group',['root','legend']], ['radio','radio',['root','control']], ['slider','slider',['root','control']],
+ ['radio-group','radio-group',['root','legend']], ['radio','radio',['root','control','indicator']], ['slider','slider',['root','control']],
 ] as const;
 for (const [name, primitive, parts] of batch) {
   test(`generates a compilable native ${name} with editable recipes and valid anatomy`, async () => {
@@ -34,6 +34,6 @@ test('item variants and native selectors match local anatomy',async()=>{
  const r=p.components.item.parts.root;
  expect(cva(r.base,{variants:r.variants,defaultVariants:r.defaultVariants as Record<string,string>})({variant:'outline',size:'xs'})).toContain('border-border');
  expect(p.components['input-group'].parts.surface.base.join(' ')).toContain('focus-visible');
- expect(p.components.radio.parts.control.base.join(' ')).toContain('accent-primary');
- expect(p.components.slider.parts.control.base.join(' ')).toContain('accent-primary');
+ expect(p.components.radio.parts.control.base.join(' ')).toContain('checked:bg-primary');
+ expect(p.components.slider.parts.control.base.join(' ')).toContain('--ui-slider-fill');
 });

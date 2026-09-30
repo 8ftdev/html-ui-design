@@ -125,3 +125,14 @@ test('readonly native state has a defined cascade before disabled', async () => 
  expect(css).toContain('@layer readOnly');
  expect(css.indexOf('readOnly,')).toBeLessThan(css.indexOf('disabled,'));
 });
+
+test('new native control anatomy remains valid in strict declaration mode',async()=>{
+ const {execFileSync}=await import('node:child_process');
+ for(const name of ['checkbox','radio','switch','select','field','fieldset']){
+  const source=execFileSync('.test-output/html-ui-to-vue-vapor',[],{input:execFileSync('.test-output/html-ui',[name]),encoding:'utf8'});
+  const component=parseVue(source,`${name}.vue`);
+  const resolved=resolveRecipes(component,theme,{},true);
+  expect(resolved.warnings).toEqual([]);
+  expect(()=>emitCSS(component,resolved.parts,'strict-native')).not.toThrow();
+ }
+});

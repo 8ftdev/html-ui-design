@@ -2,6 +2,15 @@ import type { Declarations, ResolvedPart, Theme, UIPart } from "../model.js";
 const roles = new Set([
 	"action",
 	"checkbox",
+	"radio",
+	"checkbox-indicator",
+	"radio-indicator",
+	"switch-track",
+	"switch-thumb",
+	"select-chevron",
+	"field-content",
+	"field-error",
+	"field-description",
 	"combobox",
 	"description",
 	"dialog",
@@ -25,6 +34,8 @@ const roles = new Set([
 	"progress",
 	"scroll-area",
 	"select",
+	"select-value",
+	"option",
 	"separator",
 	"slider",
 	"status",
@@ -73,6 +84,7 @@ export function preset(part: UIPart, theme: Theme): ResolvedPart | undefined {
 				color: c("foreground"),
 			};
 			break;
+		case "radio":
 		case "checkbox":
 		case "switch":
 		case "slider":
@@ -130,6 +142,7 @@ export function preset(part: UIPart, theme: Theme): ResolvedPart | undefined {
 				color: c("muted-foreground"),
 			};
 			break;
+		case "field-description":
 		case "description":
 			base = { "font-size": "0.875rem", color: c("muted-foreground") };
 			break;
@@ -154,6 +167,20 @@ export function preset(part: UIPart, theme: Theme): ResolvedPart | undefined {
 				"border-top": `1px solid ${c("border")}`,
 				margin: "0.75rem 0",
 			};
+			break;
+		// Declaration mode retains the native affordance; the class plugin styles these decorations.
+		case "checkbox-indicator":
+		case "radio-indicator":
+		case "switch-track":
+		case "switch-thumb":
+		case "select-chevron":
+			base = { display: "none" };
+			break;
+		case "field-content":
+			base = { display: "flex", "flex-direction": "column", gap: "0.25rem" };
+			break;
+		case "field-error":
+			base = { "font-size": "0.875rem", color: c("destructive") };
 			break;
 		case "field":
 			base = { display: "flex", gap: "0.5rem", "align-items": "center" };

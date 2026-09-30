@@ -64,7 +64,7 @@
     },
     "checkbox": {
       "status": "partial",
-      "reason": "Native checked control adaptation; no indicator/indeterminate API."
+      "reason": "Native checkbox with a locally styled indicator, checked/indeterminate/invalid/focus/disabled states and native model/reset. Optional label supports Field composition."
     },
     "collapsible": {
       "status": "partial",
@@ -112,11 +112,11 @@
     },
     "field": {
       "status": "partial",
-      "reason": "Local label/control/description slots, scoped id and vertical/horizontal/responsive orientation. App connects control id and aria-describedby; no error aggregation or validation engine."
+      "reason": "External label plus owned content/description/error. Vertical/horizontal/container-responsive layouts; invalid/disabled props are presentation only and actual control owns semantics."
     },
     "input": {
       "status": "partial",
-      "reason": "Base Nova classes on native labeled input; no full Base UI API equivalence."
+      "reason": "Native text/email/password control with optional enclosing label or external labeling, control-targeted ARIA, native model/reset and Nova typography."
     },
     "input-group": {
       "status": "partial",
@@ -156,7 +156,7 @@
     },
     "native-select": {
       "status": "partial",
-      "reason": "Native labeled select with default/sm sizes, options slot, input/change events and browser arrow. No selection model prop; application reads events or uses selected options."
+      "reason": "Native select with local chevron, theme-aware system option colors and control-targeted ARIA. OS popup remains native; customizable-select APIs are not required."
     },
     "navigation-menu": {
       "status": "partial",
@@ -180,7 +180,7 @@
     },
     "radio-group": {
       "status": "partial",
-      "reason": "Native fieldset/legend with scoped shared name, bubbling change and disabled propagation. Compose local Radio children. Selection/arrow keys/reset are native; application reads change or FormData. No controlled group model or generated options."
+      "reason": "Native fieldset/legend and styled local Radio children; browser exclusivity and keyboard selection are preserved."
     },
     "resizable": {
       "status": "partial",
@@ -192,7 +192,7 @@
     },
     "select": {
       "status": "partial",
-      "reason": "Native labeled select alternative, browser keyboard and popup. No custom listbox/portal, controlled value model or upstream Select API."
+      "reason": "Portable local select-only combobox over a native select proxy; text options/optgroups project through one typed option prototype. Native model/form/reset/required/fieldset semantics, disabled skipping, typeahead, active-descendant keyboard and pointer choice, RTL and collision positioning. No editable filtering, multiple selection, virtualization or selected-item overlap positioning."
     },
     "separator": {
       "status": "partial",
@@ -212,7 +212,7 @@
     },
     "slider": {
       "status": "partial",
-      "reason": "Native single-thumb range with numeric value model, input/change, bounds, step, disabled and reset. Native accent styling; no multi-thumb, vertical or external Track/Thumb components."
+      "reason": "Native single-thumb range with themed track/thumb and reactive fill, numeric model/reset. Multiple thumbs and vertical layout remain outside this boundary."
     },
     "spinner": {
       "status": "partial",
@@ -220,7 +220,7 @@
     },
     "switch": {
       "status": "partial",
-      "reason": "Labeled native checkbox with switch role, checked model, reset, disabled and default/sm sizes. CSS draws the thumb; no indeterminate or external Thumb component."
+      "reason": "Native checkbox with switch semantics, local track/thumb and default/small Nova dimensions. Binary model/reset; no mixed state."
     },
     "table": {
       "status": "partial",
@@ -272,11 +272,11 @@
     },
     "fieldset": {
       "status": "partial",
-      "reason": "Adapts shadcn FieldSet/FieldLegend from the field registry to native fieldset/legend. Disabled propagates to descendant native controls (first legend exception applies)."
+      "reason": "Native fieldset/legend with optional description and legend/label presentation variants; native descendant disabling."
     },
     "radio": {
       "status": "supported-extension",
-      "reason": "Local native labeled radio with shared name/value, mount-time defaultChecked, required/disabled, native arrow navigation and reset. Group selection uses events/FormData; no independent checked model."
+      "reason": "Native named radio with styled indicator, control-targeted ARIA and mount-time reset baseline. Native group owns selection."
     }
   }
 }

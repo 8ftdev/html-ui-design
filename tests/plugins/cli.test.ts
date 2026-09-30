@@ -62,3 +62,10 @@ test("CLI writes a local library with companion recipes", async () => {
   expect(await Bun.file(dir + "/IconButton.vue").exists()).toBe(true);
   expect(await Bun.file(dir + "/Button.recipe.ts").exists()).toBe(true);
 });
+test('CLI resolves custom and native Select from their distinct primitive contracts',()=>{
+ for(const primitive of ['select-list','select']){
+  const input=execFileSync('.test-output/html-ui-to-vue-vapor',[],{input:execFileSync('.test-output/html-ui',[primitive]),encoding:'utf8',stdio:['pipe','pipe','pipe']});
+  const result=spawnSync('node',['dist/cli.js','--framework','vue','--plugin','shadcn-ui','--theme','tests/fixtures/plugins/theme.css'],{input,encoding:'utf8'});
+  expect(result.status).toBe(0);expect(result.stdout.includes('role="combobox"')).toBe(primitive==='select-list');
+ }
+});
