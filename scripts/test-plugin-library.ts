@@ -99,7 +99,7 @@ const pressed=ref(false),date=ref('2026-09-29')
 </script><template>
 <Toggle v-model:pressed="pressed">Pin</Toggle><DatePicker v-model:value="date">Date</DatePicker>
 <Dialog id="consumer-dialog" title-id="consumer-title"><template #trigger>Open</template><template #title>Title</template>Body<template #close>Close</template></Dialog>
-<DropdownMenu id="consumer-menu" label="Actions"><template #trigger>Actions</template><Button role="menuitem">Save</Button></DropdownMenu>
+<DropdownMenu id="consumer-menu" label="Actions"><template #trigger>Actions</template><Button role="menuitem" variant="menu">Save</Button></DropdownMenu>
 <Chart><svg role="img" aria-label="Trend"/><template #caption>Trend</template></Chart>
 </template>`);
 check();
@@ -170,3 +170,14 @@ for(const [component,attrs] of [['Tooltip','id="one" side="diagonal"'],['HoverCa
  try{check();throw new Error('invalid hover contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
 }
 rmSync(resolve(out,'Hover.vue'));check();console.log('PASS: hover placement, delays and part overrides typecheck; invalid placement/delay and missing IDs rejected');
+
+writeFileSync(resolve(out,'Popup.vue'),`<script setup lang="ts" vapor>import {Popover,DropdownMenu,ContextMenu,Button} from './index'</script><template>
+<Popover id="typed-popover" side="left" align="end" :side-offset="8"><template #trigger>Settings</template>Settings content</Popover>
+<DropdownMenu id="typed-dropdown" label="Actions" side="right" align="start" :side-offset="6" :classes="{popup:'rounded-none'}"><template #trigger>Actions</template><Button role="menuitem" variant="menu">Save</Button></DropdownMenu>
+<ContextMenu id="typed-context" label="Context actions" side="bottom" align="center"><template #trigger>Context</template><Button role="menuitem" variant="menu">Inspect</Button></ContextMenu>
+</template>`);check();
+for(const [component,attrs] of [['Popover','id="one" side="diagonal"'],['DropdownMenu','id="one" label="Actions" side-offset="far"'],['ContextMenu','id="one" align="start"']]){
+ writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}><template #trigger>Open</template>Details</${component}></template>`);
+ try{check();throw new Error('invalid popup contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
+}
+rmSync(resolve(out,'Popup.vue'));check();console.log('PASS: popup/menu placement and local rows typecheck; invalid sides/offsets and missing menu labels rejected');

@@ -1,3 +1,4 @@
+import {popupRuntimeSource} from './popup-source';
 import {hoverRuntimeSource} from './hover-source';
 import {searchRuntimeSource} from './search-source';
 import {listRuntimeSource} from './list-source';
@@ -6,7 +7,7 @@ import {positionRuntimeSource} from './position-source';
 // One editable local helper per generated library; pipe output embeds it.
 const interactionBody=String.raw`
 export type UiInteraction = 'dialog'|'popover'|'tabs'|'menu'|'context-menu'|'toolbar'|'toggle'|'toggle-group'|'tooltip'|'hover-card'|'select';
-export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: (pressed:boolean)=>void) {
+export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: (pressed:boolean)=>void, popupOptions:UiPopupOptions={}) {
   const cleanups: (()=>void)[]=[];
   const on=(node:EventTarget,type:string,handler:(event:any)=>void,capture=false)=>{node.addEventListener(type,handler,capture);cleanups.push(()=>node.removeEventListener(type,handler,capture))};
   const owned=(node:Element)=>node.closest('[data-ui-part="root"][data-ui="'+root.dataset.ui+'"]')===root;
@@ -15,11 +16,8 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
   const part=(name:string)=>Array.from(root.querySelectorAll<HTMLElement>('[data-ui-part="'+name+'"]')).find(node=>node.dataset.ui===root.dataset.ui&&owned(node));
   if(kind==='select')return uiSelect(root).dispose;
   if(kind==='tooltip'||kind==='hover-card')return uiHover(root,kind).dispose;
-  const popup=part('popup'),trigger=part('trigger');
-  if(popup&&trigger&&['popover','menu','context-menu'].includes(kind))cleanups.push(uiPosition(trigger,popup));
-  const visible=()=>Boolean(popup?.matches(':popover-open'));
-  const show=()=>{if(popup&&!visible())popup.showPopover()};
-  const hide=()=>{if(popup&&visible())popup.hidePopover()};
+  if(kind==='popover'||kind==='menu'||kind==='context-menu')return uiPopup(root,kind,popupOptions).dispose;
+  const trigger=part('trigger');
   if(kind==='dialog'){
     const dialog=part('dialog') as HTMLDialogElement|null;
     // Prevent declarative command default so this also works in older engines.
@@ -76,30 +74,9 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
       e.preventDefault();all[next]!.focus();
     });
   }
-  if(kind==='menu'||kind==='context-menu'){
-    const items=()=>Array.from(popup!.querySelectorAll<HTMLElement>('[role="menuitem"],[role="menuitemcheckbox"],[role="menuitemradio"]')).filter(t=>t.closest('[role="menu"]')===popup&&!disabled(t));
-    trigger?.setAttribute('aria-haspopup','menu');trigger?.setAttribute('aria-expanded','false');
-    if(popup&&trigger){
-      let openAtLast=false;
-      const focus=(last=false)=>{const all=items();all.forEach(t=>t.tabIndex=-1);(last?all.at(-1):all[0])?.focus()};
-      on(popup,'toggle',(e:ToggleEvent)=>{trigger.setAttribute('aria-expanded',String(e.newState==='open'));if(e.newState==='open'){if(!popup.contains(root.ownerDocument.activeElement))focus(openAtLast);openAtLast=false}});
-      on(trigger,'keydown',(e:KeyboardEvent)=>{if(disabled(trigger))return;if(e.key==='ArrowDown'||e.key==='ArrowUp'||(kind==='context-menu'&&e.shiftKey&&e.key==='F10')){e.preventDefault();openAtLast=e.key==='ArrowUp';show();focus(openAtLast)}});
-      if(kind==='context-menu')on(root,'contextmenu',(e:MouseEvent)=>{if(!disabled(trigger)){e.preventDefault();show();focus()}});
-      on(popup,'keydown',(e:KeyboardEvent)=>{
-        if(e.key==='Escape'){e.preventDefault();hide();trigger.focus();return}
-        if(e.key==='Tab'){hide();return}
-        const all=items(),current=(e.target as Element).closest<HTMLElement>('[role^="menuitem"]'),index=all.indexOf(current!);if(index<0)return;
-        let next=index;
-        if(e.key==='Home')next=0;else if(e.key==='End')next=all.length-1;else if(e.key==='ArrowDown')next=(index+1)%all.length;else if(e.key==='ArrowUp')next=(index-1+all.length)%all.length;else return;
-        e.preventDefault();all[next]!.focus();
-      });
-      on(popup,'click',(e:MouseEvent)=>{const item=(e.target as Element).closest<HTMLElement>('[role^="menuitem"]');if(item&&disabled(item)){e.preventDefault();e.stopImmediatePropagation()}},true);
-      on(popup,'click',(e:MouseEvent)=>{const item=(e.target as Element).closest<HTMLElement>('[role^="menuitem"]');if(!item)return;if(disabled(item)){e.preventDefault();e.stopPropagation();return}hide();trigger.focus()});
-    }
-  }
   return ()=>cleanups.forEach(dispose=>dispose());
 }
 `;
 
-export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+interactionBody;
-export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+interactionBody).replace(/^export /gm,'');
+export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+interactionBody;
+export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+interactionBody).replace(/^export /gm,'');

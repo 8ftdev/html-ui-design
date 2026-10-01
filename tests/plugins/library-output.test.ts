@@ -44,6 +44,7 @@ test("custom Button without icon-size axes does not receive an invalid IconButto
   b.variants = { tone: { default: ["text-primary"] } };
   b.axisTypes = { tone: "string" };
   b.defaultVariants = { tone: "default" };
+  b.compoundVariants = [];
   const files = await customLibrary({
     button: p.components.button,
     icon: p.components.icon,

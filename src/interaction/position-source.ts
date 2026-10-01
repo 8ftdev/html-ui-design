@@ -1,6 +1,6 @@
 // One editable local helper per generated library; pipe output embeds it.
 export const positionRuntimeSource = String.raw`
-export function uiPosition(trigger: HTMLElement, popup: HTMLElement, options: {side?: 'top'|'bottom'|'left'|'right'; align?: 'start'|'center'|'end'; gap?: number; padding?: number; matchWidth?: boolean} = {}): () => void {
+export function uiPosition(trigger: HTMLElement, popup: HTMLElement, options: {side?: 'top'|'bottom'|'left'|'right'; align?: 'start'|'center'|'end'; gap?: number; padding?: number; matchWidth?: boolean; anchor?: {x:number;y:number}} = {}): () => void {
   const doc = popup.ownerDocument, view = doc.defaultView;
   if (!view) return () => {};
   const finite = (value: number|undefined, fallback: number) => value !== undefined && Number.isFinite(value) ? Math.max(0, value) : fallback;
@@ -43,7 +43,7 @@ export function uiPosition(trigger: HTMLElement, popup: HTMLElement, options: {s
     const insetX = Math.min(padding, width / 2), insetY = Math.min(padding, height / 2);
     const minX = (viewport?.offsetLeft ?? 0) + insetX, minY = (viewport?.offsetTop ?? 0) + insetY;
     const maxX = minX + Math.max(0, width - 2 * insetX), maxY = minY + Math.max(0, height - 2 * insetY);
-    const anchor = trigger.getBoundingClientRect();
+    const anchor = options.anchor ? {left:options.anchor.x,right:options.anchor.x,top:options.anchor.y,bottom:options.anchor.y,width:0,height:0} : trigger.getBoundingClientRect();
     style('--ui-anchor-width', anchor.width + 'px');
     style('max-width', limit(maxX-minX,callerMaxWidth));
     style('min-width',Math.min(maxX-minX,Math.max(minimumWidth,options.matchWidth?anchor.width:0))+'px');

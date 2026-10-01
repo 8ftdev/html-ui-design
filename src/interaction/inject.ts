@@ -49,7 +49,27 @@ export function injectInteraction(source:string,input:VueInput,mapping:Component
  validateInteraction(input,mapping);
  const {descriptor}=parseSFC(source),setup=descriptor.scriptSetup!,offset=setup.loc.start.offset;
  if(source.includes('v-ui-interaction')||setup.content.includes('_uiPressed'))throw new Error('reserved interaction identifier collision');
- edits.appendLeft(offset,runtimePath?`\nimport {${mapping.interaction==='select'?'uiSelect':['combobox','command'].includes(mapping.interaction)?'uiSearch':['tooltip','hover-card'].includes(mapping.interaction)?'uiHover':'uiInteraction'}} from ${JSON.stringify(runtimePath)}\n`:inlineInteractionRuntimeSource);
+ edits.appendLeft(offset,runtimePath?`\nimport {${mapping.interaction==='select'?'uiSelect':['combobox','command'].includes(mapping.interaction)?'uiSearch':['tooltip','hover-card'].includes(mapping.interaction)?'uiHover':['popover','menu','context-menu'].includes(mapping.interaction)?'uiPopup':'uiInteraction'}} from ${JSON.stringify(runtimePath)}\n`:inlineInteractionRuntimeSource);
+ if(['popover','menu','context-menu'].includes(mapping.interaction)){
+  const ast=parseJS(setup.content,{sourceType:'module',plugins:['typescript']}).program;
+  const props=ast.body.find((node:any)=>node.type==='TSInterfaceDeclaration'&&node.id.name==='Props') as any;
+  if(!props||props.body.body.some((node:any)=>node.key?.name==='sideOffset'))throw new Error('reserved popup prop collision');
+  edits.appendLeft(offset+props.body.end-1,'\n sideOffset?: number\n');
+  edits.appendLeft(offset,"\nimport {watchPostEffect as _uiPopupEffect} from 'vue'\n");
+  edits.appendLeft(setup.loc.end.offset,`\nconst vUiInteraction = (root:HTMLElement) => {
+ let disposed=false
+ let controller:ReturnType<typeof uiPopup>|undefined
+ const stop=_uiPopupEffect(()=>{
+  const options={side:_htmlUiProps.side,align:_htmlUiProps.align,sideOffset:_htmlUiProps.sideOffset}
+  void [_htmlUiProps.id,_htmlUiProps.disabled]
+  if(disposed)return
+  controller ??= uiPopup(root,${JSON.stringify(mapping.interaction)},options)
+  controller.sync(options)
+ })
+ return ()=>{disposed=true;stop();controller?.dispose()}
+}\n`);
+  edits.appendLeft(input.nodes.find(n=>n.part==='root')!.start,' v-ui-interaction');return;
+ }
  if(['tooltip','hover-card'].includes(mapping.interaction)){
   const ast=parseJS(setup.content,{sourceType:'module',plugins:['typescript']}).program;
   const props=ast.body.find((node:any)=>node.type==='TSInterfaceDeclaration'&&node.id.name==='Props') as any;

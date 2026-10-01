@@ -40,7 +40,7 @@
     },
     "button": {
       "status": "partial",
-      "reason": "Native button + pinned Base Nova CVA; external Base UI behaviors excluded."
+      "reason": "Native button + pinned Base Nova CVA, with a local menu presentation variant for editable flat menu rows. External Base UI behaviors excluded."
     },
     "button-group": {
       "status": "partial",
@@ -80,7 +80,7 @@
     },
     "context-menu": {
       "status": "partial",
-      "reason": "Flat native popover menu with local right-click/Shift+F10 invocation, arrows/Home/End and focus return. Caller supplies menuitem roles/name. Centered surface; no pointer placement, submenus or typeahead."
+      "reason": "Flat native auto-popover menu with pointer-relative collision positioning and trigger-relative keyboard/click fallback, typed placement/offset, typeahead, visible enabled row navigation and native Tab/Escape dismissal. Compose local Button role=menuitem variant=menu rows with independent overrides; caller owns action/checked state; no submenus or long-press policy."
     },
     "data-table": {
       "status": "partial",
@@ -104,7 +104,7 @@
     },
     "dropdown-menu": {
       "status": "partial",
-      "reason": "Native auto popover plus local flat-menu arrows/Home/End, disabled skipping, activation dismissal, Escape focus return and trigger ARIA. Caller supplies menuitem roles/name; no submenus, typeahead or radio/checkbox selection policy."
+      "reason": "Flat native auto-popover menu with four-side collision positioning, typed placement/offset, visible enabled row navigation, typeahead, pointer focus, action dismissal, Escape focus return and native Tab exit. Compose local Button role=menuitem variant=menu rows with independent class/style overrides; caller supplies checked-state logic; no submenus or automatic radio/checkbox selection policy."
     },
     "empty": {
       "status": "partial",
@@ -168,7 +168,7 @@
     },
     "popover": {
       "status": "partial",
-      "reason": "Native auto popover with light dismissal and toggle event. Centered default surface; editable placement, no anchor collision or custom keyboard widget."
+      "reason": "Native auto popover with local four-side trigger-relative collision positioning, typed placement/offset, light dismissal and toggle event. Editable local surface and normal focus order; no controlled-open or polymorphic trigger API."
     },
     "progress": {
       "status": "partial",

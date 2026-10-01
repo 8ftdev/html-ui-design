@@ -360,3 +360,26 @@ Tooltip retains `aria-describedby` and noninteractive text content. While mounte
 Native disabled/fieldset inheritance, `aria-disabled` and inert ancestry block opening and dismiss open overlays, including after DOM relocation. Timers, document observers, event listeners and position ownership dispose with the Vue scope. Classes/styles/unstyled remain available for all owned parts; caller-edited style values are preserved by the positioning helper. No provider, global warmup policy, controlled-open model, polymorphic link trigger, safe-polygon cursor tracking or external popup implementation. Tooltip text remains noninteractive; use HoverCard or Popover for interactive content. Preview: `http://127.0.0.1:4343/html-ui-hover-parity`.
 
 Hover batch verification (2026-10-01): 222 plugin tests and all 282 production dashboard checks pass across Chromium, Firefox and WebKit. Strict generated consumers, plugin typecheck/build and Nuxt nightly typecheck/build pass. Support/gallery artifacts are current, and installed `/usr/local/bin/html-ui` regeneration reports zero differences. Independent review findings for caller attribute ownership, reactive IDs and long tooltip text are covered by passing regressions.
+
+
+## Popover and flat menu parity
+
+Popover, DropdownMenu and ContextMenu keep one local component with trigger/default slots. Each has typed `side`, logical `align` and numeric `sideOffset`; the shared local controller reuses `ui-position.ts` for viewport bounds, flipping and scroll/resize tracking. Popover uses the pinned Base Nova 288px, 10px-padding surface. Its flex layout applies only while `:popover-open`, preserving native closed visibility. Native light dismissal remains active; Escape from content returns focus to the trigger.
+
+ContextMenu right-click uses viewport pointer coordinates. Click, ArrowDown/ArrowUp, the ContextMenu key and Shift+F10 use the trigger anchor instead; external scrolling dismisses a pointer-positioned menu. Menus provide pointer highlighting, visible/enabled row navigation, Home/End, accessible-label typeahead with repeated-letter cycling, and Escape focus return. Typeahead expires before Space activation. Tab closes and follows normal document order (WebKit's native full-control traversal uses Option/Alt+Tab). Native disabled fieldsets, inert and ARIA-disabled ancestors block invocation/actions. Disabled pointer events and background clicks retain keyboard focus.
+
+Use a local primitive for each row:
+
+```vue
+<DropdownMenu id="report-actions" label="Report actions" side="bottom">
+  <template #trigger>Actions</template>
+  <Button role="menuitem" variant="menu" @click="exportReport">Export</Button>
+  <Button role="menuitem" variant="menu" :aria-disabled="true">Unavailable</Button>
+</DropdownMenu>
+```
+
+The `menu` Button variant puts row defaults inside the child's existing CVA/tailwind-merge path. Ordinary `class`, `classes.root`, `style`, `styles.root` and `unstyled` overrides stay local and authoritative. Popup ancestor selectors do not override row geometry/colors. Links or other supplied menuitems retain their own authored presentation. Menu shortcuts use an optional `data-ui-shortcut` span; mark non-label shortcut text `aria-hidden="true"`. Caller-owned checked/radio state and decoration are not generated. Submenus, long-press policy, controlled-open and polymorphic trigger APIs remain outside this batch.
+
+Preview: http://127.0.0.1:4343/html-ui-popup-parity. The preview uses neutral light/dark tokens isolated from the dashboard theme, and demonstrates local Icon/Button/Input/Fieldset/Dialog composition, dynamic rows/IDs, RTL/mobile bounds, overrides and cleanup. Fixtures live in `tests/integration/html-ui-popup-parity.vue` and `.spec.ts`.
+
+Popup/menu batch verification (2026-10-01): 237 plugin tests pass, including RED/GREEN cases for expired Space typeahead, ARIA-disabled ancestors, native ContextMenu key positioning and pointer-events-none focus retention. Strict generated consumers, plugin typecheck/build and Nuxt nightly typecheck/build pass. All 312 production dashboard browser checks pass across Chromium, Firefox and WebKit (30 new popup/menu checks), including previous Select/search scrolling and hover behavior. Support and 70-example gallery artifacts are current; installed CLI regeneration reports zero drift. Independent review findings were addressed; one bounded desktop/mobile visual pass and a source design scan completed. No producer/converter changes or binary replacement were needed. The batch is left uncommitted.

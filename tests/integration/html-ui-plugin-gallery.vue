@@ -398,13 +398,13 @@ const entries = [
     "id": "dropdown-menu",
     "name": "DropdownMenu",
     "category": "Navigation & disclosure",
-    "code": "import { Button, DropdownMenu } from '~/components/html-ui-plugin-batch'\n\n<DropdownMenu id=\"gallery-dropdown\" label=\"Report actions\"><template #trigger>Report actions</template><Button role=\"menuitem\" variant=\"ghost\">Export</Button><Button role=\"menuitem\" variant=\"ghost\">Archive</Button></DropdownMenu>"
+    "code": "import { Button, DropdownMenu } from '~/components/html-ui-plugin-batch'\n\n<DropdownMenu id=\"gallery-dropdown\" label=\"Report actions\"><template #trigger>Report actions</template><Button role=\"menuitem\" variant=\"menu\">Export</Button><Button role=\"menuitem\" variant=\"menu\">Archive</Button></DropdownMenu>"
   },
   {
     "id": "context-menu",
     "name": "ContextMenu",
     "category": "Navigation & disclosure",
-    "code": "import { Button, ContextMenu } from '~/components/html-ui-plugin-batch'\n\n<ContextMenu id=\"gallery-context\" label=\"Context actions\"><template #trigger>Right-click here</template><Button role=\"menuitem\" variant=\"ghost\">Inspect</Button></ContextMenu>"
+    "code": "import { Button, ContextMenu } from '~/components/html-ui-plugin-batch'\n\n<ContextMenu id=\"gallery-context\" label=\"Context actions\"><template #trigger>Right-click here</template><Button role=\"menuitem\" variant=\"menu\">Inspect</Button></ContextMenu>"
   },
   {
     "id": "tooltip",
@@ -1237,7 +1237,7 @@ onMounted(() => { dark.value = document.documentElement.classList.contains('dark
       <div class="grid lg:grid-cols-2">
         <div class="min-w-0 p-5 sm:p-6">
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2"><h2 class="text-lg font-semibold">DropdownMenu</h2><span class="text-xs text-muted-foreground">Navigation & disclosure</span></div>
-          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="dropdown-menu"><DropdownMenu id="gallery-dropdown" label="Report actions"><template #trigger>Report actions</template><Button role="menuitem" variant="ghost">Export</Button><Button role="menuitem" variant="ghost">Archive</Button></DropdownMenu></div>
+          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="dropdown-menu"><DropdownMenu id="gallery-dropdown" label="Report actions"><template #trigger>Report actions</template><Button role="menuitem" variant="menu">Export</Button><Button role="menuitem" variant="menu">Archive</Button></DropdownMenu></div>
         </div>
         <div class="min-w-0 border-t border-border bg-muted/40 p-5 lg:border-t-0 lg:border-s sm:p-6">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vue usage</p>
@@ -1249,7 +1249,7 @@ onMounted(() => { dark.value = document.documentElement.classList.contains('dark
       <div class="grid lg:grid-cols-2">
         <div class="min-w-0 p-5 sm:p-6">
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2"><h2 class="text-lg font-semibold">ContextMenu</h2><span class="text-xs text-muted-foreground">Navigation & disclosure</span></div>
-          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="context-menu"><ContextMenu id="gallery-context" label="Context actions"><template #trigger>Right-click here</template><Button role="menuitem" variant="ghost">Inspect</Button></ContextMenu></div>
+          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="context-menu"><ContextMenu id="gallery-context" label="Context actions"><template #trigger>Right-click here</template><Button role="menuitem" variant="menu">Inspect</Button></ContextMenu></div>
         </div>
         <div class="min-w-0 border-t border-border bg-muted/40 p-5 lg:border-t-0 lg:border-s sm:p-6">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vue usage</p>
