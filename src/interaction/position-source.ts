@@ -1,6 +1,6 @@
 // One editable local helper per generated library; pipe output embeds it.
 export const positionRuntimeSource = String.raw`
-export function uiPosition(trigger: HTMLElement, popup: HTMLElement, options: {side?: 'top'|'bottom'; align?: 'start'|'center'|'end'; gap?: number; padding?: number; matchWidth?: boolean} = {}): () => void {
+export function uiPosition(trigger: HTMLElement, popup: HTMLElement, options: {side?: 'top'|'bottom'|'left'|'right'; align?: 'start'|'center'|'end'; gap?: number; padding?: number; matchWidth?: boolean} = {}): () => void {
   const doc = popup.ownerDocument, view = doc.defaultView;
   if (!view) return () => {};
   const finite = (value: number|undefined, fallback: number) => value !== undefined && Number.isFinite(value) ? Math.max(0, value) : fallback;
@@ -47,25 +47,41 @@ export function uiPosition(trigger: HTMLElement, popup: HTMLElement, options: {s
     style('--ui-anchor-width', anchor.width + 'px');
     style('max-width', limit(maxX-minX,callerMaxWidth));
     style('min-width',Math.min(maxX-minX,Math.max(minimumWidth,options.matchWidth?anchor.width:0))+'px');
-    // Measure unconstrained height so a previously shortened popup can grow again.
-    // Synchronous intermediate writes do not produce an extra ResizeObserver frame.
+    // Expanding for measurement temporarily clamps a scrolled popup back to zero.
+    // Restore its offset after constraining it; resizing can legitimately clamp it.
+    const scrollTop=popup.scrollTop, scrollLeft=popup.scrollLeft;
     style('max-height', callerMaxHeight||'none');
-    const naturalHeight = popup.getBoundingClientRect().height;
+    const natural = popup.getBoundingClientRect();
+    const horizontal=preferredSide==='left'||preferredSide==='right';
     const above = Math.max(0, Math.min(anchor.top - gap, maxY) - minY);
     const below = Math.max(0, maxY - Math.max(anchor.bottom + gap, minY));
+    const before=Math.max(0,Math.min(anchor.left-gap,maxX)-minX);
+    const after=Math.max(0,maxX-Math.max(anchor.right+gap,minX));
     let side = preferredSide;
-    const preferredSpace = side === 'top' ? above : below, otherSpace = side === 'top' ? below : above;
-    if (naturalHeight > preferredSpace && otherSpace > preferredSpace) side = side === 'top' ? 'bottom' : 'top';
-    const available = side === 'top' ? above : below;
-    style('--ui-available-height', available + 'px');
-    style('max-height',limit(available,callerMaxHeight));
+    const preferredSpace = side==='left'?before:side==='right'?after:side==='top'?above:below;
+    const otherSpace=side==='left'?after:side==='right'?before:side==='top'?below:above;
+    if ((horizontal?natural.width:natural.height)>preferredSpace&&otherSpace>preferredSpace)
+      side=side==='left'?'right':side==='right'?'left':side==='top'?'bottom':'top';
+    const available = side==='left'?before:side==='right'?after:side==='top'?above:below;
+    style('--ui-available-height',(horizontal?maxY-minY:available)+'px');
+    style('--ui-available-width',(horizontal?available:maxX-minX)+'px');
+    style('max-height',limit(horizontal?maxY-minY:available,callerMaxHeight));
+    if(horizontal){
+      style('max-width',limit(available,callerMaxWidth));
+      style('min-width',Math.min(available,Math.max(minimumWidth,options.matchWidth?anchor.width:0))+'px');
+    }
+    if(popup.scrollTop!==scrollTop)popup.scrollTop=scrollTop;
+    if(popup.scrollLeft!==scrollLeft)popup.scrollLeft=scrollLeft;
     const box = popup.getBoundingClientRect();
     const rtl = view.getComputedStyle(trigger).direction === 'rtl';
-    let left = align === 'center' ? anchor.left + (anchor.width - box.width) / 2
+    let left = horizontal?(side==='left'?anchor.left-gap-box.width:anchor.right+gap)
+      :align === 'center' ? anchor.left + (anchor.width - box.width) / 2
       : (align === 'start') !== rtl ? anchor.left : anchor.right - box.width;
-    let top = side === 'top' ? anchor.top - gap - box.height : anchor.bottom + gap;
+    let top = horizontal?(align==='center'?anchor.top+(anchor.height-box.height)/2:align==='start'?anchor.top:anchor.bottom-box.height)
+      :side === 'top' ? anchor.top - gap - box.height : anchor.bottom + gap;
     left = Math.max(minX, Math.min(left, maxX - box.width));
     top = Math.max(minY, Math.min(top, maxY - box.height));
+    style('--ui-anchor-offset', (horizontal?anchor.top+anchor.height/2-top:anchor.left+anchor.width/2-left)+'px');
     style('left', left + 'px'); style('top', top + 'px');
     attribute('data-side', side); attribute('data-align', align);
   };
@@ -76,7 +92,10 @@ export function uiPosition(trigger: HTMLElement, popup: HTMLElement, options: {s
     cleanups.push(() => target.removeEventListener(name, schedule, capture));
   };
   on(popup, 'beforetoggle'); on(popup, 'toggle');
-  on(view, 'resize'); on(doc, 'scroll', true);
+  on(view, 'resize');
+  // Internal popup scrolling cannot move its anchor and must not remeasure it.
+  const onScroll=(event:Event)=>{if(event.target instanceof Node&&popup.contains(event.target))return;schedule()};
+  doc.addEventListener('scroll',onScroll,true);cleanups.push(()=>doc.removeEventListener('scroll',onScroll,true));
   if (view.visualViewport) { on(view.visualViewport, 'resize'); on(view.visualViewport, 'scroll'); }
   if (view.ResizeObserver) {
     const observer = new view.ResizeObserver(schedule);

@@ -1,6 +1,6 @@
 {
   "reference": "https://ui.shadcn.com/docs/components",
-  "snapshot": "2026-09-29",
+  "snapshot": "2026-09-30",
   "components": {
     "accordion": {
       "status": "partial",
@@ -72,11 +72,11 @@
     },
     "combobox": {
       "status": "partial",
-      "reason": "Native input/datalist suggestion alternative, with label and options slots. No custom listbox, enforced selection, filtering callback or controlled value model."
+      "reason": "Local editable single-selection combobox with native select value/form bridge, label/keyword filtering, empty status, disabled groups, IME-safe keyboard/pointer choice, native reset/required/fieldset semantics and anchored collision positioning. No free-text values, multiple selection, rich options, async loading policy or virtualization."
     },
     "command": {
       "status": "partial",
-      "reason": "Native input/datalist command-search building block. Application dispatches commands; no command palette, fuzzy ranking or global shortcuts."
+      "reason": "Inline local searchable action list using native option/optgroup data and the shared projection core. Typed select event fires for every activation; compose local Dialog for palettes. No fuzzy ranking, rich option content, global shortcuts or automatic action dispatch."
     },
     "context-menu": {
       "status": "partial",
@@ -252,7 +252,7 @@
     },
     "tooltip": {
       "status": "partial",
-      "reason": "Local noninteractive tooltip on trigger focus/hover, hover persistence and Escape dismissal. Caller supplies unique ID and text; no delay/provider or collision positioning."
+      "reason": "Local descriptive tooltip with a manual top-layer popover, immediate keyboard focus, hover/close intent, Escape dismissal, four-side collision positioning and typed delay/placement overrides. Noninteractive text; no provider, warmup policy or arbitrary trigger."
     },
     "typography": {
       "status": "supported-extension",
@@ -277,6 +277,10 @@
     "radio": {
       "status": "supported-extension",
       "reason": "Native named radio with styled indicator, control-targeted ARIA and mount-time reset baseline. Native group owns selection."
+    },
+    "hover-card": {
+      "status": "partial",
+      "reason": "Local PreviewCard button plus native auto-popover, delayed hover, immediate focus and native click/touch fallback. Pointer/focus persistence, Escape/light dismissal and shared four-side collision positioning. No polymorphic link trigger, controlled open model, provider or safe-polygon cursor tracking."
     }
   }
 }

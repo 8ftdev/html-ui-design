@@ -2,9 +2,9 @@
 
 A plugin supplies typed variants and class recipes to local html-ui primitives. Reviewed interaction profiles can generate shared local behavior; unmapped adapter requirements remain errors. It does not install Base UI/Radix components. Vue/Vapor is the first backend. Tailwind CSS 4 and class-variance-authority 0.7.1 are consumer styling dependencies; the generator does not compile utility CSS.
 
-The library now emits 69 building blocks. See [remaining adaptations](remaining-contracts.md) for local interaction helpers and the boundaries of native date, datalist, chart, carousel and content alternatives.
+The library now emits 70 building blocks. See [remaining adaptations](remaining-contracts.md) for local interaction helpers and the boundaries of native date, searchable-list, chart, carousel and content alternatives.
 
-The Nuxt gallery at `/html-ui-plugin-gallery` shows all 69 blocks as live examples beside their Vue imports and markup. Generate it from the dashboard's `html-ui-plugin-batch/ui-library.json` with `bun scripts/build-gallery.ts`; use `bun scripts/build-gallery.ts --check` to verify the checked-in gallery and dashboard page have not drifted. The builder requires an example and category for every manifest entry, so a new component cannot silently disappear from the gallery. Set `HTML_UI_DASHBOARD` to target a different dashboard checkout.
+The Nuxt gallery at `/html-ui-plugin-gallery` shows all 70 blocks as live examples beside their Vue imports and markup. Generate it from the dashboard's `html-ui-plugin-batch/ui-library.json` with `bun scripts/build-gallery.ts`; use `bun scripts/build-gallery.ts --check` to verify the checked-in gallery and dashboard page have not drifted. The builder requires an example and category for every manifest entry, so a new component cannot silently disappear from the gallery. Set `HTML_UI_DASHBOARD` to target a different dashboard checkout.
 
 ## Generate one component
 
@@ -282,6 +282,81 @@ The required unique `id` names the visible trigger; `popupId` names the owned li
 
 Public presentation axes are `size: default | sm`, `side: bottom | top` and `align: start | center | end`. The local `ui-position.ts` helper honors recipe/caller size limits, aligns in RTL, flips and bounds the top-layer popup, tracks scrolling/resizing and restores its owned geometry on disposal. It is shared by Select, Popover and flat menus; Tooltip retains its existing behavior. Focus stays on the trigger with aria-activedescendant. Arrows/Home/End navigate enabled choices, Enter/Space/click commit, Escape cancels, Tab commits and leaves, and typing finds text matches.
 
-Scope: one string value, text option content and native optgroups. No editable search, multiple selection, virtualization, item-aligned popup, async loading policy or upstream compound API. Combobox/Command remain native input/datalist alternatives; their custom adapters are subsequent work. The neutral light/dark fixture is `tests/integration/html-ui-select-parity.vue`. Use a normal text readout for reactive model diagnostics inside a resetting form: native `<output>` reset replaces its text nodes and can invalidate Vapor's text binding.
+Scope: one string value, text option content and native optgroups. No editable search, multiple selection, virtualization, item-aligned popup, async loading policy or upstream compound API. Combobox/Command now use separate searchable contracts with shared option projection; see the searchable primitives section below. The neutral light/dark fixture is `tests/integration/html-ui-select-parity.vue`. Use a normal text readout for reactive model diagnostics inside a resetting form: native `<output>` reset replaces its text nodes and can invalidate Vapor's text binding.
 
 Select batch verification (2026-09-30): 185 plugin tests, all 71 declaration-mode catalog outputs and strict plugin consumers pass; invalid Select IDs/placement/value/part overrides are rejected. Installed `/usr/local/bin/html-ui` SHA-256 matches the rebuilt producer and its standalone select-list → Vapor → shadcn pipeline compiles. Producer Go/race/vet and 54 browser checks pass; converter Go/race/vet, 80 compiler tests, four type checks and 48 browser checks pass. Nuxt nightly typecheck/build and 213 production browser checks pass across Chromium, Firefox and WebKit with three workers. Review verified native reset/model behavior and identified the external-label observer fix and stale docs; the final checks include those changes. The previous delayed menu-toggle focus race now has a deterministic regression and preserves navigation. The final source design scan reports no findings. Preview: `http://127.0.0.1:4343/html-ui-select-parity`.
+
+## Searchable primitives
+
+Combobox and Command now map `combobox-list` and `command-list` instead of the legacy datalist primitive. Both generate one local component plus its editable recipe. `ui-interaction.ts` contains the shared option projection and searchable controller; Combobox also reuses `ui-position.ts`. No Base UI, cmdk, Floating UI or other external UI implementation is imported.
+
+```vue
+<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Combobox,Command,Dialog} from './ui'
+const framework=ref('nuxt')
+const runAction=(value:string)=>{ /* application logic */ }
+</script>
+<template>
+  <Combobox id="framework" popup-id="framework-options" name="framework"
+    v-model:value="framework" placeholder="Search frameworks…"
+    :classes="{option:'aria-disabled:opacity-70'}"
+    :styles="{popup:{maxHeight:'12rem'}}">
+    Framework
+    <template #options>
+      <option value="" hidden>Choose a framework</option>
+      <option value="nuxt">Nuxt</option>
+      <optgroup label="Alternatives">
+        <option value="astro" data-keywords="stars static">Astro</option>
+        <option value="next" disabled>Next.js</option>
+      </optgroup>
+    </template>
+  </Combobox>
+  <Command id="actions" popup-id="action-list" @select="runAction">
+    Actions
+    <template #options>
+      <optgroup label="Reports">
+        <option value="new" data-keywords="create">New report</option>
+        <option value="export">Export report</option>
+      </optgroup>
+    </template>
+  </Command>
+</template>
+```
+
+The required `id` names the visible input; `popupId` names the listbox. They must be unique and distinct. Supply an owned label, external label or `ariaLabel`/`ariaLabelledby`. Optional `ariaDescribedby`, `ariaInvalid` and `emptyText` remain typed. Combobox adds `side=bottom/top` and `align=start/center/end`. Every owned root/label/control/surface/input/icon/popup/option/empty part accepts classes/styles, including the repeated option prototype. Selector classes such as `aria-disabled:opacity-70` change a state's style; search/selection behavior stays with the adapter. The generated Vue declaration adds the narrowly typed native option `data-keywords` attribute for strict consumers.
+
+Native option/optgroup text supplies labels and stable string values. Filtering is case/diacritic-insensitive substring matching of query words against labels and optional space-separated `data-keywords`; it preserves option order. Groups with no matching items hide. Disabled and hidden options/groups cannot activate. The prototype supplies styles to projected rows; rich interactive option children are excluded.
+
+Combobox query text is separate from the committed native selection and does not submit or mutate `v-model:value`. Arrow keys navigate with focus on the input; Enter/pointer choice commits. Escape, Tab, blur and light dismissal cancel uncommitted search and restore the selected label. Home/End, horizontal arrows, Space and IME retain native editing behavior. Reset restores the mount-time selection; required validation focuses the visible input, and fieldset/inert state tracks ancestor changes and relocation. An external model update restores the matching label and unfiltered options. Clearing the model from application logic clears the selection.
+
+Command is an inline listbox. `@select` receives a string on every activation, including the same action twice; changed native values also emit the existing input/change and model notifications. Search text remains unchanged by activation. Escape clears the query while allowing a surrounding native Dialog to handle Escape. Compose Command inside the generated Dialog for a palette; application logic owns action dispatch, dialog lifecycle and global shortcut registration. Command has no submitted field name or required form constraint.
+
+Scope: single string values, native option/optgroup data, flat text rows and synchronous filtering. No free-text committed values, chips/multiple selection, virtualization, fuzzy ranking, async loading policy, registered keyboard shortcuts or upstream compound API. Native datalist primitives remain available through the producer's legacy catalog. Preview fixture: `tests/integration/html-ui-search-parity.vue`; generated dashboard preview: `http://127.0.0.1:4343/html-ui-search-parity`.
+
+Searchable batch verification (2026-09-30): 202 plugin tests pass; all 73 declaration-mode catalog outputs compile/typecheck, and strict generated-library consumers accept the searchable API while rejecting invalid IDs, placement and event types. Producer Go/race/vet and 54 native browser checks pass. The generated dashboard passes Nuxt nightly typecheck/build and all 246 production browser checks across Chromium, Firefox and WebKit, including Select scroll preservation and Combobox current-choice preservation. Independent architecture review has no remaining Important/Critical findings. The converter needed no changes. Installed CLI verification (2026-10-01): `/usr/local/bin/html-ui` SHA-256 matches the rebuilt producer, lists all 73 primitives including `combobox-list` and `command-list`, and regenerates the complete dashboard library with zero differences.
+
+
+## Hover overlays
+
+Tooltip and HoverCard generate compact local components and editable recipes. HoverCard maps the producer's existing `preview-card`; no producer or Vue converter changes are needed. Libraries now expose 70 building blocks, including IconButton. Both reuse the one local `ui-position.ts` helper, with `side: top | bottom | left | right`, `align: start | center | end`, viewport flipping/clamping, RTL logical alignment on vertical sides, scroll/resize tracking and caller size caps. Left/right are physical sides. Native top-layer presentation prevents ancestor overflow clipping.
+
+```vue
+<Tooltip id="publish-tip" side="top" :close-delay="200" variant="outline">
+  <template #trigger>Publish report</template>
+  Share this report with your workspace.
+</Tooltip>
+<HoverCard id="profile-preview" :open-delay="120" side="bottom" variant="link">
+  <template #trigger>@korestack</template>
+  <p>Optional profile details.</p>
+  <a href="/profile">View profile</a>
+</HoverCard>
+```
+
+Unique `id` is required. Both support typed numeric `openDelay`, `closeDelay` and `sideOffset` (milliseconds for delays, CSS pixels for offset). Negative values clamp to zero; non-finite values use defaults. Tooltip defaults to immediate hover opening and 200ms close grace, matching the pinned provider's immediate-opening intent; HoverCard defaults to 600ms opening and 300ms close grace. Offset defaults to 4px. Keyboard focus opens immediately. Hovering the popup cancels closure; close grace permits crossing the trigger gap. Leaving all pointer/focus targets dismisses. Escape dismisses and latches until a new hover/focus interaction; a focused HoverCard link returns focus to its button. Within Dialog, the first Escape dismisses the open overlay, and a later Escape reaches the native dialog.
+
+Tooltip retains `aria-describedby` and noninteractive text content. While mounted its reviewed adapter promotes the owned descriptive div into a manual native popover, restores the original attribute/hidden state on disposal, and never focuses content. Its native `hidden` prop remains initial visibility metadata; the adapter owns interactive visibility. Its arrow is an editable CSS `::after` decoration on the tooltip part. Overlong descriptions switch the default visible-overflow recipe to native scrolling inside the bounded popup; the exterior arrow is clipped for that case. Short content restores visible overflow. Caller-selected hidden/auto/scroll overflow is respected, and later inline edits are preserved. HoverCard retains its native auto-popover and button invocation, with click/touch fallback and normal focus order for content. Essential content/actions must remain available elsewhere; previews are supplementary. Touch pointer entry does not schedule hover.
+
+Native disabled/fieldset inheritance, `aria-disabled` and inert ancestry block opening and dismiss open overlays, including after DOM relocation. Timers, document observers, event listeners and position ownership dispose with the Vue scope. Classes/styles/unstyled remain available for all owned parts; caller-edited style values are preserved by the positioning helper. No provider, global warmup policy, controlled-open model, polymorphic link trigger, safe-polygon cursor tracking or external popup implementation. Tooltip text remains noninteractive; use HoverCard or Popover for interactive content. Preview: `http://127.0.0.1:4343/html-ui-hover-parity`.
+
+Hover batch verification (2026-10-01): 222 plugin tests and all 282 production dashboard checks pass across Chromium, Firefox and WebKit. Strict generated consumers, plugin typecheck/build and Nuxt nightly typecheck/build pass. Support/gallery artifacts are current, and installed `/usr/local/bin/html-ui` regeneration reports zero differences. Independent review findings for caller attribute ownership, reactive IDs and long tooltip text are covered by passing regressions.

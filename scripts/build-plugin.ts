@@ -6,6 +6,8 @@ import { z } from "zod";
 import { addNativeBatch } from "./plugin-batch-one";
 import { addCompositionBatch } from "./plugin-batch-two";
 import { addFormContentBatch } from "./plugin-batch-three";
+import {addHoverParity} from './plugin-hover-parity';
+import { addSearchParity } from './plugin-search-parity';
 import { addSelectParity } from "./plugin-select-parity";
 import { addFormParity } from "./plugin-form-parity";
 import { addRemainingContracts } from "./plugin-remaining";
@@ -40,7 +42,7 @@ const p: any = {
   pluginVersion: 1,
   name: "shadcn-ui",
   provenance: {
-    source: "shadcn registry/base-nova (2026-09-29)",
+    source: "shadcn registry/base-nova (2026-10-01)",
     revision: createHash("sha256").update(raw).digest("hex"),
     license: "MIT; shadcn",
   },
@@ -159,6 +161,8 @@ addFormContentBatch(p, source);
 addRemainingContracts(p, source);
 addFormParity(p, source);
 addSelectParity(p, source);
+addSearchParity(p, source);
+addHoverParity(p, source);
 writeFileSync(
   "src/plugins/builtin/shadcn-ui.json",
   JSON.stringify(parsePlugin(p), null, 2) + "\n",

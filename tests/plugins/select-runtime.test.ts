@@ -1,6 +1,7 @@
 import {test} from 'bun:test';
 import {chromium,expect as browserExpect} from '@playwright/test';
 const expect=browserExpect.configure({timeout:1000});
+import {listRuntimeSource} from '../../src/interaction/list-source';
 import {selectRuntimeSource} from '../../src/interaction/select-source';
 import {positionRuntimeSource} from '../../src/interaction/position-source';
 const markup=`<form><div data-ui="select-list" data-ui-part="root" data-placeholder="Choose status">
@@ -9,7 +10,7 @@ const markup=`<form><div data-ui="select-list" data-ui-part="root" data-placehol
 <div role="listbox" id="choices" popover="auto" data-ui="select-list" data-ui-part="popup"><div hidden role="option" data-ui="select-list" data-ui-part="option" class="option-prototype"></div></div></div><button type="reset">Reset</button><button type="submit">Submit</button></form>`;
 async function fixture(run:(page:any)=>Promise<void>){
  const browser=await chromium.launch({headless:true});const page=await browser.newPage();
- try{await page.setContent(markup);const code=new Bun.Transpiler({loader:'ts'}).transformSync((positionRuntimeSource+selectRuntimeSource).replace(/^export /gm,'')+`;if(typeof uiSelect==='function')window.controller=uiSelect(document.querySelector('[data-ui-part=root]'));`);await page.addScriptTag({content:code});await run(page)}finally{await browser.close()}
+ try{await page.setContent(markup);const code=new Bun.Transpiler({loader:'ts'}).transformSync((positionRuntimeSource+listRuntimeSource+selectRuntimeSource).replace(/^export /gm,'')+`;if(typeof uiSelect==='function')window.controller=uiSelect(document.querySelector('[data-ui-part=root]'));`);await page.addScriptTag({content:code});await run(page)}finally{await browser.close()}
 }
 test('Select projects options into owned accessible choices and commits native form values',async()=>fixture(async page=>{
  await expect(page.locator('[data-ui-part=value]')).toHaveText('Draft');await page.getByRole('combobox',{name:'Status'}).click();

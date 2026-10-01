@@ -51,7 +51,7 @@ export const pluginSchema = z.strictObject({
     componentName,
     z.strictObject({
       primitive: identifier,
-      interaction: z.enum(['dialog','popover','tabs','menu','context-menu','toolbar','toggle','toggle-group','tooltip','select']).optional(),
+      interaction: z.enum(['dialog','popover','tabs','menu','context-menu','toolbar','toggle','toggle-group','tooltip','hover-card','select','combobox','command']).optional(),
       parts: z
         .record(identifier, recipeSchema)
         .refine(

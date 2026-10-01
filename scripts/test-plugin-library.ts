@@ -145,3 +145,28 @@ for (const [name, source] of Object.entries(partialFiles))
   writeFileSync(resolve(out, name), source);
 check();
 console.log("PASS: partial per-part axes share a typed public union");
+writeFileSync(resolve(out,'Search.vue'),`<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Combobox,Command,Dialog} from './index'
+const value=ref('nuxt'),actions=ref<string[]>([])
+const run=(value:string)=>actions.value.push(value)
+</script><template>
+<Combobox id="consumer-search" popup-id="consumer-options" v-model:value="value" name="framework" required side="top" align="end" :classes="{input:'font-normal',option:'aria-disabled:opacity-70'}" :styles="{popup:{maxHeight:'12rem'}}">Framework<template #options><option value="nuxt">Nuxt</option><option value="astro" data-keywords="stars">Astro</option></template></Combobox>
+<Dialog id="consumer-command-dialog" title-id="consumer-command-title"><template #trigger>Open</template><template #title>Actions</template><Command id="consumer-command" popup-id="consumer-actions" empty-text="No actions" @select="run">Actions<template #options><optgroup label="Reports"><option value="new">New report</option></optgroup></template></Command><template #close>Close</template></Dialog>
+</template>`);
+check();
+for(const [component,attrs] of [['Combobox','id="one"'],['Combobox','id="one" popup-id="two" side="left"'],['Command','id="one"'],['Command','id="one" popup-id="two" @select="(value: boolean)=>{}"']]){
+ writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}>Label<template #options><option value="one">One</option></template></${component}></template>`);
+ try{check();throw new Error('invalid searchable contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
+}
+rmSync(resolve(out,'Search.vue'));check();console.log('PASS: searchable model, part overrides, placement and Command action events typecheck; invalid IDs/placement/event types rejected');
+
+writeFileSync(resolve(out,'Hover.vue'),`<script setup lang="ts" vapor>import {Tooltip,HoverCard} from './index'</script><template>
+<Tooltip id="typed-tooltip" side="left" align="end" :open-delay="100" :close-delay="200" :side-offset="8" :classes="{tooltip:'max-w-48'}"><template #trigger>Help</template>Descriptive text</Tooltip>
+<HoverCard id="typed-preview" side="right" align="start" :open-delay="100" :close-delay="200" :styles="{popup:{maxHeight:'10rem'}}"><template #trigger>Preview</template>Preview details</HoverCard>
+</template>`);check();
+for(const [component,attrs] of [['Tooltip','id="one" side="diagonal"'],['HoverCard','id="one" open-delay="slow"'],['HoverCard','align="start"']]){
+ writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}><template #trigger>Help</template>Details</${component}></template>`);
+ try{check();throw new Error('invalid hover contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
+}
+rmSync(resolve(out,'Hover.vue'));check();console.log('PASS: hover placement, delays and part overrides typecheck; invalid placement/delay and missing IDs rejected');

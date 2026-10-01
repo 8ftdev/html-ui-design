@@ -25,11 +25,11 @@ function reset(){notice.value=''}
     <Menubar label="Document menu"><Button role="menuitem" variant="ghost">File</Button><Button role="menuitem" variant="ghost">Edit</Button></Menubar>
     <div class="flex flex-wrap gap-3"><DropdownMenu id="demo-menu" label="Report actions menu"><template #trigger>Report actions</template><div aria-label="Report actions menu"><Button role="menuitem" variant="ghost" @click="action='export'">Export report</Button><Button role="menuitem" variant="ghost" aria-disabled="true" @click="action='blocked'">Blocked action</Button><Button role="menuitem" variant="ghost" disabled>Unavailable action</Button><Button role="menuitem" variant="ghost" @click="action='archive'">Archive report</Button></div></DropdownMenu><ContextMenu id="demo-context" label="Context actions menu"><template #trigger>Context actions</template><Button role="menuitem" variant="ghost" @click="action='inspect'">Inspect report</Button><Button role="menuitem" variant="ghost">Copy address</Button></ContextMenu><output data-testid="action">{{action}}</output></div>
    </Card>
-   <Card><h2 class="text-lg font-semibold">Native input alternatives</h2><p class="text-sm text-muted-foreground">Browser date picker and datalist; no custom month grid or command palette.</p>
+   <Card><h2 class="text-lg font-semibold">Native input alternatives</h2><p class="text-sm text-muted-foreground">Browser date picker and local searchable controls; no custom month grid.</p>
     <form data-testid="native-form" @submit.prevent @reset="reset"><Grid gap="default" columns="1" md-columns="2">
      <DatePicker name="date" v-model:value="date" min="2026-01-01" max="2026-12-31">Report date</DatePicker><Calendar name="calendar" :value="date">Calendar alternative</Calendar>
-     <Combobox name="project" list-id="projects">Project suggestions<template #options><option value="Atlas"/><option value="Orbit"/></template></Combobox>
-     <Command name="command" list-id="commands">Command search<template #options><option value="New report"/><option value="Open settings"/></template></Command>
+     <Combobox id="project-search" popup-id="projects" name="project">Project suggestions<template #options><option value="Atlas">Atlas</option><option value="Orbit">Orbit</option></template></Combobox>
+     <Command id="command-search" popup-id="commands">Command search<template #options><option value="new">New report</option><option value="settings">Open settings</option></template></Command>
      <Select id="remaining-status" popup-id="remaining-status-options" name="status">Status<template #options><option value="draft">Draft</option><option value="published">Published</option></template></Select>
      <InputOtp name="code" v-model:value="code" :max-length="6">Verification code</InputOtp>
      <Questionnaire name="questions"><template #legend>Notifications</template><Checkbox name="updates">Product updates</Checkbox></Questionnaire>

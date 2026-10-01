@@ -1,16 +1,16 @@
 {
   "contractVersion": 2,
   "reference": "https://ui.shadcn.com/docs/components",
-  "snapshot": "2026-09-29",
+  "snapshot": "2026-09-30",
   "plugin": "shadcn-ui",
-  "revision": "3cdbf436d4d54a4de46b9394b43fb2d7f5bf5f9097228919f5d40909e955801d",
+  "revision": "158176ecd834d3979bed97468308b09c378ae75f48cab31ff2f98f104b89d729",
   "summary": {
-    "mappedPrimitives": 68,
+    "mappedPrimitives": 69,
     "compositions": 1,
-    "total": 69
+    "total": 70
   },
   "legacyDeclarationMode": {
-    "catalogCount": 71,
+    "catalogCount": 73,
     "establishesPluginSupport": false
   },
   "components": {
@@ -744,36 +744,40 @@
     },
     "combobox": {
       "status": "partial",
-      "reason": "Native input/datalist suggestion alternative, with label and options slots. No custom listbox, enforced selection, filtering callback or controlled value model.",
-      "primitive": "autocomplete",
+      "reason": "Local editable single-selection combobox with native select value/form bridge, label/keyword filtering, empty status, disabled groups, IME-safe keyboard/pointer choice, native reset/required/fieldset semantics and anchored collision positioning. No free-text values, multiple selection, rich options, async loading policy or virtualization.",
+      "primitive": "combobox-list",
       "parts": [
         "root",
+        "label",
         "control",
-        "options"
+        "surface",
+        "input",
+        "icon",
+        "popup",
+        "option",
+        "empty"
       ],
       "slots": [
         "default",
         "options"
       ],
-      "axes": {},
+      "axes": {
+        "side": [
+          "bottom",
+          "top"
+        ],
+        "align": [
+          "start",
+          "center",
+          "end"
+        ]
+      },
       "nativeStates": {
         "control": {
           "disabled": {
             "source": {
               "node": "control",
               "pseudo": "disabled"
-            }
-          },
-          "focusVisible": {
-            "source": {
-              "node": "control",
-              "pseudo": "focus-visible"
-            }
-          },
-          "hover": {
-            "source": {
-              "node": "control",
-              "pseudo": "hover"
             }
           },
           "invalid": {
@@ -789,28 +793,95 @@
             }
           }
         },
-        "options": {},
-        "root": {
+        "empty": {},
+        "icon": {},
+        "input": {
           "disabled": {
             "source": {
-              "node": "control",
+              "node": "input",
               "pseudo": "disabled"
             }
+          },
+          "expanded": {
+            "source": {
+              "node": "input",
+              "attribute": "aria-expanded",
+              "value": "true"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "input",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "input",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "input",
+              "attribute": "aria-invalid",
+              "value": "true"
+            }
           }
-        }
+        },
+        "label": {},
+        "option": {
+          "disabled": {
+            "source": {
+              "node": "option",
+              "attribute": "aria-disabled",
+              "value": "true"
+            }
+          },
+          "highlighted": {
+            "source": {
+              "node": "option",
+              "attribute": "data-highlighted",
+              "value": "true"
+            }
+          },
+          "selected": {
+            "source": {
+              "node": "option",
+              "attribute": "aria-selected",
+              "value": "true"
+            }
+          }
+        },
+        "popup": {
+          "open": {
+            "source": {
+              "node": "popup",
+              "pseudo": "popover-open"
+            }
+          }
+        },
+        "root": {},
+        "surface": {}
       },
-      "behavior": "native",
-      "interaction": null,
+      "behavior": "adapter-required",
+      "interaction": "combobox",
       "motion": {}
     },
     "command": {
       "status": "partial",
-      "reason": "Native input/datalist command-search building block. Application dispatches commands; no command palette, fuzzy ranking or global shortcuts.",
-      "primitive": "autocomplete",
+      "reason": "Inline local searchable action list using native option/optgroup data and the shared projection core. Typed select event fires for every activation; compose local Dialog for palettes. No fuzzy ranking, rich option content, global shortcuts or automatic action dispatch.",
+      "primitive": "command-list",
       "parts": [
         "root",
+        "label",
         "control",
-        "options"
+        "surface",
+        "input",
+        "icon",
+        "popup",
+        "option",
+        "empty"
       ],
       "slots": [
         "default",
@@ -823,18 +894,6 @@
             "source": {
               "node": "control",
               "pseudo": "disabled"
-            }
-          },
-          "focusVisible": {
-            "source": {
-              "node": "control",
-              "pseudo": "focus-visible"
-            }
-          },
-          "hover": {
-            "source": {
-              "node": "control",
-              "pseudo": "hover"
             }
           },
           "invalid": {
@@ -850,18 +909,72 @@
             }
           }
         },
-        "options": {},
-        "root": {
+        "empty": {},
+        "icon": {},
+        "input": {
           "disabled": {
             "source": {
-              "node": "control",
+              "node": "input",
               "pseudo": "disabled"
             }
+          },
+          "expanded": {
+            "source": {
+              "node": "input",
+              "attribute": "aria-expanded",
+              "value": "true"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "input",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "input",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "input",
+              "attribute": "aria-invalid",
+              "value": "true"
+            }
           }
-        }
+        },
+        "label": {},
+        "option": {
+          "disabled": {
+            "source": {
+              "node": "option",
+              "attribute": "aria-disabled",
+              "value": "true"
+            }
+          },
+          "highlighted": {
+            "source": {
+              "node": "option",
+              "attribute": "data-highlighted",
+              "value": "true"
+            }
+          },
+          "selected": {
+            "source": {
+              "node": "option",
+              "attribute": "aria-selected",
+              "value": "true"
+            }
+          }
+        },
+        "popup": {},
+        "root": {},
+        "surface": {}
       },
-      "behavior": "native",
-      "interaction": null,
+      "behavior": "adapter-required",
+      "interaction": "command",
       "motion": {}
     },
     "context-menu": {
@@ -2940,7 +3053,7 @@
     },
     "tooltip": {
       "status": "partial",
-      "reason": "Local noninteractive tooltip on trigger focus/hover, hover persistence and Escape dismissal. Caller supplies unique ID and text; no delay/provider or collision positioning.",
+      "reason": "Local descriptive tooltip with a manual top-layer popover, immediate keyboard focus, hover/close intent, Escape dismissal, four-side collision positioning and typed delay/placement overrides. Noninteractive text; no provider, warmup policy or arbitrary trigger.",
       "primitive": "tooltip",
       "parts": [
         "root",
@@ -2952,6 +3065,17 @@
         "default"
       ],
       "axes": {
+        "side": [
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ],
+        "align": [
+          "start",
+          "center",
+          "end"
+        ],
         "variant": [
           "default",
           "outline",
@@ -3235,6 +3359,91 @@
       },
       "behavior": "native",
       "interaction": null,
+      "motion": {}
+    },
+    "hover-card": {
+      "status": "partial",
+      "reason": "Local PreviewCard button plus native auto-popover, delayed hover, immediate focus and native click/touch fallback. Pointer/focus persistence, Escape/light dismissal and shared four-side collision positioning. No polymorphic link trigger, controlled open model, provider or safe-polygon cursor tracking.",
+      "primitive": "preview-card",
+      "parts": [
+        "root",
+        "trigger",
+        "popup"
+      ],
+      "slots": [
+        "trigger",
+        "default"
+      ],
+      "axes": {
+        "side": [
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ],
+        "align": [
+          "start",
+          "center",
+          "end"
+        ],
+        "variant": [
+          "default",
+          "outline",
+          "secondary",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "default",
+          "xs",
+          "sm",
+          "lg",
+          "icon",
+          "icon-xs",
+          "icon-sm",
+          "icon-lg"
+        ]
+      },
+      "nativeStates": {
+        "popup": {
+          "open": {
+            "source": {
+              "node": "popup",
+              "pseudo": "popover-open"
+            }
+          }
+        },
+        "root": {},
+        "trigger": {
+          "active": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "active"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        }
+      },
+      "behavior": "adapter-required",
+      "interaction": "hover-card",
       "motion": {}
     }
   }

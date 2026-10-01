@@ -66,7 +66,10 @@
               "toggle",
               "toggle-group",
               "tooltip",
-              "select"
+              "hover-card",
+              "select",
+              "combobox",
+              "command"
             ]
           },
           "parts": {

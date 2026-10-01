@@ -6,7 +6,8 @@ export function uiSelect(root: HTMLElement) {
   const control = part('control') as HTMLSelectElement, trigger = part('trigger') as HTMLButtonElement;
   const popup = part('popup'), displayed = part('value'), prototype = part('option');
   if (!control || !trigger || !popup || !displayed || !prototype) throw new Error('Select requires owned reviewed parts');
-  const cleanups: (()=>void)[] = [], projected: HTMLElement[] = [];
+  const cleanups: (()=>void)[] = [];
+  const list=uiOptions(control,popup,prototype),projected=list.items;
   const listen = (node: EventTarget, name: string, fn: (e:any)=>void) => {node.addEventListener(name,fn);cleanups.push(()=>node.removeEventListener(name,fn))};
   const doc = root.ownerDocument;
   let disposed=false, active=-1, buffer='', typedAt=0, invalid=false, baseline=false, queued=false;
@@ -16,7 +17,7 @@ export function uiSelect(root: HTMLElement) {
   const opened = () => popup.matches(':popover-open');
   const unavailable = () => control.matches(':disabled') || Boolean(root.closest('[inert]'));
   const options = () => Array.from(control.options);
-  const enabled = (i:number) => {const option=control.options[i];return Boolean(option&&!option.disabled&&!option.hidden&&!(option.parentElement instanceof HTMLOptGroupElement&&option.parentElement.disabled))};
+  const enabled = (i:number) => uiOptionEnabled(control.options[i]);
   const candidates = () => options().map((_,i)=>i).filter(enabled);
   const hide = () => {if(opened())popup.hidePopover();trigger.setAttribute('aria-expanded','false');trigger.removeAttribute('aria-activedescendant');active=-1};
   const highlight = (index:number) => {
@@ -50,27 +51,7 @@ export function uiSelect(root: HTMLElement) {
   };
   const render = () => {
     if(disposed)return;
-    for(const item of Array.from(popup.children))if(item!==prototype)item.remove();
-    projected.length=0;
-    const append = (option: HTMLOptionElement, parent:HTMLElement) => {
-      if(option.hidden)return;
-      const index=options().indexOf(option),item=prototype.cloneNode(false) as HTMLElement;
-      item.hidden=false;item.id=popup.id+'-option-'+index;item.dataset.optionIndex=String(index);
-      item.removeAttribute('data-highlighted');item.tabIndex=-1;
-      const text=doc.createElement('span');text.textContent=option.label||option.textContent||'';
-      const icon=doc.createElementNS('http://www.w3.org/2000/svg','svg');icon.setAttribute('viewBox','0 0 24 24');icon.setAttribute('fill','none');icon.setAttribute('stroke','currentColor');icon.setAttribute('stroke-width','2');icon.setAttribute('aria-hidden','true');icon.dataset.uiCheck='';
-      const path=doc.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','m5 12 4 4L19 6');icon.append(path);
-      item.append(text,icon);parent.append(item);projected.push(item);
-    };
-    for(const child of Array.from(control.children)){
-      if(child instanceof HTMLOptionElement)append(child,popup);
-      else if(child instanceof HTMLOptGroupElement){
-        const group=doc.createElement('div');group.setAttribute('role','group');group.setAttribute('aria-label',child.label);
-        const label=doc.createElement('div');label.dataset.uiGroupLabel='';label.textContent=child.label;label.setAttribute('aria-hidden','true');group.append(label);
-        for(const option of Array.from(child.children))if(option instanceof HTMLOptionElement)append(option,group);
-        popup.append(group);
-      }
-    }
+    list.render();
     sync();if(opened())highlight(enabled(active)?active:(enabled(control.selectedIndex)?control.selectedIndex:(candidates()[0]??-1)));
   };
   const schedule = () => {if(queued||disposed)return;queued=true;queueMicrotask(()=>{queued=false;if(!disposed)render()})};
@@ -125,6 +106,6 @@ export function uiSelect(root: HTMLElement) {
   cleanups.push(()=>observer.disconnect(),()=>presentation.disconnect(),()=>ancestry.disconnect());
   cleanups.push(()=>disposePosition?.());
   render();
-  return {sync,dispose:()=>{if(disposed)return;disposed=true;hide();for(const dispose of cleanups)dispose();for(const item of Array.from(popup.children))if(item!==prototype)item.remove()}};
+  return {sync,dispose:()=>{if(disposed)return;disposed=true;hide();for(const dispose of cleanups)dispose();list.dispose()}};
 }
 `;

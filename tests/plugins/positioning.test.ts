@@ -184,3 +184,29 @@ test('respects caller popup size caps present before mounting',async()=>{
 test('retains recipe minimum width when matching a narrower trigger',async()=>{
  const page=await fixture('left:100px;top:100px;width:100px;height:30px','width:auto;min-width:144px;height:100px');try{await position(page,{matchWidth:true});expect((await rect(page)).width).toBeGreaterThanOrEqual(144)}finally{await page.close()}
 });
+
+test('keeps the popup scroll position through internal scrolling and viewport measurement', async () => {
+ const page=await fixture('left:100px;top:100px;width:100px;height:30px','width:180px;overflow:auto');
+ try {
+  await page.locator('#popup').evaluate((e:HTMLElement)=>{const content=document.createElement('div');content.style.height='1000px';content.textContent='Long list';e.append(content)});
+  await position(page);
+  await page.locator('#popup').evaluate((e:HTMLElement)=>e.scrollTop=200);
+  await page.evaluate(async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>requestAnimationFrame(resolve))});
+  expect(await page.locator('#popup').evaluate((e:HTMLElement)=>e.scrollTop)).toBe(200);
+  await page.evaluate(()=>window.dispatchEvent(new Event('resize')));
+  await page.evaluate(async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>requestAnimationFrame(resolve))});
+  expect(await page.locator('#popup').evaluate((e:HTMLElement)=>e.scrollTop)).toBe(200);
+  const writes=await page.evaluate(async()=>{let writes=0;const observer=new MutationObserver(records=>writes+=records.length);observer.observe(document.querySelector('#popup')!,{attributes:true});for(let i=0;i<6;i++)await new Promise(resolve=>requestAnimationFrame(resolve));observer.disconnect();return writes});
+  expect(writes).toBe(0);
+ }finally{await page.close()}
+});
+
+test('places and flips horizontal sides while constraining width to the available space',async()=>{
+ const page=await fixture('left:220px;top:150px;width:60px;height:30px','width:180px;height:70px');
+ try{
+ await position(page,{side:'left',align:'center',gap:6});expect(await rect(page)).toMatchObject({left:34,top:130,side:'left'});
+ await page.locator('#trigger').evaluate((e:HTMLElement)=>{e.style.left='15px';window.dispatchEvent(new Event('resize'))});await page.waitForFunction(()=>document.querySelector<HTMLElement>('#popup')!.dataset.side==='right');expect((await rect(page)).left).toBe(81);
+ await page.evaluate(()=>(window as any).dispose());await page.locator('#popup').evaluate((e:HTMLElement)=>e.hidePopover());
+ await page.locator('#trigger').evaluate((e:HTMLElement)=>e.style.left='240px');await page.locator('#popup').evaluate((e:HTMLElement)=>e.style.width='700px');await position(page,{side:'right',align:'end',gap:6});const box=await rect(page);expect(box.side).toBe('left');expect(box.left).toBeGreaterThanOrEqual(8);expect(box.right).toBe(234);expect(box.bottom).toBe(180);
+ }finally{await page.close()}
+});

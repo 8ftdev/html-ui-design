@@ -73,4 +73,4 @@ After generation, run the dashboard's `check`, `build`, and `test` scripts from 
 
 Use `--plugin shadcn-ui` to emit typed CVA/Tailwind recipes on local html-ui implementations. Use `--out-dir` to generate the shared local library, with recipe/metadata companions. Tailwind and CVA are allowed dependencies; external component implementations are not used. See [plugin usage and custom contracts](docs/plugins.md), [support matrix](docs/support.md), and [source notices](docs/THIRD-PARTY-NOTICES.md).
 
-The class plugin currently emits 69 building blocks (68 mapped primitives plus local IconButton). Accordion and Collapsible optionally share a local WAAPI disclosure helper; motion recipes and the native batch are documented in [plugin usage](docs/plugins.md#native-contract-batch-and-motion).
+The class plugin currently emits 70 building blocks (69 mapped primitives plus local IconButton). Accordion and Collapsible optionally share a local WAAPI disclosure helper; motion recipes and the native batch are documented in [plugin usage](docs/plugins.md#native-contract-batch-and-motion).

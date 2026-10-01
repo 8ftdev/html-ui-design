@@ -37,3 +37,12 @@ test('Select inside a native dialog remains usable and forced colors paint the g
  await page.getByRole('button',{name:'Open dialog',exact:true}).click();await page.getByRole('combobox',{name:'Team',exact:true}).click();await page.getByRole('option',{name:'Engineering',exact:true}).click();await expect(page.getByRole('combobox',{name:'Team',exact:true})).toHaveText('Engineering');await page.getByRole('button',{name:'Close dialog',exact:true}).click();
  await page.emulateMedia({forcedColors:'active'});await page.getByRole('combobox',{name:'Status',exact:true}).click();await expect(page.getByRole('option',{name:'Draft',exact:true}).locator('svg')).toBeVisible();
 })
+
+test('viewport-constrained Workspace list scrolls to its final option and commits it',async({page})=>{
+ await page.setViewportSize({width:390,height:600});
+ const trigger=page.getByRole('combobox',{name:'Workspace',exact:true});await trigger.scrollIntoViewIfNeeded();await trigger.click();
+ const popup=page.getByRole('listbox',{name:'Workspace',exact:true});await expect(popup).toBeVisible();
+ const box=(await popup.boundingBox())!;await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,2000);
+ const last=popup.getByRole('option',{name:'Workspace 30',exact:true});await expect(last).toBeInViewport({ratio:1});
+ await last.click();await expect(trigger).toHaveText('Workspace 30');await expect(trigger).toHaveAttribute('aria-expanded','false');await expect(trigger).toBeFocused();
+});

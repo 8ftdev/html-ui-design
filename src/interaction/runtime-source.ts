@@ -1,8 +1,11 @@
+import {hoverRuntimeSource} from './hover-source';
+import {searchRuntimeSource} from './search-source';
+import {listRuntimeSource} from './list-source';
 import {selectRuntimeSource} from './select-source';
 import {positionRuntimeSource} from './position-source';
 // One editable local helper per generated library; pipe output embeds it.
 const interactionBody=String.raw`
-export type UiInteraction = 'dialog'|'popover'|'tabs'|'menu'|'context-menu'|'toolbar'|'toggle'|'toggle-group'|'tooltip'|'select';
+export type UiInteraction = 'dialog'|'popover'|'tabs'|'menu'|'context-menu'|'toolbar'|'toggle'|'toggle-group'|'tooltip'|'hover-card'|'select';
 export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: (pressed:boolean)=>void) {
   const cleanups: (()=>void)[]=[];
   const on=(node:EventTarget,type:string,handler:(event:any)=>void,capture=false)=>{node.addEventListener(type,handler,capture);cleanups.push(()=>node.removeEventListener(type,handler,capture))};
@@ -11,6 +14,7 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
   const notify=()=>root.dispatchEvent(new Event('change',{bubbles:true}));
   const part=(name:string)=>Array.from(root.querySelectorAll<HTMLElement>('[data-ui-part="'+name+'"]')).find(node=>node.dataset.ui===root.dataset.ui&&owned(node));
   if(kind==='select')return uiSelect(root).dispose;
+  if(kind==='tooltip'||kind==='hover-card')return uiHover(root,kind).dispose;
   const popup=part('popup'),trigger=part('trigger');
   if(popup&&trigger&&['popover','menu','context-menu'].includes(kind))cleanups.push(uiPosition(trigger,popup));
   const visible=()=>Boolean(popup?.matches(':popover-open'));
@@ -93,22 +97,9 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
       on(popup,'click',(e:MouseEvent)=>{const item=(e.target as Element).closest<HTMLElement>('[role^="menuitem"]');if(!item)return;if(disabled(item)){e.preventDefault();e.stopPropagation();return}hide();trigger.focus()});
     }
   }
-  if(kind==='tooltip'){
-    const tip=part('tooltip');let escaped=false;
-    if(tip&&trigger){
-      tip.hidden=true;
-      const reveal=()=>{if(!disabled(trigger)&&!escaped)tip.hidden=false};
-      const conceal=()=>{tip.hidden=true};
-      on(root,'pointerenter',()=>{escaped=false;reveal()});
-      on(root,'pointerleave',()=>{if(!root.contains(document.activeElement))conceal();escaped=false});
-      on(trigger,'focus',()=>{escaped=false;reveal()});
-      on(root,'focusout',(e:FocusEvent)=>{if(!root.contains(e.relatedTarget as Node)&&!root.matches(':hover'))conceal()});
-      on(document,'keydown',(e:KeyboardEvent)=>{if(e.key==='Escape'&&!tip.hidden){escaped=true;conceal()}});
-    }
-  }
   return ()=>cleanups.forEach(dispose=>dispose());
 }
 `;
 
-export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+selectRuntimeSource+interactionBody;
-export const inlineInteractionRuntimeSource=(positionRuntimeSource+selectRuntimeSource+interactionBody).replace(/^export /gm,'');
+export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+interactionBody;
+export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+interactionBody).replace(/^export /gm,'');

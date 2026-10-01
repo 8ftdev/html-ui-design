@@ -56,8 +56,8 @@ const samples: Record<string, string> = {
   'input-otp': '<InputOtp name="verification" :max-length="6">Verification code</InputOtp>',
   'date-picker': '<DatePicker name="due-date" value="2026-09-29">Due date</DatePicker>',
   'calendar': '<Calendar name="calendar-date" value="2026-09-29">Calendar date</Calendar>',
-  'combobox': '<Combobox name="project" list-id="gallery-projects">Project<template #options><option value="Atlas" /><option value="Orbit" /></template></Combobox>',
-  'command': '<Command name="command" list-id="gallery-commands">Command<template #options><option value="New report" /><option value="Open settings" /></template></Command>',
+  'combobox': '<Combobox id="gallery-project" popup-id="gallery-projects" name="project">Project<template #options><option value="Atlas">Atlas</option><option value="Orbit">Orbit</option></template></Combobox>',
+  'command': '<Command id="gallery-command" popup-id="gallery-commands">Command<template #options><option value="new">New report</option><option value="settings">Open settings</option></template></Command>',
   'select': '<Select id="gallery-priority" popup-id="gallery-priority-list" name="priority">Priority<template #options><option>Normal</option><option>High</option></template></Select>',
   'data-table': '<DataTable><template #caption>Tasks</template><template #head><tr><th scope="col">Task</th><th scope="col">State</th></tr></template><tr><td>Review report</td><td>Open</td></tr></DataTable>',
   'attachment': '<Attachment href="#sample-download" download="report.txt">Download report</Attachment>',
@@ -78,6 +78,7 @@ const samples: Record<string, string> = {
   'menubar': '<Menubar label="Document menu"><Button role="menuitem" variant="ghost">File</Button><Button role="menuitem" variant="ghost">Edit</Button></Menubar>',
   'dropdown-menu': '<DropdownMenu id="gallery-dropdown" label="Report actions"><template #trigger>Report actions</template><Button role="menuitem" variant="ghost">Export</Button><Button role="menuitem" variant="ghost">Archive</Button></DropdownMenu>',
   'context-menu': '<ContextMenu id="gallery-context" label="Context actions"><template #trigger>Right-click here</template><Button role="menuitem" variant="ghost">Inspect</Button></ContextMenu>',
+  'hover-card': '<HoverCard id="gallery-hover-card" variant="link"><template #trigger>@korestack</template><p class="font-medium">Korestack</p><p class="text-muted-foreground">Local UI components for your workspace.</p></HoverCard>',
   'tooltip': '<Tooltip id="gallery-tooltip"><template #trigger>Explain this</template>Helpful context for the control.</Tooltip>',
   'icon-button': `<IconButton label="Next page" variant="outline">${icon}</IconButton>`,
 };
@@ -87,7 +88,7 @@ const groups: Record<string, string[]> = {
   'Content & data': ['card', 'badge', 'avatar', 'alert', 'empty', 'item', 'kbd', 'progress', 'skeleton', 'spinner', 'table', 'data-table', 'chart', 'attachment', 'bubble', 'marker', 'message', 'message-scroller', 'toast'],
   'Layout & structure': ['grid', 'icon', 'field', 'fieldset', 'questionnaire', 'label', 'separator', 'aspect-ratio', 'typography', 'direction', 'scroll-area', 'carousel', 'resizable', 'sidebar'],
   'Navigation & disclosure': ['accordion', 'collapsible', 'breadcrumb', 'pagination', 'navigation-menu', 'tabs', 'toolbar', 'menubar', 'dropdown-menu', 'context-menu', 'tooltip'],
-  'Overlays': ['dialog', 'alert-dialog', 'drawer', 'sheet', 'popover'],
+  'Overlays': ['dialog', 'alert-dialog', 'drawer', 'sheet', 'popover', 'hover-card'],
 };
 const category = new Map(Object.entries(groups).flatMap(([label, ids]) => ids.map(id => [id, label] as const)));
 const expected = new Set(names);
