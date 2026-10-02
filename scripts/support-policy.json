@@ -12,7 +12,7 @@
     },
     "alert-dialog": {
       "status": "partial",
-      "reason": "Native modal alertdialog, title/description IDs, command buttons plus local showModal/close helper. Application supplies a description and least-destructive autofocus action; no policy engine."
+      "reason": "Native modal alertdialog with owned title/description/footer and initially focused Cancel. Caller owns confirmation actions; backdrop clicks do not dismiss."
     },
     "aspect-ratio": {
       "status": "partial",
@@ -92,7 +92,7 @@
     },
     "dialog": {
       "status": "partial",
-      "reason": "Native modal dialog, labeled title, native Escape/focus restoration and local command fallback. No controlled open model, portal abstraction or nested trigger slots."
+      "reason": "Compact owned header/description/body/footer; native modal Escape/focus restoration with local command and cancellation fallback. No controlled open model or portal abstraction."
     },
     "direction": {
       "status": "partial",
@@ -100,7 +100,7 @@
     },
     "drawer": {
       "status": "partial",
-      "reason": "Native edge-positioned modal dialog with local command helper. No drag/swipe gestures or snap points."
+      "reason": "Bottom native modal panel by default, with four-edge placement, owned header/footer and local command fallback. No drag/swipe gestures or snap points."
     },
     "dropdown-menu": {
       "status": "partial",
@@ -200,7 +200,7 @@
     },
     "sheet": {
       "status": "partial",
-      "reason": "Local Drawer adaptation with native modal/focus behavior. No generated provider or mobile navigation logic."
+      "reason": "Right native modal panel by default, with four-edge placement, owned header/footer and independent close styling. No generated provider or mobile navigation logic."
     },
     "sidebar": {
       "status": "partial",

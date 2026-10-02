@@ -3,7 +3,7 @@
   "name": "shadcn-ui",
   "provenance": {
     "source": "shadcn registry/base-nova (2026-10-01)",
-    "revision": "41ffbe1a5bbf29032b313af5999fdd6e7a2070fd0ae7960fe3146780d632bbf5",
+    "revision": "ba0cdb8cf2df340cbd961feace548b4e02bc3087d07d6b5ff370042f6a2614a6",
     "license": "MIT; shadcn"
   },
   "tokens": [
@@ -1731,7 +1731,8 @@
         },
         "dialog": {
           "base": [
-            "fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl border border-border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50 open:flex open:flex-col open:gap-4"
+            "fixed inset-0 isolate m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] overflow-y-auto rounded-xl border-0 bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 outline-none open:grid open:gap-4 backdrop:bg-black/10 backdrop:supports-backdrop-filter:backdrop-blur-xs forced-colors:border forced-colors:border-[CanvasText] forced-colors:bg-[Canvas] forced-colors:text-[CanvasText]",
+            "max-w-sm"
           ],
           "variants": {},
           "axisTypes": {},
@@ -1740,7 +1741,7 @@
         },
         "title": {
           "base": [
-            "text-lg font-semibold"
+            "text-base leading-none font-medium"
           ],
           "variants": {},
           "axisTypes": {},
@@ -1749,10 +1750,11 @@
         },
         "close": {
           "base": [
-            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
+            "absolute top-2 end-2"
           ],
           "variants": {
-            "variant": {
+            "closeVariant": {
               "default": [
                 "border-transparent",
                 "bg-primary text-primary-foreground hover:bg-primary/80"
@@ -1775,9 +1777,10 @@
               "link": [
                 "border-transparent",
                 "text-primary underline-offset-4 hover:underline"
-              ]
+              ],
+              "menu": []
             },
-            "size": {
+            "closeSize": {
               "default": [
                 "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
               ],
@@ -1805,20 +1808,67 @@
             }
           },
           "axisTypes": {
-            "variant": "string",
-            "size": "string"
+            "closeVariant": "string",
+            "closeSize": "string"
           },
           "defaultVariants": {
-            "variant": "default",
-            "size": "default"
+            "closeVariant": "ghost",
+            "closeSize": "icon-sm"
           },
+          "compoundVariants": [
+            {
+              "when": {
+                "closeVariant": "menu"
+              },
+              "classes": [
+                "h-auto min-h-6 w-full justify-start border-0 bg-transparent font-normal text-start text-popover-foreground shadow-none ring-0 focus-visible:ring-0 focus-visible:border-transparent hover:bg-accent hover:text-accent-foreground active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-inset:ps-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 aria-disabled:pointer-events-none aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-0 forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]"
+              ]
+            }
+          ]
+        },
+        "header": {
+          "base": [
+            "flex flex-col gap-2 pe-8"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "description": {
+          "base": [
+            "text-sm text-muted-foreground *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "min-w-0 empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "footer": {
+          "base": [
+            "-mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-xl border-t border-border bg-muted/50 p-4 sm:flex-row sm:justify-end empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
           "compoundVariants": []
         }
       },
       "slots": {
         "trigger": "trigger",
         "title": "title",
+        "description": "description",
         "content": "default",
+        "footer": "footer",
         "close": "close"
       },
       "requirements": []
@@ -1905,16 +1955,29 @@
         },
         "dialog": {
           "base": [
-            "fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl border border-border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50 open:flex open:flex-col open:gap-4"
+            "fixed inset-0 isolate m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] overflow-y-auto rounded-xl border-0 bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 outline-none open:grid open:gap-4 backdrop:bg-black/10 backdrop:supports-backdrop-filter:backdrop-blur-xs forced-colors:border forced-colors:border-[CanvasText] forced-colors:bg-[Canvas] forced-colors:text-[CanvasText]"
           ],
-          "variants": {},
-          "axisTypes": {},
-          "defaultVariants": {},
+          "variants": {
+            "contentSize": {
+              "default": [
+                "max-w-xs sm:max-w-sm"
+              ],
+              "sm": [
+                "max-w-xs"
+              ]
+            }
+          },
+          "axisTypes": {
+            "contentSize": "string"
+          },
+          "defaultVariants": {
+            "contentSize": "default"
+          },
           "compoundVariants": []
         },
         "title": {
           "base": [
-            "text-lg font-semibold"
+            "text-base font-medium sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2"
           ],
           "variants": {},
           "axisTypes": {},
@@ -1923,10 +1986,11 @@
         },
         "close": {
           "base": [
-            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
+            ""
           ],
           "variants": {
-            "variant": {
+            "closeVariant": {
               "default": [
                 "border-transparent",
                 "bg-primary text-primary-foreground hover:bg-primary/80"
@@ -1949,9 +2013,10 @@
               "link": [
                 "border-transparent",
                 "text-primary underline-offset-4 hover:underline"
-              ]
+              ],
+              "menu": []
             },
-            "size": {
+            "closeSize": {
               "default": [
                 "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
               ],
@@ -1979,12 +2044,79 @@
             }
           },
           "axisTypes": {
-            "variant": "string",
-            "size": "string"
+            "closeVariant": "string",
+            "closeSize": "string"
           },
           "defaultVariants": {
-            "variant": "default",
-            "size": "default"
+            "closeVariant": "outline",
+            "closeSize": "default"
+          },
+          "compoundVariants": [
+            {
+              "when": {
+                "closeVariant": "menu"
+              },
+              "classes": [
+                "h-auto min-h-6 w-full justify-start border-0 bg-transparent font-normal text-start text-popover-foreground shadow-none ring-0 focus-visible:ring-0 focus-visible:border-transparent hover:bg-accent hover:text-accent-foreground active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-inset:ps-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 aria-disabled:pointer-events-none aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-0 forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]"
+              ]
+            }
+          ]
+        },
+        "header": {
+          "base": [
+            "grid gap-1.5 text-center sm:text-start"
+          ],
+          "variants": {
+            "contentSize": {
+              "default": [],
+              "sm": [
+                "sm:text-center"
+              ]
+            }
+          },
+          "axisTypes": {
+            "contentSize": "string"
+          },
+          "defaultVariants": {
+            "contentSize": "default"
+          },
+          "compoundVariants": []
+        },
+        "description": {
+          "base": [
+            "text-sm text-balance text-muted-foreground md:text-pretty *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "min-w-0 empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "footer": {
+          "base": [
+            "-mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-xl border-t border-border bg-muted/50 p-4 sm:flex-row sm:justify-end empty:hidden"
+          ],
+          "variants": {
+            "contentSize": {
+              "default": [],
+              "sm": [
+                "grid grid-cols-2"
+              ]
+            }
+          },
+          "axisTypes": {
+            "contentSize": "string"
+          },
+          "defaultVariants": {
+            "contentSize": "default"
           },
           "compoundVariants": []
         }
@@ -1992,7 +2124,9 @@
       "slots": {
         "trigger": "trigger",
         "title": "title",
+        "description": "description",
         "content": "default",
+        "footer": "footer",
         "close": "close"
       },
       "requirements": []
@@ -2079,16 +2213,39 @@
         },
         "dialog": {
           "base": [
-            "fixed inset-y-0 start-auto end-0 m-0 h-dvh max-h-dvh w-full max-w-sm overflow-y-auto border border-border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50 open:flex open:flex-col open:gap-4"
+            "fixed isolate m-0 min-h-0 max-h-dvh overflow-y-auto border-border bg-popover p-0 text-sm text-popover-foreground outline-none open:flex open:flex-col open:gap-4 backdrop:bg-black/10 backdrop:supports-backdrop-filter:backdrop-blur-xs forced-colors:border forced-colors:border-[CanvasText] forced-colors:bg-[Canvas] forced-colors:text-[CanvasText] max-h-[calc(100dvh-6rem)]"
           ],
-          "variants": {},
-          "axisTypes": {},
-          "defaultVariants": {},
+          "variants": {
+            "side": {
+              "right": [
+                "max-h-dvh inset-y-0 left-auto right-0 h-dvh w-3/4 max-w-none sm:max-w-sm border-l",
+                "rounded-l-xl"
+              ],
+              "left": [
+                "max-h-dvh inset-y-0 left-0 right-auto h-dvh w-3/4 max-w-none sm:max-w-sm border-r",
+                "rounded-r-xl"
+              ],
+              "top": [
+                "inset-x-0 top-0 bottom-auto h-auto w-full max-w-none border-b",
+                "rounded-b-xl"
+              ],
+              "bottom": [
+                "inset-x-0 top-auto bottom-0 h-auto w-full max-w-none border-t",
+                "rounded-t-xl"
+              ]
+            }
+          },
+          "axisTypes": {
+            "side": "string"
+          },
+          "defaultVariants": {
+            "side": "bottom"
+          },
           "compoundVariants": []
         },
         "title": {
           "base": [
-            "text-lg font-semibold"
+            "text-base font-medium text-foreground"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2097,10 +2254,11 @@
         },
         "close": {
           "base": [
-            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
+            ""
           ],
           "variants": {
-            "variant": {
+            "closeVariant": {
               "default": [
                 "border-transparent",
                 "bg-primary text-primary-foreground hover:bg-primary/80"
@@ -2123,9 +2281,10 @@
               "link": [
                 "border-transparent",
                 "text-primary underline-offset-4 hover:underline"
-              ]
+              ],
+              "menu": []
             },
-            "size": {
+            "closeSize": {
               "default": [
                 "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
               ],
@@ -2153,20 +2312,67 @@
             }
           },
           "axisTypes": {
-            "variant": "string",
-            "size": "string"
+            "closeVariant": "string",
+            "closeSize": "string"
           },
           "defaultVariants": {
-            "variant": "default",
-            "size": "default"
+            "closeVariant": "outline",
+            "closeSize": "default"
           },
+          "compoundVariants": [
+            {
+              "when": {
+                "closeVariant": "menu"
+              },
+              "classes": [
+                "h-auto min-h-6 w-full justify-start border-0 bg-transparent font-normal text-start text-popover-foreground shadow-none ring-0 focus-visible:ring-0 focus-visible:border-transparent hover:bg-accent hover:text-accent-foreground active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-inset:ps-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 aria-disabled:pointer-events-none aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-0 forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]"
+              ]
+            }
+          ]
+        },
+        "header": {
+          "base": [
+            "flex shrink-0 flex-col gap-0.5 p-4 pb-0 text-center md:text-start"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "description": {
+          "base": [
+            "text-sm text-balance text-muted-foreground empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "min-h-0 px-4 empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "footer": {
+          "base": [
+            "mt-auto flex shrink-0 flex-col gap-2 p-4 pt-0 empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
           "compoundVariants": []
         }
       },
       "slots": {
         "trigger": "trigger",
         "title": "title",
+        "description": "description",
         "content": "default",
+        "footer": "footer",
         "close": "close"
       },
       "requirements": []
@@ -2253,16 +2459,35 @@
         },
         "dialog": {
           "base": [
-            "fixed inset-y-0 start-auto end-0 m-0 h-dvh max-h-dvh w-full max-w-sm overflow-y-auto border border-border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50 open:flex open:flex-col open:gap-4"
+            "fixed isolate m-0 min-h-0 max-h-dvh overflow-y-auto border-border bg-popover p-0 text-sm text-popover-foreground outline-none open:flex open:flex-col open:gap-4 backdrop:bg-black/10 backdrop:supports-backdrop-filter:backdrop-blur-xs forced-colors:border forced-colors:border-[CanvasText] forced-colors:bg-[Canvas] forced-colors:text-[CanvasText] shadow-lg"
           ],
-          "variants": {},
-          "axisTypes": {},
-          "defaultVariants": {},
+          "variants": {
+            "side": {
+              "right": [
+                "max-h-dvh inset-y-0 left-auto right-0 h-dvh w-3/4 max-w-none sm:max-w-sm border-l"
+              ],
+              "left": [
+                "max-h-dvh inset-y-0 left-0 right-auto h-dvh w-3/4 max-w-none sm:max-w-sm border-r"
+              ],
+              "top": [
+                "inset-x-0 top-0 bottom-auto h-auto w-full max-w-none border-b"
+              ],
+              "bottom": [
+                "inset-x-0 top-auto bottom-0 h-auto w-full max-w-none border-t"
+              ]
+            }
+          },
+          "axisTypes": {
+            "side": "string"
+          },
+          "defaultVariants": {
+            "side": "right"
+          },
           "compoundVariants": []
         },
         "title": {
           "base": [
-            "text-lg font-semibold"
+            "text-base font-medium text-foreground"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2271,10 +2496,11 @@
         },
         "close": {
           "base": [
-            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4"
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
+            "absolute top-2 end-2 top-3 end-3"
           ],
           "variants": {
-            "variant": {
+            "closeVariant": {
               "default": [
                 "border-transparent",
                 "bg-primary text-primary-foreground hover:bg-primary/80"
@@ -2297,9 +2523,10 @@
               "link": [
                 "border-transparent",
                 "text-primary underline-offset-4 hover:underline"
-              ]
+              ],
+              "menu": []
             },
-            "size": {
+            "closeSize": {
               "default": [
                 "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
               ],
@@ -2327,20 +2554,67 @@
             }
           },
           "axisTypes": {
-            "variant": "string",
-            "size": "string"
+            "closeVariant": "string",
+            "closeSize": "string"
           },
           "defaultVariants": {
-            "variant": "default",
-            "size": "default"
+            "closeVariant": "ghost",
+            "closeSize": "icon-sm"
           },
+          "compoundVariants": [
+            {
+              "when": {
+                "closeVariant": "menu"
+              },
+              "classes": [
+                "h-auto min-h-6 w-full justify-start border-0 bg-transparent font-normal text-start text-popover-foreground shadow-none ring-0 focus-visible:ring-0 focus-visible:border-transparent hover:bg-accent hover:text-accent-foreground active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground data-inset:ps-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 aria-disabled:pointer-events-none aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-0 forced-colors:focus:bg-[Highlight] forced-colors:focus:text-[HighlightText]"
+              ]
+            }
+          ]
+        },
+        "header": {
+          "base": [
+            "flex shrink-0 flex-col gap-0.5 p-4 pe-12"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "description": {
+          "base": [
+            "text-sm text-muted-foreground empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "min-h-0 px-4 empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "footer": {
+          "base": [
+            "mt-auto flex shrink-0 flex-col gap-2 p-4 empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
           "compoundVariants": []
         }
       },
       "slots": {
         "trigger": "trigger",
         "title": "title",
+        "description": "description",
         "content": "default",
+        "footer": "footer",
         "close": "close"
       },
       "requirements": []

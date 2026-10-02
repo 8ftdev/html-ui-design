@@ -1,3 +1,4 @@
+import {dialogRuntimeSource} from './dialog-source';
 import {popupRuntimeSource} from './popup-source';
 import {hoverRuntimeSource} from './hover-source';
 import {searchRuntimeSource} from './search-source';
@@ -18,16 +19,7 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
   if(kind==='tooltip'||kind==='hover-card')return uiHover(root,kind).dispose;
   if(kind==='popover'||kind==='menu'||kind==='context-menu')return uiPopup(root,kind,popupOptions).dispose;
   const trigger=part('trigger');
-  if(kind==='dialog'){
-    const dialog=part('dialog') as HTMLDialogElement|null;
-    // Prevent declarative command default so this also works in older engines.
-    on(root,'click',(e:MouseEvent)=>{
-      const button=(e.target as Element).closest('button');
-      if(!button||disabled(button)||!owned(button)||!dialog)return;
-      if(button===trigger){e.preventDefault();if(!dialog.open){trigger!.focus();dialog.showModal()}}
-      else if(button===part('close')){e.preventDefault();dialog.close()}
-    });
-  }
+  if(kind==='dialog')return uiDialog(root);
   if(kind==='toggle')on(root,'click',()=>{
     if(disabled(root))return;
     const pressed=root.getAttribute('aria-pressed')!=='true';
@@ -78,5 +70,5 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
 }
 `;
 
-export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+interactionBody;
-export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+interactionBody).replace(/^export /gm,'');
+export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+interactionBody;
+export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+interactionBody).replace(/^export /gm,'');

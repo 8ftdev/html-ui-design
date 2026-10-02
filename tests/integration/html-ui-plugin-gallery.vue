@@ -224,13 +224,13 @@ const entries = [
     "id": "dialog",
     "name": "Dialog",
     "category": "Overlays",
-    "code": "import { Dialog } from '~/components/html-ui-plugin-batch'\n\n<Dialog id=\"gallery-dialog\" title-id=\"gallery-dialog-title\"><template #trigger>Open dialog</template><template #title>Dialog title</template><p>Dialog content stays local.</p><template #close>Close</template></Dialog>"
+    "code": "import { Dialog, Icon } from '~/components/html-ui-plugin-batch'\n\n<Dialog id=\"gallery-dialog\" title-id=\"gallery-dialog-title\"><template #trigger>Open dialog</template><template #title>Dialog title</template><p>Dialog content stays local.</p><template #close><Icon><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"m6 6 12 12M18 6 6 18\"/></svg></Icon><span class=\"sr-only\">Close</span></template></Dialog>"
   },
   {
     "id": "alert-dialog",
     "name": "AlertDialog",
     "category": "Overlays",
-    "code": "import { AlertDialog } from '~/components/html-ui-plugin-batch'\n\n<AlertDialog id=\"gallery-alert-dialog\" title-id=\"gallery-alert-title\" description-id=\"gallery-alert-description\"><template #trigger>Delete report</template><template #title>Delete report?</template><p id=\"gallery-alert-description\">This example makes no changes.</p><button autofocus type=\"button\" command=\"close\" commandfor=\"gallery-alert-dialog\">Cancel</button><template #close>Confirm</template></AlertDialog>"
+    "code": "import { AlertDialog, Button } from '~/components/html-ui-plugin-batch'\n\n<AlertDialog id=\"gallery-alert-dialog\" title-id=\"gallery-alert-title\" description-id=\"gallery-alert-description\"><template #trigger>Delete report</template><template #title>Delete report?</template><template #description>This example makes no changes.</template><template #close>Cancel</template><template #footer><Button variant=\"destructive\" command=\"close\" command-for=\"gallery-alert-dialog\">Confirm</Button></template></AlertDialog>"
   },
   {
     "id": "drawer",
@@ -242,7 +242,7 @@ const entries = [
     "id": "sheet",
     "name": "Sheet",
     "category": "Overlays",
-    "code": "import { Sheet } from '~/components/html-ui-plugin-batch'\n\n<Sheet id=\"gallery-sheet\" title-id=\"gallery-sheet-title\"><template #trigger>Open sheet</template><template #title>Navigation</template><a href=\"#reports\">Reports</a><template #close>Close</template></Sheet>"
+    "code": "import { Icon, Sheet } from '~/components/html-ui-plugin-batch'\n\n<Sheet id=\"gallery-sheet\" title-id=\"gallery-sheet-title\"><template #trigger>Open sheet</template><template #title>Navigation</template><a href=\"#reports\">Reports</a><template #close><Icon><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"m6 6 12 12M18 6 6 18\"/></svg></Icon><span class=\"sr-only\">Close</span></template></Sheet>"
   },
   {
     "id": "popover",
@@ -889,7 +889,7 @@ onMounted(() => { dark.value = document.documentElement.classList.contains('dark
       <div class="grid lg:grid-cols-2">
         <div class="min-w-0 p-5 sm:p-6">
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2"><h2 class="text-lg font-semibold">Dialog</h2><span class="text-xs text-muted-foreground">Overlays</span></div>
-          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="dialog"><Dialog id="gallery-dialog" title-id="gallery-dialog-title"><template #trigger>Open dialog</template><template #title>Dialog title</template><p>Dialog content stays local.</p><template #close>Close</template></Dialog></div>
+          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="dialog"><Dialog id="gallery-dialog" title-id="gallery-dialog-title"><template #trigger>Open dialog</template><template #title>Dialog title</template><p>Dialog content stays local.</p><template #close><Icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></Icon><span class="sr-only">Close</span></template></Dialog></div>
         </div>
         <div class="min-w-0 border-t border-border bg-muted/40 p-5 lg:border-t-0 lg:border-s sm:p-6">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vue usage</p>
@@ -901,7 +901,7 @@ onMounted(() => { dark.value = document.documentElement.classList.contains('dark
       <div class="grid lg:grid-cols-2">
         <div class="min-w-0 p-5 sm:p-6">
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2"><h2 class="text-lg font-semibold">AlertDialog</h2><span class="text-xs text-muted-foreground">Overlays</span></div>
-          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="alert-dialog"><AlertDialog id="gallery-alert-dialog" title-id="gallery-alert-title" description-id="gallery-alert-description"><template #trigger>Delete report</template><template #title>Delete report?</template><p id="gallery-alert-description">This example makes no changes.</p><button autofocus type="button" command="close" commandfor="gallery-alert-dialog">Cancel</button><template #close>Confirm</template></AlertDialog></div>
+          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="alert-dialog"><AlertDialog id="gallery-alert-dialog" title-id="gallery-alert-title" description-id="gallery-alert-description"><template #trigger>Delete report</template><template #title>Delete report?</template><template #description>This example makes no changes.</template><template #close>Cancel</template><template #footer><Button variant="destructive" command="close" command-for="gallery-alert-dialog">Confirm</Button></template></AlertDialog></div>
         </div>
         <div class="min-w-0 border-t border-border bg-muted/40 p-5 lg:border-t-0 lg:border-s sm:p-6">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vue usage</p>
@@ -925,7 +925,7 @@ onMounted(() => { dark.value = document.documentElement.classList.contains('dark
       <div class="grid lg:grid-cols-2">
         <div class="min-w-0 p-5 sm:p-6">
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2"><h2 class="text-lg font-semibold">Sheet</h2><span class="text-xs text-muted-foreground">Overlays</span></div>
-          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="sheet"><Sheet id="gallery-sheet" title-id="gallery-sheet-title"><template #trigger>Open sheet</template><template #title>Navigation</template><a href="#reports">Reports</a><template #close>Close</template></Sheet></div>
+          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="sheet"><Sheet id="gallery-sheet" title-id="gallery-sheet-title"><template #trigger>Open sheet</template><template #title>Navigation</template><a href="#reports">Reports</a><template #close><Icon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></Icon><span class="sr-only">Close</span></template></Sheet></div>
         </div>
         <div class="min-w-0 border-t border-border bg-muted/40 p-5 lg:border-t-0 lg:border-s sm:p-6">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vue usage</p>

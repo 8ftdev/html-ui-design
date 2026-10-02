@@ -23,7 +23,9 @@ export function validateInteraction(input:VueInput,mapping:ComponentRecipe){
  }
  if(mapping.interaction==='dialog'){
   const dialog=requirePart('dialog','dialog'),close=requirePart('close','button',{type:'button'});
-  if(dialog.parent!==root!.node||close.parent!==dialog.node)throw new Error('interaction requires owned dialog and close control');
+  const footer=input.nodes.find(n=>n.part==='footer');
+  if(footer)requirePart('footer','div');
+  if(dialog.parent!==root!.node||!(close.parent===dialog.node||(footer?.parent===dialog.node&&footer.node===close.parent)))throw new Error('interaction requires owned dialog and close control');
  }
  if(['popover','menu','context-menu','hover-card'].includes(mapping.interaction))requirePart('popup','div',{popover:'auto',...(['popover','hover-card'].includes(mapping.interaction)?{}:{role:'menu'})});
  if(mapping.interaction==='select'){

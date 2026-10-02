@@ -1,3 +1,4 @@
+import {addModalParity} from './plugin-modal-parity';
 import {addPopupParity} from './plugin-popup-parity';
 import { readFileSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -165,6 +166,7 @@ addSelectParity(p, source);
 addSearchParity(p, source);
 addHoverParity(p, source);
 addPopupParity(p,source);
+addModalParity(p,source);
 writeFileSync(
   "src/plugins/builtin/shadcn-ui.json",
   JSON.stringify(parsePlugin(p), null, 2) + "\n",

@@ -383,3 +383,26 @@ The `menu` Button variant puts row defaults inside the child's existing CVA/tail
 Preview: http://127.0.0.1:4343/html-ui-popup-parity. The preview uses neutral light/dark tokens isolated from the dashboard theme, and demonstrates local Icon/Button/Input/Fieldset/Dialog composition, dynamic rows/IDs, RTL/mobile bounds, overrides and cleanup. Fixtures live in `tests/integration/html-ui-popup-parity.vue` and `.spec.ts`.
 
 Popup/menu batch verification (2026-10-01): 237 plugin tests pass, including RED/GREEN cases for expired Space typeahead, ARIA-disabled ancestors, native ContextMenu key positioning and pointer-events-none focus retention. Strict generated consumers, plugin typecheck/build and Nuxt nightly typecheck/build pass. All 312 production dashboard browser checks pass across Chromium, Firefox and WebKit (30 new popup/menu checks), including previous Select/search scrolling and hover behavior. Support and 70-example gallery artifacts are current; installed CLI regeneration reports zero drift. Independent review findings were addressed; one bounded desktop/mobile visual pass and a source design scan completed. No producer/converter changes or binary replacement were needed. The batch is left uncommitted.
+
+## Compact native modals
+
+Dialog, AlertDialog, Drawer and Sheet remain single local components. Each owns its header, title, description, body and footer. Supply `#trigger`, `#title`, default body, `#description`, `#footer` and an accessible `#close` label or icon. There are no exported trigger/content/footer subcomponents and no external UI runtime imports.
+
+```vue
+<Dialog id="profile" title-id="profile-title" description-id="profile-help" variant="outline">
+  <template #trigger>Edit profile</template>
+  <template #title>Edit profile</template>
+  <template #description>Update your profile.</template>
+  <Grid><Input>Name</Input></Grid>
+  <template #footer><Button command="close" command-for="profile" @click="save">Save</Button></template>
+  <template #close><Icon><!-- local SVG --></Icon><span class="sr-only">Close</span></template>
+</Dialog>
+```
+
+The native `<dialog>` owns modal focus, focus restoration and Escape. Its connected description uses `description-id`; AlertDialog requires this ID and a description slot, and initially focuses its least destructive Cancel control. Ordinary Dialog/Drawer/Sheet backdrop clicks request cancellation. AlertDialog backdrop clicks retain the confirmation. `@cancel.prevent` prevents cancellation; direct close actions remain explicit. Local Button supports native `command`/`command-for`, including `close` and `request-close`. The generated helper supplies the same command behavior when native invokers are unavailable. Caller click prevention takes precedence, disabled/inert controls cannot invoke, dragging from the body to the backdrop does not dismiss, and unmount removes listeners and closes the modal. Application code owns saving, validation and destructive actions.
+
+Trigger `variant`/`size` and `close-variant`/`close-size` are separate axes. Dialog and Sheet default to a ghost icon close; use `close-size="default"` for a text label. AlertDialog and Drawer have outline text Cancel controls in their footer. `classes`/`styles` can override every owned part, including header, description, content and footer.
+
+The pinned Base Nova recipes use a 384px Dialog and default AlertDialog on desktop; AlertDialog also exposes `content-size="sm"` (320px). Drawer defaults to bottom, Sheet to right, and both accept top/bottom/left/right. They use native modal behavior; drag gestures, snap points and nested drawer orchestration are outside this adapter.
+
+Preview: http://127.0.0.1:4343/html-ui-modal-parity. Fixtures use isolated neutral light/dark tokens and local primitives. Cross-browser checks cover dimensions, names, focus, cancellation, native command fallbacks, edges, mobile bounds, overrides and cleanup.

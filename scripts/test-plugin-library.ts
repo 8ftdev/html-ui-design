@@ -181,3 +181,15 @@ for(const [component,attrs] of [['Popover','id="one" side="diagonal"'],['Dropdow
  try{check();throw new Error('invalid popup contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
 }
 rmSync(resolve(out,'Popup.vue'));check();console.log('PASS: popup/menu placement and local rows typecheck; invalid sides/offsets and missing menu labels rejected');
+
+writeFileSync(resolve(out,'Modal.vue'),`<script setup lang="ts" vapor>import {Dialog,AlertDialog,Drawer,Sheet,Button} from './index'</script><template>
+<Dialog id="typed-dialog" title-id="typed-title" description-id="typed-help" variant="outline" close-variant="ghost" close-size="icon-sm" :classes="{header:'gap-3',description:'text-muted-foreground',footer:'justify-start'}"><template #trigger>Edit</template><template #title>Edit profile</template><template #description>Profile help</template><template #close>Close</template><template #footer><Button command="close" command-for="typed-dialog">Save</Button></template></Dialog>
+<AlertDialog id="typed-alert" title-id="typed-alert-title" description-id="typed-alert-help" content-size="sm"><template #trigger>Delete</template><template #title>Delete?</template><template #description>This is permanent.</template><template #close>Cancel</template><template #footer><Button variant="destructive" command="close" command-for="typed-alert">Confirm</Button></template></AlertDialog>
+<Drawer id="typed-drawer" title-id="typed-drawer-title" side="bottom"><template #trigger>Open drawer</template><template #title>Drawer</template><template #close>Cancel</template></Drawer>
+<Sheet id="typed-sheet" title-id="typed-sheet-title" side="left"><template #trigger>Open sheet</template><template #title>Sheet</template><template #close>Close</template></Sheet>
+</template>`);check();
+for(const [component,attrs] of [['Dialog','id="one" title-id="two" close-size="tiny"'],['Sheet','id="one" title-id="two" side="diagonal"'],['AlertDialog','id="one" title-id="two"'],['AlertDialog','id="one" title-id="two" description-id="three" content-size="huge"']]){
+ writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}><template #trigger>Open</template><template #title>Title</template><template #description>Details</template><template #close>Close</template></${component}></template>`);
+ try{check();throw new Error('invalid modal contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
+}
+rmSync(resolve(out,'Modal.vue'));check();console.log('PASS: compact modal slots, command Buttons and independent close axes typecheck; invalid dimensions, sides and missing AlertDialog description IDs rejected');
