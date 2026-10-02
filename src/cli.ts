@@ -2,9 +2,9 @@
 import { readFile } from "node:fs/promises";
 import { parseArgs } from "node:util";
 
-const help = `html-ui-shadcn 0.2.0
-Usage: html-ui-shadcn --framework vue [--theme theme.css | --config components.json]
-                       [--recipes recipes.json | --plugin shadcn-ui|plugin.json] [--component NAME] [--strict]\n       html-ui-shadcn --import-cva source.tsx --export buttonVariants
+const help = `html-ui-design 0.2.0
+Usage: html-ui-design --framework vue [--theme theme.css | --config components.json]
+                       [--recipes recipes.json | --plugin shadcn-ui|plugin.json] [--component NAME] [--strict]\n       html-ui-design --import-cva source.tsx --export buttonVariants
 Library: --out-dir DIR [--producer PATH] [--converter PATH] [--check]
 Reads a contract-v2 Vue SFC from stdin and writes a themed SFC to stdout.
 Without a theme flag, finds the nearest components.json from the working directory.
@@ -154,16 +154,16 @@ async function main() {
         strict: values.strict ?? false,
       });
   for (const warning of result.warnings)
-    process.stderr.write(`html-ui-shadcn: warning: ${warning}\n`);
+    process.stderr.write(`html-ui-design: warning: ${warning}\n`);
   process.stdout.write(result.source);
 }
 process.stdout.on("error", (error) => {
-  process.stderr.write(`html-ui-shadcn: ${error.message}\n`);
+  process.stderr.write(`html-ui-design: ${error.message}\n`);
   process.exitCode = 1;
 });
 main().catch((error) => {
   process.stderr.write(
-    `html-ui-shadcn: ${error instanceof Error ? error.message : String(error)}\n`,
+    `html-ui-design: ${error instanceof Error ? error.message : String(error)}\n`,
   );
   process.exitCode = 2;
 });

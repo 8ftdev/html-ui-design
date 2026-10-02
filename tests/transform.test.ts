@@ -57,3 +57,21 @@ test('ordinary Vue setup output also compiles',async()=>{
  expect(descriptor.scriptSetup?.attrs.vapor).toBeUndefined()
  expect(()=>compileScript(descriptor,{id:'data-v-vdom',inlineTemplate:true})).not.toThrow()
 })
+
+// Ownership migration must remain hash-checked and keep consumer styles.
+test('old generated style ownership migrates to html-ui-design without changing consumer CSS',async()=>{
+ const original=source+'\n<style>.consumer { color: red }</style>\n';
+ const current=await transform(original,options);
+ expect(current.source).toContain('data-html-ui-design=');
+ const legacy=current.source.replaceAll('html-ui-design','html-ui-shadcn');
+ const migrated=await transform(legacy,options);
+ expect(migrated.source).toBe(current.source);
+ expect(migrated.source).toContain('.consumer { color: red }');
+ const edited=legacy.replace('.consumer { color: red }','.consumer { color: blue }');
+ // A consumer-owned stylesheet is editable; generated CSS remains protected.
+ expect((await transform(edited,options)).source).toContain('.consumer { color: blue }');
+ const altered=legacy.replace(/(<style scoped data-html-ui-shadcn="[^"]+">)/,'$1/* edited */');
+ await expect(transform(altered,options)).rejects.toThrow('stylesheet was edited');
+ const ambiguous=legacy.replace('<style scoped','<style scoped data-html-ui-design="invalid"');
+ await expect(transform(ambiguous,options)).rejects.toThrow('ambiguous');
+})

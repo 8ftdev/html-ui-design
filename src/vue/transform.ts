@@ -7,7 +7,8 @@ import {
 	type TemplateChildNode,
 } from "@vue/compiler-dom";
 import type { VueInput } from "../model.js";
-const typeShim = `\n// html-ui-shadcn: marker typing\ndeclare module 'vue' { interface HTMLAttributes { 'data-html-ui-style'?: string } }\n// html-ui-shadcn: end marker typing\n`;
+const typeShim = `\n// html-ui-design: marker typing\ndeclare module 'vue' { interface HTMLAttributes { 'data-html-ui-style'?: string } }\n// html-ui-design: end marker typing\n`;
+const legacyTypeShim = typeShim.replaceAll("html-ui-design", "html-ui-shadcn");
 export function digest(value: string): string {
 	return createHash("sha256").update(value).digest("hex").slice(0, 20);
 }
@@ -15,11 +16,18 @@ export function cleanGenerated(source: string): string {
 	const { descriptor, errors } = parse(source);
 	if (errors.length) throw new Error(String(errors[0]));
 	const owned = descriptor.styles.filter((s) =>
+		Object.hasOwn(s.attrs, "data-html-ui-design") ||
 		Object.hasOwn(s.attrs, "data-html-ui-shadcn"),
 	);
 	if (owned.length > 1) throw new Error("multiple generated stylesheets");
 	const block = owned[0],
-		stamp = block?.attrs["data-html-ui-shadcn"];
+		stamp = block?.attrs["data-html-ui-design"] ?? block?.attrs["data-html-ui-shadcn"];
+	if (
+		block &&
+		Object.hasOwn(block.attrs, "data-html-ui-design") &&
+		Object.hasOwn(block.attrs, "data-html-ui-shadcn")
+	)
+		throw new Error("ambiguous generated stylesheet ownership");
 	let marker: string | undefined;
 	if (block) {
 		if (
@@ -35,11 +43,16 @@ export function cleanGenerated(source: string): string {
 			);
 	}
 	const edits = new MagicString(source);
-	const shimAt = source.indexOf(typeShim);
+	const shim = source.includes(typeShim) ? typeShim : legacyTypeShim;
+	const shimAt = source.indexOf(shim);
 	if (shimAt >= 0) {
-		if (!block || source.indexOf(typeShim, shimAt + 1) >= 0)
+		if (
+			!block ||
+			source.indexOf(shim, shimAt + 1) >= 0 ||
+			(source.includes(typeShim) && source.includes(legacyTypeShim))
+		)
 			throw new Error("reserved marker type declaration collision");
-		edits.remove(shimAt, shimAt + typeShim.length);
+		edits.remove(shimAt, shimAt + shim.length);
 	}
 	let count = 0;
 	function visit(children: TemplateChildNode[]) {
@@ -96,6 +109,6 @@ export function transformVue(
 	const content = "\n" + css;
 	return (
 		edits.toString().trimEnd() +
-		`\n\n<style scoped data-html-ui-shadcn="v1:${marker}:${digest(content)}">${content}</style>\n`
+		`\n\n<style scoped data-html-ui-design="v1:${marker}:${digest(content)}">${content}</style>\n`
 	);
 }

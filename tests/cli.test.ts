@@ -7,6 +7,7 @@ test("help exits successfully without reading a component", () => {
 	const r = run(["--help"]);
 	expect(r.status).toBe(0);
 	expect(r.stdout).toContain("--framework");
+	expect(r.stdout).toContain("html-ui-design");
 });
 for (const args of [
 	["--framework", "react"],
@@ -19,7 +20,7 @@ for (const args of [
 		const r = run(args);
 		expect(r.status).toBe(2);
 		expect(r.stdout).toBe("");
-		expect(r.stderr).toContain("html-ui-shadcn:");
+		expect(r.stderr).toContain("html-ui-design:");
 	});
 }
 

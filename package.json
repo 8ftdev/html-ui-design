@@ -1,9 +1,9 @@
 {
-  "name": "html-ui-shadcn",
+  "name": "html-ui-design",
   "version": "0.2.0",
   "type": "module",
   "bin": {
-    "html-ui-shadcn": "dist/cli.js"
+    "html-ui-design": "dist/cli.js"
   },
   "files": [
     "dist",

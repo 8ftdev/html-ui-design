@@ -1,4 +1,4 @@
-# html-ui-shadcn Implementation Plan
+# html-ui-design Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox syntax for tracking.
 
@@ -8,11 +8,11 @@
 
 **Tech Stack:** TypeScript CLI on Node 22.12+, Bun for development tests, Vue compiler-sfc/compiler-dom, Babel TypeScript parser, PostCSS with a CSS value parser, Playwright. Pin direct package versions and commit a lockfile when a repository is established; use Vue 3.6.0-rc.9 for the initial conformance toolchain.
 
-**Spec:** [Approved specification](./html-ui-shadcn-spec.md).
+**Spec:** [Approved specification](./html-ui-design-spec.md).
 
 ## Global constraints
 
-- New project: `/Users/andi/webdev/html-ui/html-ui-shadcn`.
+- New project: `/Users/andi/webdev/html-ui/html-ui-design`.
 - First supported framework flag is `--framework vue`; React is outside this milestone.
 - Keep default html-ui contract version 2 and the existing Vue converter compatible.
 - No evaluation of input modules, project JavaScript, or theme-package JavaScript.

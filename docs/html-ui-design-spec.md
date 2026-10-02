@@ -1,22 +1,22 @@
-# html-ui-shadcn: Vue/Vapor first release
+# html-ui-design: Vue/Vapor first release
 
 Proposed implementation specification · 28 September 2026
 
 ## Outcome
 
-Create a separate `html-ui-shadcn` CLI under `~/webdev/html-ui/html-ui-shadcn`. It receives a framework component on stdin and its framework through a flag, validates the preserved v2 UI contract, resolves shadcn-compatible recipes, and writes a styled component to stdout.
+Create a separate `html-ui-design` CLI under `~/webdev/html-ui/html-ui-design`. It receives a framework component on stdin and its framework through a flag, validates the preserved v2 UI contract, resolves shadcn-compatible recipes, and writes a styled component to stdout.
 
 The user selected Vue/Vapor first. The first release supports `--framework vue`, covering both the Vapor and ordinary Vue SFC syntax produced by the existing converter. React support and the separate React emitter are subsequent work.
 
 ```sh
 html-ui accordion |
   html-ui-to-vue-vapor |
-  html-ui-shadcn --framework vue --theme ./theme.css > Accordion.vue
+  html-ui-design --framework vue --theme ./theme.css > Accordion.vue
 
 # Resolve the theme path from components.json instead.
 html-ui button |
   html-ui-to-vue-vapor |
-  html-ui-shadcn --framework vue --config ./components.json > Button.vue
+  html-ui-design --framework vue --config ./components.json > Button.vue
 ```
 
 These commands are proposed interfaces, not implemented commands.
@@ -150,4 +150,4 @@ Capture baseline failures before integration and distinguish unrelated existing 
 - [components.json](https://ui.shadcn.com/docs/components-json): theme stylesheet location and CSS-variable configuration.
 - The local html-ui v2 contract and the existing Vue converter's emitted Accordion.vue establish the actual stream and framework profile.
 
-Status: proposal for review; no html-ui-shadcn implementation has been created yet.
+Status: proposal for review; no html-ui-design implementation has been created yet.

@@ -1,4 +1,6 @@
-# html-ui-shadcn
+# html-ui-design
+
+Previously named `html-ui-shadcn`. The CLI and package are now `html-ui-design`; `shadcn-ui` remains the built-in design-contract plugin.
 
 A pipeable styling and UI-contract plugin generator for locally owned html-ui Vue components. Choose declaration recipes for local CSS or `--plugin shadcn-ui` for typed CVA/Tailwind recipes. Vue/Vapor is supported; React is not yet supported.
 
@@ -12,7 +14,7 @@ bun run build
 html-ui accordion | html-ui-to-vue-vapor | node ./dist/cli.js --framework vue --theme ./theme.css > Accordion.vue
 ```
 
-Use `--config ./components.json` to find its `tailwind.css` stylesheet, or omit both flags to find the nearest components.json from your working directory. Both shadcn and shadcn-vue configurations are accepted. Run `npm install -g .` only if you want the `html-ui-shadcn` command on PATH; building does not install it globally.
+Use `--config ./components.json` to find its `tailwind.css` stylesheet, or omit both flags to find the nearest components.json from your working directory. Both shadcn and shadcn-vue configurations are accepted. Run `npm install -g .` only if you want the `html-ui-design` command on PATH; building does not install it globally.
 
 The application must load its theme stylesheet. Generated components retain `var(--primary)`, `var(--primary-foreground)`, `var(--ring)`, and other references, so dark mode and later token changes work without regeneration. Legacy HSL-channel themes use `hsl(var(--token))`.
 
@@ -79,8 +81,8 @@ The class plugin currently emits 71 building blocks (70 mappings plus local Icon
 Calendar and DatePicker share `date-grid`; select the plugin component explicitly for standalone output:
 
 ```sh
-html-ui date-grid | html-ui-to-vue-vapor | html-ui-shadcn --framework vue --plugin shadcn-ui --component calendar > Calendar.vue
-html-ui date-grid | html-ui-to-vue-vapor | html-ui-shadcn --framework vue --plugin shadcn-ui --component date-picker > DatePicker.vue
+html-ui date-grid | html-ui-to-vue-vapor | html-ui-design --framework vue --plugin shadcn-ui --component calendar > Calendar.vue
+html-ui date-grid | html-ui-to-vue-vapor | html-ui-design --framework vue --plugin shadcn-ui --component date-picker > DatePicker.vue
 ```
 
 NativeDatePicker keeps the original `date-field` alternative. See [date contracts](docs/plugins.md#calendar-and-datepicker) for ISO models, labels, keyboard behavior and scope.

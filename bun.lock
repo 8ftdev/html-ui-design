@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "html-ui-shadcn",
+      "name": "html-ui-design",
       "dependencies": {
         "@babel/parser": "7.29.9",
         "@vue/compiler-dom": "3.6.0-rc.9",

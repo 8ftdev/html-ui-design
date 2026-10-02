@@ -10,7 +10,7 @@ The Nuxt gallery at `/html-ui-plugin-gallery` shows all 71 blocks as live exampl
 
 ```sh
 html-ui button | html-ui-to-vue-vapor |
-  html-ui-shadcn --framework vue --plugin shadcn-ui --config components.json > Button.vue
+  html-ui-design --framework vue --plugin shadcn-ui --config components.json > Button.vue
 ```
 
 This output retains contract metadata for pipeline use. Class plugins replace the declaration-recipe backend. Do not combine --plugin and --recipes. Unknown parts/states, prop collisions, missing theme variables, or declared unsupported hooks are errors.
@@ -18,7 +18,7 @@ This output retains contract metadata for pipeline use. Class plugins replace th
 ## Generate a library
 
 ```sh
-html-ui-shadcn --framework vue --plugin shadcn-ui \
+html-ui-design --framework vue --plugin shadcn-ui \
   --theme app/assets/css/main.css --out-dir app/components/ui \
   --producer /path/to/html-ui --converter /path/to/html-ui-to-vue-vapor
 ```
@@ -48,10 +48,10 @@ Restart the development server after changing its CSS plugin configuration. Chec
 
 ## Custom plugins
 
-Use `schemas/ui-plugin.schema.json` for editor validation and exported `UIPlugin`/`ClassRecipe` types from `html-ui-shadcn`. The schema and types derive from the same Zod definitions. `parsePlugin` additionally checks cross-field rules such as defaults and compound conditions. All object fields are strict.
+Use `schemas/ui-plugin.schema.json` for editor validation and exported `UIPlugin`/`ClassRecipe` types from `html-ui-design`. The schema and types derive from the same Zod definitions. `parsePlugin` additionally checks cross-field rules such as defaults and compound conditions. All object fields are strict.
 
 ```ts
-import { importCva, parsePlugin } from 'html-ui-shadcn'
+import { importCva, parsePlugin } from 'html-ui-design'
 const recipe = importCva(sourceText, 'buttonVariants')
 const plugin = parsePlugin({
   pluginVersion: 1,
@@ -72,7 +72,7 @@ const plugin = parsePlugin({
 The importer accepts literal CVA base classes, variants, defaults, and compounds, including separately exported declarations and an aliased CVA import. It does not execute source or extract behavioral meaning from arbitrary selector strings. Dynamic expressions, spreads, interpolated strings, null defaults/classes, and duplicate keys are rejected with diagnostics. Boolean axes use true/false keys; defaults retain Vue boolean semantics.
 
 ```sh
-html-ui-shadcn --import-cva button.tsx --export buttonVariants > button.recipe.json
+html-ui-design --import-cva button.tsx --export buttonVariants > button.recipe.json
 ```
 
 Attach that recipe to a component/part in a plugin JSON file, then pass its path to `--plugin`. Plugin authors must declare behavioral assumptions through requirements. State requirements are checked against primitive metadata; hook requirements outside supported mappings fail. Presence hooks can map an existing boolean primitive prop to a data attribute using `hooks: [{ part: 'root', attribute: 'data-disabled', prop: 'disabled' }]`; false removes the attribute. Hooks never implement state transitions.
