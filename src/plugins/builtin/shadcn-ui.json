@@ -2,8 +2,8 @@
   "pluginVersion": 1,
   "name": "shadcn-ui",
   "provenance": {
-    "source": "shadcn registry/base-nova (2026-10-01)",
-    "revision": "ba0cdb8cf2df340cbd961feace548b4e02bc3087d07d6b5ff370042f6a2614a6",
+    "source": "shadcn registry/base-nova (2026-10-02)",
+    "revision": "cc5dc1cad6603d730a6c957cd901b89d97a6f820c520c500f9b92d90df9af25a",
     "license": "MIT; shadcn"
   },
   "tokens": [
@@ -2779,11 +2779,21 @@
       "requirements": []
     },
     "date-picker": {
-      "primitive": "date-field",
+      "primitive": "date-grid",
+      "interaction": "date-picker",
       "parts": {
         "root": {
           "base": [
-            "grid gap-2 text-sm font-medium"
+            "relative grid w-fit max-w-full min-w-0 gap-2"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "label": {
+          "base": [
+            "text-sm font-medium empty:hidden"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2792,7 +2802,151 @@
         },
         "control": {
           "base": [
-            "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+            "sr-only pointer-events-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center rounded-lg border bg-clip-padding text-sm whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 w-full justify-start font-normal data-placeholder:text-muted-foreground"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "value": {
+          "base": [
+            "min-w-0 truncate"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "icon": {
+          "base": [
+            "ms-auto size-4 shrink-0 bg-current [mask-image:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M8%202v4m8-4v4M3%2010h18M5%204h14a2%202%200%200%201%202%202v14a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2V6a2%202%200%200%201%202-2%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E)] [mask-size:contain] [mask-repeat:no-repeat] [mask-position:center]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "popup": {
+          "base": [
+            "group/calendar hidden [&:popover-open]:flex w-fit max-w-full flex-col gap-4 bg-background p-2 text-foreground [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)] isolate m-0 overflow-auto rounded-lg bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-none forced-colors:bg-[Canvas] forced-colors:text-[CanvasText]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "header": {
+          "base": [
+            "flex items-center justify-between gap-1"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "previous": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 border-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 size-(--cell-size) p-0 select-none before:block before:size-4 before:bg-current before:content-[''] before:[mask-image:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22m15%2018-6-6%206-6%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E)] before:[mask-size:contain] before:[mask-repeat:no-repeat] before:[mask-position:center] rtl:rotate-180"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "next": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 border-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 size-(--cell-size) p-0 select-none before:block before:size-4 before:bg-current before:content-[''] before:[mask-image:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22m9%2018%206-6-6-6%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E)] before:[mask-size:contain] before:[mask-repeat:no-repeat] before:[mask-position:center] rtl:rotate-180"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "caption": {
+          "base": [
+            "flex h-(--cell-size) flex-1 items-center justify-center text-sm font-medium select-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "grid": {
+          "base": [
+            "w-full border-collapse"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "head": {
+          "base": [
+            ""
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "weekdays": {
+          "base": [
+            "flex"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "weekday": {
+          "base": [
+            "flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "body": {
+          "base": [
+            ""
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "week": {
+          "base": [
+            "mt-2 flex w-full"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "cell": {
+          "base": [
+            "relative aspect-square w-(--cell-size) shrink-0 rounded-(--cell-radius) p-0 text-center select-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "day": {
+          "base": [
+            "group/button shrink-0 items-center justify-center bg-clip-padding text-sm whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 border-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 relative flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal rounded-(--cell-radius) select-none data-[today=true]:bg-muted data-[today=true]:text-foreground data-[outside=true]:text-muted-foreground data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground data-[selected=true]:hover:bg-primary/90 data-[selected=true]:hover:text-primary-foreground disabled:text-muted-foreground disabled:opacity-50 forced-colors:border forced-colors:border-[ButtonText] forced-colors:bg-[ButtonFace] forced-colors:text-[ButtonText] forced-colors:data-[selected=true]:bg-[Highlight] forced-colors:data-[selected=true]:text-[HighlightText]"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2803,14 +2957,25 @@
       "slots": {
         "label": "default"
       },
-      "requirements": []
+      "requirements": [],
+      "hooks": []
     },
     "calendar": {
-      "primitive": "date-field",
+      "primitive": "date-grid",
+      "interaction": "calendar",
       "parts": {
         "root": {
           "base": [
-            "grid gap-2 text-sm font-medium"
+            "relative grid w-fit max-w-full min-w-0 gap-2"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "label": {
+          "base": [
+            "text-sm font-medium empty:hidden"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2819,7 +2984,151 @@
         },
         "control": {
           "base": [
-            "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+            "sr-only pointer-events-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "trigger": {
+          "base": [
+            "hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "value": {
+          "base": [
+            "min-w-0 truncate"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "icon": {
+          "base": [
+            "ms-auto size-4 shrink-0 bg-current [mask-image:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M8%202v4m8-4v4M3%2010h18M5%204h14a2%202%200%200%201%202%202v14a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2V6a2%202%200%200%201%202-2%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E)] [mask-size:contain] [mask-repeat:no-repeat] [mask-position:center]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "popup": {
+          "base": [
+            "group/calendar flex w-fit max-w-full flex-col gap-4 bg-background p-2 text-foreground [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)] forced-colors:bg-[Canvas] forced-colors:text-[CanvasText]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "header": {
+          "base": [
+            "flex items-center justify-between gap-1"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "previous": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 border-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 size-(--cell-size) p-0 select-none before:block before:size-4 before:bg-current before:content-[''] before:[mask-image:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22m15%2018-6-6%206-6%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E)] before:[mask-size:contain] before:[mask-repeat:no-repeat] before:[mask-position:center] rtl:rotate-180"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "next": {
+          "base": [
+            "group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 border-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 size-(--cell-size) p-0 select-none before:block before:size-4 before:bg-current before:content-[''] before:[mask-image:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22m9%2018%206-6-6-6%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E)] before:[mask-size:contain] before:[mask-repeat:no-repeat] before:[mask-position:center] rtl:rotate-180"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "caption": {
+          "base": [
+            "flex h-(--cell-size) flex-1 items-center justify-center text-sm font-medium select-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "grid": {
+          "base": [
+            "w-full border-collapse"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "head": {
+          "base": [
+            ""
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "weekdays": {
+          "base": [
+            "flex"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "weekday": {
+          "base": [
+            "flex-1 rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "body": {
+          "base": [
+            ""
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "week": {
+          "base": [
+            "mt-2 flex w-full"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "cell": {
+          "base": [
+            "relative aspect-square w-(--cell-size) shrink-0 rounded-(--cell-radius) p-0 text-center select-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "day": {
+          "base": [
+            "group/button shrink-0 items-center justify-center bg-clip-padding text-sm whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 border-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 relative flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal rounded-(--cell-radius) select-none data-[today=true]:bg-muted data-[today=true]:text-foreground data-[outside=true]:text-muted-foreground data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground data-[selected=true]:hover:bg-primary/90 data-[selected=true]:hover:text-primary-foreground disabled:text-muted-foreground disabled:opacity-50 forced-colors:border forced-colors:border-[ButtonText] forced-colors:bg-[ButtonFace] forced-colors:text-[ButtonText] forced-colors:data-[selected=true]:bg-[Highlight] forced-colors:data-[selected=true]:text-[HighlightText]"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2830,7 +3139,8 @@
       "slots": {
         "label": "default"
       },
-      "requirements": []
+      "requirements": [],
+      "hooks": []
     },
     "combobox": {
       "primitive": "combobox-list",
@@ -4048,6 +4358,33 @@
       "slots": {
         "trigger": "trigger",
         "content": "default"
+      },
+      "requirements": []
+    },
+    "native-date-picker": {
+      "primitive": "date-field",
+      "parts": {
+        "root": {
+          "base": [
+            "grid gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "control": {
+          "base": [
+            "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        }
+      },
+      "slots": {
+        "label": "default"
       },
       "requirements": []
     }

@@ -4,7 +4,7 @@ import { parseArgs } from "node:util";
 
 const help = `html-ui-shadcn 0.2.0
 Usage: html-ui-shadcn --framework vue [--theme theme.css | --config components.json]
-                       [--recipes recipes.json | --plugin shadcn-ui|plugin.json] [--strict]\n       html-ui-shadcn --import-cva source.tsx --export buttonVariants
+                       [--recipes recipes.json | --plugin shadcn-ui|plugin.json] [--component NAME] [--strict]\n       html-ui-shadcn --import-cva source.tsx --export buttonVariants
 Library: --out-dir DIR [--producer PATH] [--converter PATH] [--check]
 Reads a contract-v2 Vue SFC from stdin and writes a themed SFC to stdout.
 Without a theme flag, finds the nearest components.json from the working directory.
@@ -22,6 +22,7 @@ async function main() {
     options: {
       framework: { type: "string" },
       plugin: { type: "string" },
+      component: { type: "string" },
       "import-cva": { type: "string" },
       export: { type: "string" },
       "out-dir": { type: "string" },
@@ -44,6 +45,7 @@ async function main() {
   if (values["import-cva"]) {
     if (
       !values.export ||
+      values.component ||
       values.framework ||
       values.plugin ||
       values.recipes ||
@@ -74,6 +76,10 @@ async function main() {
   )
     throw new Error("--producer, --converter and --check require --out-dir");
   if (values.export) throw new Error("--export requires --import-cva");
+  if (values.component !== undefined && (!values.component || values.component.startsWith("--")))
+    throw new Error("--component requires a name");
+  if (values.component && (!values.plugin || values["out-dir"]))
+    throw new Error("--component requires standalone --plugin emission");
   if (values.plugin && values.recipes)
     throw new Error("--plugin and --recipes are mutually exclusive");
   if (values.framework !== "vue")
@@ -134,8 +140,8 @@ async function main() {
         for (const token of plugin.tokens) theme.token(token, "value");
         const primitive = parseVue(cleanGenerated(source), "Component.vue").ui.component;
         const matches = Object.entries(plugin.components).filter(([,mapping])=>mapping.primitive===primitive).map(([name])=>name);
-        const component = plugin.components[primitive]?.primitive===primitive ? primitive : matches.length===1 ? matches[0]! : undefined;
-        if(!component)throw new Error(matches.length ? `ambiguous mappings for primitive ${primitive}: ${matches.join(', ')}; use library emission or an explicit plugin mapping` : `plugin has no mapping for primitive ${primitive}`);
+        const component = values.component ?? (plugin.components[primitive]?.primitive===primitive ? primitive : matches.length===1 ? matches[0]! : undefined);
+        if(!component)throw new Error(matches.length ? `ambiguous mappings for primitive ${primitive}: ${matches.join(', ')}; use --component NAME or library emission` : `plugin has no mapping for primitive ${primitive}`);
         return applyClassPlugin(source, plugin, {
           component,
           filename: "Component.vue",

@@ -1,3 +1,5 @@
+import {dateRuntimeSource} from './date-source';
+import {dateMathRuntimeSource} from './date-math-source';
 import {dialogRuntimeSource} from './dialog-source';
 import {popupRuntimeSource} from './popup-source';
 import {hoverRuntimeSource} from './hover-source';
@@ -70,5 +72,5 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
 }
 `;
 
-export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+interactionBody;
-export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+interactionBody).replace(/^export /gm,'');
+export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+dateMathRuntimeSource+dateRuntimeSource+interactionBody;
+export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+dateMathRuntimeSource+dateRuntimeSource+interactionBody).replace(/^export /gm,'');

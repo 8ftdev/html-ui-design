@@ -7,6 +7,8 @@ export const stateOrder = [
 	"checked",
 	"indeterminate",
 	"pressed",
+	"outside",
+	"today",
 	"selected",
 	"highlighted",
 	"hover",

@@ -97,13 +97,13 @@ import {ref} from 'vue'
 import {Toggle,DatePicker,Dialog,DropdownMenu,Button,Chart} from './index'
 const pressed=ref(false),date=ref('2026-09-29')
 </script><template>
-<Toggle v-model:pressed="pressed">Pin</Toggle><DatePicker v-model:value="date">Date</DatePicker>
+<Toggle v-model:pressed="pressed">Pin</Toggle><DatePicker id="consumer-date" popup-id="consumer-month" v-model:value="date">Date</DatePicker>
 <Dialog id="consumer-dialog" title-id="consumer-title"><template #trigger>Open</template><template #title>Title</template>Body<template #close>Close</template></Dialog>
 <DropdownMenu id="consumer-menu" label="Actions"><template #trigger>Actions</template><Button role="menuitem" variant="menu">Save</Button></DropdownMenu>
 <Chart><svg role="img" aria-label="Trend"/><template #caption>Trend</template></Chart>
 </template>`);
 check();
-for(const [component,attrs,slot] of [['Toggle',':pressed="1"','Pin'],['DatePicker',':value="new Date()"','Date'],['DropdownMenu','id="missing-menu-label"','<template #trigger>Open</template>'],['InputOtp',':max-length="false"','Code']]){
+for(const [component,attrs,slot] of [['Toggle',':pressed="1"','Pin'],['DatePicker','id="invalid-date" popup-id="invalid-month" :value="new Date()"','Date'],['DropdownMenu','id="missing-menu-label"','<template #trigger>Open</template>'],['InputOtp',':max-length="false"','Code']]){
  writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}>${slot}</${component}></template>`);
  try{check();throw new Error(`invalid ${component} props accepted`)}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
 }
@@ -193,3 +193,11 @@ for(const [component,attrs] of [['Dialog','id="one" title-id="two" close-size="t
  try{check();throw new Error('invalid modal contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
 }
 rmSync(resolve(out,'Modal.vue'));check();console.log('PASS: compact modal slots, command Buttons and independent close axes typecheck; invalid dimensions, sides and missing AlertDialog description IDs rejected');
+writeFileSync(resolve(out,'Dates.vue'),`<script setup lang="ts" vapor>
+import {ref} from 'vue';import {Calendar,DatePicker,NativeDatePicker} from './index';const date=ref('2024-02-29');
+</script><template><Calendar id="typed-calendar" popup-id="typed-calendar-grid" v-model:value="date" locale="es-ES" :first-day-of-week="1" :classes="{day:'rounded-none',week:'mt-1',weekday:'font-medium'}" :styles="{cell:{borderRadius:'0px'}}" ariaLabel="Booking"/><DatePicker id="typed-picker" popup-id="typed-picker-grid" v-model:value="date" default-month="2024-02" min="2024-01-01" required>Arrival</DatePicker><NativeDatePicker v-model:value="date">Native</NativeDatePicker></template>`);check();rmSync(resolve(out,'Dates.vue'));
+for(const attrs of [':value="new Date()"',':first-day-of-week="\'Monday\'"',':classes="{missingPart:\'x\'}"']){
+ writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import {Calendar} from './index'</script><template><Calendar id="invalid-date" popup-id="invalid-grid" ${attrs} ariaLabel="Date"/></template>`);
+ try{check();throw new Error('invalid calendar props accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
+}
+console.log('PASS: Calendar, DatePicker and NativeDatePicker typed contracts; invalid values/week-start/owned parts rejected');

@@ -55,8 +55,9 @@ const samples: Record<string, string> = {
   'popover': '<Popover id="gallery-popover"><template #trigger>Open popover</template><p>Useful extra context.</p></Popover>',
   'navigation-menu': '<NavigationMenu label="Main navigation"><a href="#overview">Overview</a><a href="#reports">Reports</a></NavigationMenu>',
   'input-otp': '<InputOtp name="verification" :max-length="6">Verification code</InputOtp>',
-  'date-picker': '<DatePicker name="due-date" value="2026-09-29">Due date</DatePicker>',
-  'calendar': '<Calendar name="calendar-date" value="2026-09-29">Calendar date</Calendar>',
+  'date-picker': '<DatePicker id="gallery-date" popup-id="gallery-date-popup" name="due-date" value="2026-09-29">Due date</DatePicker>',
+  'native-date-picker': '<NativeDatePicker name="native-due-date" value="2026-09-29">Browser date</NativeDatePicker>',
+  'calendar': '<Calendar id="gallery-calendar" popup-id="gallery-calendar-month" name="calendar-date" value="2026-09-29">Calendar date</Calendar>',
   'combobox': '<Combobox id="gallery-project" popup-id="gallery-projects" name="project">Project<template #options><option value="Atlas">Atlas</option><option value="Orbit">Orbit</option></template></Combobox>',
   'command': '<Command id="gallery-command" popup-id="gallery-commands">Command<template #options><option value="new">New report</option><option value="settings">Open settings</option></template></Command>',
   'select': '<Select id="gallery-priority" popup-id="gallery-priority-list" name="priority">Priority<template #options><option>Normal</option><option>High</option></template></Select>',
@@ -85,7 +86,7 @@ const samples: Record<string, string> = {
 };
 
 const groups: Record<string, string[]> = {
-  'Actions & inputs': ['button', 'icon-button', 'button-group', 'input', 'input-group', 'textarea', 'checkbox', 'switch', 'radio', 'radio-group', 'slider', 'native-select', 'select', 'combobox', 'command', 'input-otp', 'date-picker', 'calendar', 'toggle', 'toggle-group'],
+  'Actions & inputs': ['button', 'icon-button', 'button-group', 'input', 'input-group', 'textarea', 'checkbox', 'switch', 'radio', 'radio-group', 'slider', 'native-select', 'select', 'combobox', 'command', 'input-otp', 'date-picker', 'native-date-picker', 'calendar', 'toggle', 'toggle-group'],
   'Content & data': ['card', 'badge', 'avatar', 'alert', 'empty', 'item', 'kbd', 'progress', 'skeleton', 'spinner', 'table', 'data-table', 'chart', 'attachment', 'bubble', 'marker', 'message', 'message-scroller', 'toast'],
   'Layout & structure': ['grid', 'icon', 'field', 'fieldset', 'questionnaire', 'label', 'separator', 'aspect-ratio', 'typography', 'direction', 'scroll-area', 'carousel', 'resizable', 'sidebar'],
   'Navigation & disclosure': ['accordion', 'collapsible', 'breadcrumb', 'pagination', 'navigation-menu', 'tabs', 'toolbar', 'menubar', 'dropdown-menu', 'context-menu', 'tooltip'],

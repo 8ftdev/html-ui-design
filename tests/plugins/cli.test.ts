@@ -69,3 +69,13 @@ test('CLI resolves custom and native Select from their distinct primitive contra
   expect(result.status).toBe(0);expect(result.stdout.includes('role="combobox"')).toBe(primitive==='select-list');
  }
 });
+test('CLI explicitly selects Calendar and DatePicker from date-grid and rejects ambiguous input',()=>{
+ const input=execFileSync('.test-output/html-ui-to-vue-vapor',[],{input:execFileSync('.test-output/html-ui',['date-grid']),encoding:'utf8',stdio:['pipe','pipe','pipe']});
+ const args=['dist/cli.js','--framework','vue','--plugin','shadcn-ui','--theme','tests/fixtures/plugins/theme.css'];
+ for(const component of ['calendar','date-picker']){const r=spawnSync('node',[...args,'--component',component],{input,encoding:'utf8'});expect(r.status).toBe(0);expect(r.stdout).toContain(`uiDate(root,"${component}"`)}
+ const ambiguous=spawnSync('node',args,{input,encoding:'utf8'});expect(ambiguous.status).toBe(2);expect(ambiguous.stdout).toBe('');expect(ambiguous.stderr).toContain('--component');
+ for(const component of ['button','missing']){const r=spawnSync('node',[...args,'--component',component],{input,encoding:'utf8'});expect(r.status).toBe(2);expect(r.stdout).toBe('')}
+});
+test('CLI component selection requires a standalone class plugin',()=>{
+ for(const args of [['--framework','vue','--theme','tests/fixtures/plugins/theme.css','--component','button'],['--framework','vue','--plugin','shadcn-ui','--component','button','--out-dir','/private/tmp/ui-date-invalid-output'],['--import-cva','tests/fixtures/plugins/simple.ts','--export','styles','--component','button']]){const r=spawnSync('node',['dist/cli.js',...args],{input,encoding:'utf8'});expect(r.status).toBe(2);expect(r.stdout).toBe('')}
+});

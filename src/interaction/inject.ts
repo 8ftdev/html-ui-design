@@ -6,7 +6,7 @@ import type {ComponentRecipe} from '../plugins/schema';
 import {inlineInteractionRuntimeSource} from './runtime-source';
 
 export function validateInteraction(input:VueInput,mapping:ComponentRecipe){
- const expected:Record<string,string[]>={dialog:['dialog','alert-dialog','drawer'],popover:['popover'],tabs:['tabs'],menu:['menu'], 'context-menu':['context-menu'],toolbar:['toolbar','menubar'],toggle:['toggle'],'toggle-group':['toggle-group'],tooltip:['tooltip'],'hover-card':['preview-card'],select:['select-list'],combobox:['combobox-list'],command:['command-list']};
+ const expected:Record<string,string[]>={dialog:['dialog','alert-dialog','drawer'],popover:['popover'],tabs:['tabs'],menu:['menu'], 'context-menu':['context-menu'],toolbar:['toolbar','menubar'],toggle:['toggle'],'toggle-group':['toggle-group'],tooltip:['tooltip'],'hover-card':['preview-card'],select:['select-list'],combobox:['combobox-list'],command:['command-list'],calendar:['date-grid'],'date-picker':['date-grid']};
  if(mapping.interaction&&!expected[mapping.interaction].includes(input.ui.component))throw new Error('interaction does not match primitive contract');
  if(!mapping.interaction)return;
  const root=input.nodes.find(n=>n.part==='root');
@@ -44,6 +44,13 @@ export function validateInteraction(input:VueInput,mapping:ComponentRecipe){
   if(control.parent!==root!.node||surface.parent!==root!.node||inputNode.parent!==surface.node||popup.parent!==root!.node||option.parent!==popup.node||empty.parent!==popup.node)throw new Error('interaction requires owned searchable anatomy');
   if(mapping.interaction==='command'&&Object.hasOwn(popup.attributes,'popover'))throw new Error('Command list must be inline');
  }
+ if(['calendar','date-picker'].includes(mapping.interaction)){
+  const specs:Record<string,[string,string,Record<string,string>?]>={label:['label','root'],control:['input','root',{type:'date','aria-hidden':'true',tabindex:'-1'}],trigger:['button','root',{type:'button','aria-haspopup':'dialog'}],value:['span','trigger'],icon:['span','trigger'],popup:['div','root'],header:['div','popup'],previous:['button','header',{type:'button'}],caption:['div','header'],next:['button','header',{type:'button'}],grid:['table','popup',{role:'grid'}],head:['thead','grid'],weekdays:['tr','head'],weekday:['th','weekdays',{hidden:'',scope:'col'}],body:['tbody','grid'],week:['tr','body',{hidden:''}],cell:['td','week'],day:['button','cell',{type:'button',tabindex:'-1'}]};
+  for(const [name,[tag,parent,attributes]] of Object.entries(specs)){
+   const node=requirePart(name,tag,attributes);const owner=input.nodes.find(n=>n.part===parent);
+   if(!owner||node.parent!==owner.node)throw new Error('interaction requires owned date-grid anatomy: '+name);
+  }
+ }
  if(mapping.interaction==='tooltip')requirePart('tooltip','div',{role:'tooltip'});
 }
 export function injectInteraction(source:string,input:VueInput,mapping:ComponentRecipe,edits:MagicString,runtimePath?:string){
@@ -51,7 +58,24 @@ export function injectInteraction(source:string,input:VueInput,mapping:Component
  validateInteraction(input,mapping);
  const {descriptor}=parseSFC(source),setup=descriptor.scriptSetup!,offset=setup.loc.start.offset;
  if(source.includes('v-ui-interaction')||setup.content.includes('_uiPressed'))throw new Error('reserved interaction identifier collision');
- edits.appendLeft(offset,runtimePath?`\nimport {${mapping.interaction==='select'?'uiSelect':['combobox','command'].includes(mapping.interaction)?'uiSearch':['tooltip','hover-card'].includes(mapping.interaction)?'uiHover':['popover','menu','context-menu'].includes(mapping.interaction)?'uiPopup':'uiInteraction'}} from ${JSON.stringify(runtimePath)}\n`:inlineInteractionRuntimeSource);
+ edits.appendLeft(offset,runtimePath?`\nimport {${['calendar','date-picker'].includes(mapping.interaction)?'uiDate':mapping.interaction==='select'?'uiSelect':['combobox','command'].includes(mapping.interaction)?'uiSearch':['tooltip','hover-card'].includes(mapping.interaction)?'uiHover':['popover','menu','context-menu'].includes(mapping.interaction)?'uiPopup':'uiInteraction'}} from ${JSON.stringify(runtimePath)}\n`:inlineInteractionRuntimeSource);
+ if(['calendar','date-picker'].includes(mapping.interaction)){
+  if(!/const _htmlUiState0 = _htmlUiRef<string \| undefined>\(_htmlUiProps\["value"\]\)/.test(setup.content))throw new Error('Calendar requires reviewed native value model');
+  edits.appendLeft(offset,"\nimport {watchPostEffect as _uiDateEffect} from 'vue'\n");
+  edits.appendLeft(setup.loc.end.offset,`\nconst vUiInteraction = (root:HTMLElement) => {
+ let disposed=false
+ let controller:ReturnType<typeof uiDate>|undefined
+ const stop=_uiDateEffect(()=>{
+  const options={locale:_htmlUiProps.locale,firstDayOfWeek:_htmlUiProps.firstDayOfWeek,defaultMonth:_htmlUiProps.defaultMonth}
+  void [_htmlUiState0.value,_htmlUiProps.disabled,_htmlUiProps.required,_htmlUiProps.min,_htmlUiProps.max,_htmlUiProps.ariaLabel,_htmlUiProps.ariaLabelledby,_htmlUiProps.ariaDescribedby,_htmlUiProps.ariaInvalid,_htmlUiProps.placeholder]
+  if(disposed)return
+  controller ??= uiDate(root,${JSON.stringify(mapping.interaction)},options)
+  controller.sync(options)
+ })
+ return ()=>{disposed=true;stop();controller?.dispose()}
+}\n`);
+  edits.appendLeft(input.nodes.find(n=>n.part==='root')!.start,' v-ui-interaction');return;
+ }
  if(['popover','menu','context-menu'].includes(mapping.interaction)){
   const ast=parseJS(setup.content,{sourceType:'module',plugins:['typescript']}).program;
   const props=ast.body.find((node:any)=>node.type==='TSInterfaceDeclaration'&&node.id.name==='Props') as any;

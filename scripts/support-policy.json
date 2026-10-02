@@ -48,7 +48,7 @@
     },
     "calendar": {
       "status": "partial",
-      "reason": "Native single-date browser picker alternative. No inline month grid, range or disabled-day API; browser owns calendar appearance."
+      "reason": "Local single Gregorian month grid with ISO value/model, roving keyboard focus, locale/week start, min/max, native form/reset and editable repeated parts. No range, multi-month, alternative calendars or disabled-day predicates."
     },
     "card": {
       "status": "partial",
@@ -88,7 +88,7 @@
     },
     "date-picker": {
       "status": "partial",
-      "reason": "Native browser date picker with ISO string value model, constraints and reset. No custom calendar popup, range or timezone conversion."
+      "reason": "Same local month grid in a native auto-popover with collision positioning, date selection and focus return. ISO native form model/reset/validation; no free-text parser, range or controlled-open API."
     },
     "dialog": {
       "status": "partial",
@@ -281,6 +281,10 @@
     "hover-card": {
       "status": "partial",
       "reason": "Local PreviewCard button plus native auto-popover, delayed hover, immediate focus and native click/touch fallback. Pointer/focus persistence, Escape/light dismissal and shared four-side collision positioning. No polymorphic link trigger, controlled open model, provider or safe-polygon cursor tracking."
+    },
+    "native-date-picker": {
+      "status": "partial",
+      "reason": "Native browser date input retaining ISO value/model, min/max, required, reset and native picker appearance."
     }
   }
 }

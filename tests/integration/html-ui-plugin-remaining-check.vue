@@ -1,6 +1,6 @@
 <script setup lang="ts" vapor>
 import {onMounted,ref} from 'vue'
-import {Card,Grid,Button,IconButton,Dialog,AlertDialog,Drawer,Sheet,Popover,Tabs,Toggle,ToggleGroup,Toolbar,Menubar,DropdownMenu,ContextMenu,Tooltip,Calendar,DatePicker,Combobox,Command,Select,InputOtp,NavigationMenu,DataTable,Attachment,Bubble,Marker,Message,MessageScroller,Carousel,Chart,Resizable,Sidebar,Questionnaire,Toast,Checkbox} from '~/components/html-ui-plugin-batch'
+import {Card,Grid,Button,IconButton,Dialog,AlertDialog,Drawer,Sheet,Popover,Tabs,Toggle,ToggleGroup,Toolbar,Menubar,DropdownMenu,ContextMenu,Tooltip,Calendar,NativeDatePicker,Combobox,Command,Select,InputOtp,NavigationMenu,DataTable,Attachment,Bubble,Marker,Message,MessageScroller,Carousel,Chart,Resizable,Sidebar,Questionnaire,Toast,Checkbox} from '~/components/html-ui-plugin-batch'
 const ready=ref(false),dark=ref(false),pressed=ref(false),date=ref('2026-09-29'),code=ref('0123'),notice=ref(''),action=ref('none'),first=ref(false),second=ref(false)
 onMounted(()=>{dark.value=document.documentElement.classList.contains('dark');ready.value=true})
 function theme(){dark.value=document.documentElement.classList.toggle('dark')}
@@ -27,7 +27,7 @@ function reset(){notice.value=''}
    </Card>
    <Card><h2 class="text-lg font-semibold">Native input alternatives</h2><p class="text-sm text-muted-foreground">Browser date picker and local searchable controls; no custom month grid.</p>
     <form data-testid="native-form" @submit.prevent @reset="reset"><Grid gap="default" columns="1" md-columns="2">
-     <DatePicker name="date" v-model:value="date" min="2026-01-01" max="2026-12-31">Report date</DatePicker><Calendar name="calendar" :value="date">Calendar alternative</Calendar>
+     <NativeDatePicker name="date" v-model:value="date" min="2026-01-01" max="2026-12-31">Report date</NativeDatePicker><Calendar id="remaining-calendar" popup-id="remaining-calendar-grid" name="calendar" :value="date">Calendar alternative</Calendar>
      <Combobox id="project-search" popup-id="projects" name="project">Project suggestions<template #options><option value="Atlas">Atlas</option><option value="Orbit">Orbit</option></template></Combobox>
      <Command id="command-search" popup-id="commands">Command search<template #options><option value="new">New report</option><option value="settings">Open settings</option></template></Command>
      <Select id="remaining-status" popup-id="remaining-status-options" name="status">Status<template #options><option value="draft">Draft</option><option value="published">Published</option></template></Select>

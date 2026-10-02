@@ -250,7 +250,7 @@ Checkbox's optional `indeterminate` property initializes and synchronizes the na
 
 Class output merges in order: CVA recipe, `classes.part`, then ordinary root `class`, using tailwind-merge. Root style follows part style. `unstyled` suppresses the recipe while retaining explicit overrides. This resolves width/hover utility conflicts consistently, including caller-sized Skeletons. Generated local consumers require Vue, CVA and tailwind-merge; they import no external component implementation.
 
-The neutral-token integration page is `tests/integration/html-ui-form-parity.vue`; its browser regressions cover geometry, glyph masks, light/dark checked surfaces, native interaction/reset, label/error connections, forced colors and mobile overflow. NativeSelect remains distinct from the custom Select contract. Portable custom Select and shared positioning are documented below; Calendar, split panes, toast stacks and other audit gaps remain tracked in the support matrix.
+The neutral-token integration page is `tests/integration/html-ui-form-parity.vue`; its browser regressions cover geometry, glyph masks, light/dark checked surfaces, native interaction/reset, label/error connections, forced colors and mobile overflow. NativeSelect remains distinct from the custom Select contract. Portable custom Select and shared positioning are documented below; split panes, toast stacks and other audit gaps remain tracked in the support matrix.
 
 Validation for this batch: 70 producer → Vapor → theme outputs compile/typecheck; 166 plugin tests and strict generated consumers pass. Converter Go/race/vet, 79 compiler tests, four type checks and 48 browser checks pass. Nuxt nightly dashboard typecheck/build and 165 browser checks pass across Chromium, Firefox and WebKit (three workers). One existing Chromium menu-focus check failed once at higher parallel load; five isolated repeats and the final full suite passed. Native reset fill assertions wait for the model synchronization turn. Desktop dark and 390px mobile previews were inspected; the source design detector reported no findings.
 
@@ -406,3 +406,36 @@ Trigger `variant`/`size` and `close-variant`/`close-size` are separate axes. Dia
 The pinned Base Nova recipes use a 384px Dialog and default AlertDialog on desktop; AlertDialog also exposes `content-size="sm"` (320px). Drawer defaults to bottom, Sheet to right, and both accept top/bottom/left/right. They use native modal behavior; drag gestures, snap points and nested drawer orchestration are outside this adapter.
 
 Preview: http://127.0.0.1:4343/html-ui-modal-parity. Fixtures use isolated neutral light/dark tokens and local primitives. Cross-browser checks cover dimensions, names, focus, cancellation, native command fallbacks, edges, mobile bounds, overrides and cleanup.
+
+
+## Calendar and DatePicker
+
+Calendar and DatePicker use the owned `date-grid` producer contract. Calendar renders an inline Gregorian month; DatePicker reuses the same grid in a native auto-popover with shared collision positioning. NativeDatePicker retains `date-field` and the browser picker. All implementations and recipes are generated locally, without a third-party calendar engine.
+
+```vue
+<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {Calendar,DatePicker,NativeDatePicker} from './ui'
+const date=ref('2024-02-29')
+</script>
+<template>
+  <Calendar id="booking" popup-id="booking-month" name="booking"
+    v-model:value="date" locale="en-US" :first-day-of-week="1"
+    min="2024-01-01" max="2025-12-31"
+    :classes="{day:'rounded-none'}">Booking date</Calendar>
+  <DatePicker id="arrival" popup-id="arrival-month" name="arrival"
+    v-model:value="date" required default-month="2024-02">Arrival date</DatePicker>
+  <NativeDatePicker id="native-date" v-model:value="date">Browser alternative</NativeDatePicker>
+</template>
+```
+
+Caller-supplied unique `id` and `popupId` connect the visible control and its surface. The optional default slot supplies a label; control-targeted ARIA props also work with external Field labels. `value` and `update:value` use date-only ISO strings (`YYYY-MM-DD`), with an empty string for no selection. The native date proxy supplies FormData, min/max, required validation, fieldset disabled inheritance and reset. Focused dates and the viewed month are separate from the committed value. Invalid dates remain native validation concerns; changing limits moves navigation into the available range without silently rewriting the model.
+
+`locale` formats Gregorian labels; `firstDayOfWeek` is 0 (Sunday) through 6 (Saturday), default 0. `defaultMonth` is an optional initial `YYYY-MM` when no value exists. Arrow keys move a day/week, Home/End move within the week, PageUp/PageDown move a month, and Shift+PageUp/PageDown move a year. Enter/Space or pointer activation commits a date. DatePicker restores focus after selection/Escape and dismisses when focus leaves. Every generated owned part, including cloned weekday/week/cell/day prototypes, retains `classes`, `styles` and `unstyled` control.
+
+Scope: one date and one month, Gregorian years 0001–9999, locale labels and explicit week start, contiguous min/max limits. Range/multiple selection, time selection, alternate calendars, disabled-date predicates, month/year dropdowns and controlled-open state are not supplied. Standalone `date-grid` output is ambiguous between two plugin components: pass `--component calendar` or `--component date-picker` explicitly. Library generation selects each mapping directly.
+
+The neutral light/dark preview and browser fixtures are `tests/integration/html-ui-date-parity.vue` and `.spec.ts`. They cover native forms/reset, keyboard navigation, locale/RTL, square cells, caller overrides, popup/modal focus, forced colors and mobile bounds. Independent review regressions cover reactive limits, year endpoints and canceled native opening.
+
+
+Date batch verification (2026-10-02): producer `make check` passed, including 54 browser checks; installed `/usr/local/bin/html-ui` SHA-256 matches the rebuilt producer. Plugin typecheck and 263 tests pass; all 74 declaration-mode catalog outputs compile/typecheck; strict positive/negative generated consumer checks and support checks pass. Both installed standalone date-grid pipelines compile through explicit `--component` selection. Shared-library regeneration reports `changed: []`. Nuxt nightly typecheck/build and all 363 dashboard production browser checks pass across Chromium, Firefox and WebKit (three workers), including 27 focused date checks. The final UI scan reports no findings; desktop light/dark and 390px mobile previews were inspected. Preview: `http://127.0.0.1:4343/html-ui-date-parity`.

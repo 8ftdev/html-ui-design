@@ -50,7 +50,7 @@ In declaration mode, these are generation-time overrides. The original exported 
 
 ## Compatibility and CSS ownership
 
-Input must conform to the [generated Vue profile](docs/profile.md). All 71 catalog entries compile and typecheck in declaration mode. Class-plugin coverage is listed in [the support matrix](docs/support.md). Native behavior remains in the producer; reviewed local interaction helpers satisfy selected adapter-required profiles. Accordion owns details/summary/content and has no native disabled state; tabs owns root/list only.
+Input must conform to the [generated Vue profile](docs/profile.md). All 74 catalog entries compile and typecheck in declaration mode. Class-plugin coverage is listed in [the support matrix](docs/support.md). Native behavior remains in the producer; reviewed local interaction helpers satisfy selected adapter-required profiles. Accordion owns details/summary/content and has no native disabled state; tabs owns root/list only.
 
 The stylesheet uses the `html-ui` cascade layer and native scoped selectors. The initial layer-order statement is `theme, base, html-ui, components, utilities`; host stylesheets should establish the same order before declaring layers. Unlayered CSS intentionally takes precedence. A second unlayered reset can therefore override the recipes. A second theme provider must not redeclare the same variables with incompatible color formats. Keep one reset/theme owner when combining Tailwind and UnoCSS. The dashboard integration documents the concrete fix for its duplicate reset and theme.
 
@@ -73,4 +73,14 @@ After generation, run the dashboard's `check`, `build`, and `test` scripts from 
 
 Use `--plugin shadcn-ui` to emit typed CVA/Tailwind recipes on local html-ui implementations. Use `--out-dir` to generate the shared local library, with recipe/metadata companions. Tailwind and CVA are allowed dependencies; external component implementations are not used. See [plugin usage and custom contracts](docs/plugins.md), [support matrix](docs/support.md), and [source notices](docs/THIRD-PARTY-NOTICES.md).
 
-The class plugin currently emits 70 building blocks (69 mapped primitives plus local IconButton). Accordion and Collapsible optionally share a local WAAPI disclosure helper; motion recipes and the native batch are documented in [plugin usage](docs/plugins.md#native-contract-batch-and-motion).
+The class plugin currently emits 71 building blocks (70 mappings plus local IconButton). Accordion and Collapsible optionally share a local WAAPI disclosure helper; motion recipes and the native batch are documented in [plugin usage](docs/plugins.md#native-contract-batch-and-motion).
+
+
+Calendar and DatePicker share `date-grid`; select the plugin component explicitly for standalone output:
+
+```sh
+html-ui date-grid | html-ui-to-vue-vapor | html-ui-shadcn --framework vue --plugin shadcn-ui --component calendar > Calendar.vue
+html-ui date-grid | html-ui-to-vue-vapor | html-ui-shadcn --framework vue --plugin shadcn-ui --component date-picker > DatePicker.vue
+```
+
+NativeDatePicker keeps the original `date-field` alternative. See [date contracts](docs/plugins.md#calendar-and-datepicker) for ISO models, labels, keyboard behavior and scope.

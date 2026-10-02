@@ -69,7 +69,9 @@
               "hover-card",
               "select",
               "combobox",
-              "command"
+              "command",
+              "calendar",
+              "date-picker"
             ]
           },
           "parts": {

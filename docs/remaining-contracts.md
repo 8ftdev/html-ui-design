@@ -1,6 +1,6 @@
 # Remaining contract adaptations
 
-The pipeline now maps every entry in the current support policy: 69 mappings and local IconButton produce 70 editable Vue/Vapor building blocks. These are explicitly scoped adaptations, not copies of upstream component APIs. The producer contains 73 catalog entries; several legacy adapter profiles are intentionally not used by these mappings.
+The pipeline now maps every entry in the current support policy: 70 mappings and local IconButton produce 71 editable Vue/Vapor building blocks. These are explicitly scoped adaptations, not copies of upstream component APIs. The producer contains 74 catalog entries; several legacy adapter profiles are intentionally not used by these mappings.
 
 ## Shared local interactions
 
@@ -20,7 +20,7 @@ Tooltip uses connected noninteractive text in a manual native top-layer popover,
 
 ## Native alternatives and content
 
-Calendar and DatePicker map to a native date-field with ISO string value/model, browser picker, min/max and reset. Calendar is a browser-picker alternative, not an inline month grid. Combobox is a local editable single-selection input with an anchored listbox, label/keyword filtering, native value/form bridge and cancellation of uncommitted search. Command is an inline searchable action list with a typed select event on every activation; compose local Dialog for a palette. Both use native options/optgroups and share option projection with Select. Rich options, multiple selection, fuzzy ranking and global shortcut dispatch are excluded. NativeSelect is the native alternative; Select is a local select-only combobox over a native select proxy with text option/optgroup projection, keyboard navigation, typeahead, validation, native reset and model synchronization; InputOtp is one string input preserving leading zeros and one-time-code autofill.
+Calendar and DatePicker share the local date-grid contract: a Gregorian inline month grid or popup, ISO string model, locale labels, explicit week start, min/max, keyboard navigation and native form/reset bridge. NativeDatePicker preserves the browser date-field alternative. Range/time selection, alternate calendar systems and month/year dropdowns remain excluded. Combobox is a local editable single-selection input with an anchored listbox, label/keyword filtering, native value/form bridge and cancellation of uncommitted search. Command is an inline searchable action list with a typed select event on every activation; compose local Dialog for a palette. Both use native options/optgroups and share option projection with Select. Rich options, multiple selection, fuzzy ranking and global shortcut dispatch are excluded. NativeSelect is the native alternative; Select is a local select-only combobox over a native select proxy with text option/optgroup projection, keyboard navigation, typeahead, validation, native reset and model synchronization; InputOtp is one string input preserving leading zeros and one-time-code autofill.
 
 DataTable reuses native Table; application logic owns sorting, selection and pagination. Chart owns figure/caption around caller-supplied SVG, canvas or a data table. Carousel is horizontal native scroll snapping. Resizable is a CSS resize surface, not split panes or a keyboard resize handle. Sidebar is a labeled aside; compose local Sheet for mobile disclosure.
 
@@ -30,7 +30,7 @@ All owned parts retain recipe, classes, styles and unstyled control. Slot childr
 
 ## Preview and verification
 
-The custom Select continuation is verified in `tests/integration/html-ui-select-parity.vue` and its browser suite. The current producer contains 73 entries. Before the searchable batch: 185 plugin tests, 71 catalog compilations/typechecks, strict consumers, installed Select pipeline, Nuxt typecheck/build and 213 production browser checks. Current searchable batch verification is recorded in docs/plugins.md. The following counts record the original remaining-components batch.
+The current date batch is verified in `tests/integration/html-ui-date-parity.vue`: 263 plugin tests, 74 catalog compilations/typechecks, strict consumers, installed pipelines, zero library drift, Nuxt typecheck/build and 363 production browser checks pass. OTP cells, keyboard split panes and toast queue/dismissal contracts remain scoped native alternatives. Earlier Select continuation is verified in `tests/integration/html-ui-select-parity.vue` and its browser suite. The current producer contains 74 entries. Before the searchable batch: 185 plugin tests, 71 catalog compilations/typechecks, strict consumers, installed Select pipeline, Nuxt typecheck/build and 213 production browser checks. Current searchable batch verification is recorded in docs/plugins.md. The following counts record the original remaining-components batch.
 
 
 Preview: http://localhost:4322/html-ui-plugin-remaining-check. Source and cross-browser fixtures are in `tests/integration/html-ui-plugin-remaining-check.vue` and `tests/integration/html-ui-plugin-remaining.spec.ts`. These cover keyboard/focus, disabled actions, native models/reset, labels, semantic content, themes, mobile width and browser errors.

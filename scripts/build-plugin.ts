@@ -1,3 +1,4 @@
+import {addDateParity} from './plugin-date-parity';
 import {addModalParity} from './plugin-modal-parity';
 import {addPopupParity} from './plugin-popup-parity';
 import { readFileSync, writeFileSync } from "node:fs";
@@ -44,7 +45,7 @@ const p: any = {
   pluginVersion: 1,
   name: "shadcn-ui",
   provenance: {
-    source: "shadcn registry/base-nova (2026-10-01)",
+    source: "shadcn registry/base-nova (2026-10-02)",
     revision: createHash("sha256").update(raw).digest("hex"),
     license: "MIT; shadcn",
   },
@@ -167,6 +168,7 @@ addSearchParity(p, source);
 addHoverParity(p, source);
 addPopupParity(p,source);
 addModalParity(p,source);
+addDateParity(p,source);
 writeFileSync(
   "src/plugins/builtin/shadcn-ui.json",
   JSON.stringify(parsePlugin(p), null, 2) + "\n",

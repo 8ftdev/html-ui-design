@@ -3,14 +3,14 @@
   "reference": "https://ui.shadcn.com/docs/components",
   "snapshot": "2026-09-30",
   "plugin": "shadcn-ui",
-  "revision": "ba0cdb8cf2df340cbd961feace548b4e02bc3087d07d6b5ff370042f6a2614a6",
+  "revision": "cc5dc1cad6603d730a6c957cd901b89d97a6f820c520c500f9b92d90df9af25a",
   "summary": {
-    "mappedPrimitives": 69,
+    "mappedPrimitives": 70,
     "compositions": 1,
-    "total": 70
+    "total": 71
   },
   "legacyDeclarationMode": {
-    "catalogCount": 73,
+    "catalogCount": 74,
     "establishesPluginSupport": false
   },
   "components": {
@@ -481,17 +481,37 @@
     },
     "calendar": {
       "status": "partial",
-      "reason": "Native single-date browser picker alternative. No inline month grid, range or disabled-day API; browser owns calendar appearance.",
-      "primitive": "date-field",
+      "reason": "Local single Gregorian month grid with ISO value/model, roving keyboard focus, locale/week start, min/max, native form/reset and editable repeated parts. No range, multi-month, alternative calendars or disabled-day predicates.",
+      "primitive": "date-grid",
       "parts": [
         "root",
-        "control"
+        "label",
+        "control",
+        "trigger",
+        "value",
+        "icon",
+        "popup",
+        "header",
+        "previous",
+        "next",
+        "caption",
+        "grid",
+        "head",
+        "weekdays",
+        "weekday",
+        "body",
+        "week",
+        "cell",
+        "day"
       ],
       "slots": [
         "default"
       ],
       "axes": {},
       "nativeStates": {
+        "body": {},
+        "caption": {},
+        "cell": {},
         "control": {
           "disabled": {
             "source": {
@@ -524,17 +544,121 @@
             }
           }
         },
-        "root": {
+        "day": {
           "disabled": {
             "source": {
-              "node": "control",
+              "node": "day",
               "pseudo": "disabled"
             }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "day",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "day",
+              "pseudo": "hover"
+            }
+          },
+          "outside": {
+            "source": {
+              "node": "day",
+              "attribute": "data-outside",
+              "value": "true"
+            }
+          },
+          "selected": {
+            "source": {
+              "node": "day",
+              "attribute": "data-selected",
+              "value": "true"
+            }
+          },
+          "today": {
+            "source": {
+              "node": "day",
+              "attribute": "data-today",
+              "value": "true"
+            }
           }
-        }
+        },
+        "grid": {},
+        "head": {},
+        "header": {},
+        "icon": {},
+        "label": {},
+        "next": {
+          "disabled": {
+            "source": {
+              "node": "next",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "next",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "next",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "popup": {},
+        "previous": {
+          "disabled": {
+            "source": {
+              "node": "previous",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "previous",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "previous",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "root": {},
+        "trigger": {
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "value": {},
+        "week": {},
+        "weekday": {},
+        "weekdays": {}
       },
-      "behavior": "native",
-      "interaction": null,
+      "behavior": "adapter-required",
+      "interaction": "calendar",
       "motion": {}
     },
     "card": {
@@ -1129,17 +1253,37 @@
     },
     "date-picker": {
       "status": "partial",
-      "reason": "Native browser date picker with ISO string value model, constraints and reset. No custom calendar popup, range or timezone conversion.",
-      "primitive": "date-field",
+      "reason": "Same local month grid in a native auto-popover with collision positioning, date selection and focus return. ISO native form model/reset/validation; no free-text parser, range or controlled-open API.",
+      "primitive": "date-grid",
       "parts": [
         "root",
-        "control"
+        "label",
+        "control",
+        "trigger",
+        "value",
+        "icon",
+        "popup",
+        "header",
+        "previous",
+        "next",
+        "caption",
+        "grid",
+        "head",
+        "weekdays",
+        "weekday",
+        "body",
+        "week",
+        "cell",
+        "day"
       ],
       "slots": [
         "default"
       ],
       "axes": {},
       "nativeStates": {
+        "body": {},
+        "caption": {},
+        "cell": {},
         "control": {
           "disabled": {
             "source": {
@@ -1172,17 +1316,121 @@
             }
           }
         },
-        "root": {
+        "day": {
           "disabled": {
             "source": {
-              "node": "control",
+              "node": "day",
               "pseudo": "disabled"
             }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "day",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "day",
+              "pseudo": "hover"
+            }
+          },
+          "outside": {
+            "source": {
+              "node": "day",
+              "attribute": "data-outside",
+              "value": "true"
+            }
+          },
+          "selected": {
+            "source": {
+              "node": "day",
+              "attribute": "data-selected",
+              "value": "true"
+            }
+          },
+          "today": {
+            "source": {
+              "node": "day",
+              "attribute": "data-today",
+              "value": "true"
+            }
           }
-        }
+        },
+        "grid": {},
+        "head": {},
+        "header": {},
+        "icon": {},
+        "label": {},
+        "next": {
+          "disabled": {
+            "source": {
+              "node": "next",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "next",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "next",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "popup": {},
+        "previous": {
+          "disabled": {
+            "source": {
+              "node": "previous",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "previous",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "previous",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "root": {},
+        "trigger": {
+          "disabled": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "trigger",
+              "pseudo": "hover"
+            }
+          }
+        },
+        "value": {},
+        "week": {},
+        "weekday": {},
+        "weekdays": {}
       },
-      "behavior": "native",
-      "interaction": null,
+      "behavior": "adapter-required",
+      "interaction": "date-picker",
       "motion": {}
     },
     "dialog": {
@@ -3610,6 +3858,64 @@
       },
       "behavior": "adapter-required",
       "interaction": "hover-card",
+      "motion": {}
+    },
+    "native-date-picker": {
+      "status": "partial",
+      "reason": "Native browser date input retaining ISO value/model, min/max, required, reset and native picker appearance.",
+      "primitive": "date-field",
+      "parts": [
+        "root",
+        "control"
+      ],
+      "slots": [
+        "default"
+      ],
+      "axes": {},
+      "nativeStates": {
+        "control": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "control",
+              "pseudo": "focus-visible"
+            }
+          },
+          "hover": {
+            "source": {
+              "node": "control",
+              "pseudo": "hover"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "control",
+              "pseudo": "invalid"
+            }
+          },
+          "required": {
+            "source": {
+              "node": "control",
+              "pseudo": "required"
+            }
+          }
+        },
+        "root": {
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          }
+        }
+      },
+      "behavior": "native",
+      "interaction": null,
       "motion": {}
     }
   }
