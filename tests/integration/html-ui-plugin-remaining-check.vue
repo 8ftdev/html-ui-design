@@ -37,12 +37,12 @@ function reset(){notice.value=''}
     </Grid></form>
    </Card>
    <Card><h2 class="text-lg font-semibold">Content and layout</h2><NavigationMenu label="Report navigation"><a href="#overview" aria-current="page">Overview</a><a href="#activity">Activity</a></NavigationMenu>
-    <Grid columns="1" md-columns="2" gap="default"><Sidebar label="Report sidebar"><h3 class="font-semibold">Workspace</h3><a class="underline" href="#reports">Reports</a></Sidebar><Resizable><h3 class="font-semibold">Resizable surface</h3><p>Use the native corner grip. This is not a split-pane controller.</p></Resizable></Grid>
+    <Grid columns="1" md-columns="2" gap="default"><Sidebar label="Report sidebar"><h3 class="font-semibold">Workspace</h3><a class="underline" href="#reports">Reports</a></Sidebar><Resizable id="remaining-first-panel" label="Resize report panel" :classes="{root:'h-48 rounded-lg border border-border'}"><template #start><p class="p-4">Report panel</p></template><template #end><p class="p-4">Preview panel</p></template></Resizable></Grid>
     <MessageScroller label="Conversation"><Message label="Message from Alex"><Marker>Today</Marker><Bubble>All report components are generated locally.</Bubble><Attachment href="#download" download="report.txt">Download report.txt</Attachment></Message><Message label="Your reply"><Bubble>The recipes use our shared theme.</Bubble></Message></MessageScroller>
     <Carousel label="Featured reports"><Card><h3>Quarter one</h3><p>Swipe or scroll horizontally.</p></Card><Card><h3>Quarter two</h3></Card><Card><h3>Quarter three</h3></Card></Carousel>
     <Chart><svg viewBox="0 0 300 100" role="img" aria-label="Illustrative upward trend" class="h-24 w-full" fill="none" stroke="currentColor" stroke-width="3"><path d="M10 90L100 60L180 70L290 10"/></svg><template #caption>Caller-supplied graphic; Chart owns the figure and caption.</template></Chart>
     <DataTable><template #caption>Recent reports</template><template #head><tr><th scope="col">Report</th><th scope="col">Status</th></tr></template><tr><td>Quarter one</td><td>Draft</td></tr></DataTable>
-    <div class="flex flex-wrap gap-2"><Button @click="notice='Report saved'">Show notification</Button><Button variant="outline" @click="notice=''">Dismiss notification</Button></div><Toast data-testid="notification">{{notice}}</Toast>
+    <div class="flex flex-wrap gap-2"><Button @click="notice='Report saved'">Show notification</Button><Button variant="outline" @click="notice=''">Dismiss notification</Button></div><Toast data-testid="notification" :open="Boolean(notice)" @update:open="open=>{if(!open)notice=''}">{{notice}}</Toast>
    </Card>
   </Grid>
  </main>

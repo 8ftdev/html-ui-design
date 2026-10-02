@@ -1,10 +1,10 @@
 {
   "reference": "https://ui.shadcn.com/docs/components",
-  "snapshot": "2026-09-30",
+  "snapshot": "2026-10-02",
   "components": {
     "accordion": {
       "status": "partial",
-      "reason": "One native details/summary item; shared name supports exclusive groups. No disabled item, roving focus, generated indicator, upstream panel lifecycle."
+      "reason": "One native details/summary item with trailing chevron, Nova spacing, final-item border handling and reduced-motion disclosure animation. Shared name supports exclusive groups. No disabled-item policy, generated roving focus or upstream panel lifecycle."
     },
     "alert": {
       "status": "partial",
@@ -52,7 +52,7 @@
     },
     "card": {
       "status": "partial",
-      "reason": "Native single surface with adapted spacing; upstream Card subcomponents excluded."
+      "reason": "Native single surface with Nova 16px padding and gap, caller-owned semantic content and title hierarchy. Upstream Card header/footer/action slot anatomy excluded."
     },
     "carousel": {
       "status": "partial",
@@ -124,7 +124,7 @@
     },
     "input-otp": {
       "status": "partial",
-      "reason": "Native one-time-code numeric string input with native value/reset. No segmented slots or focus controller."
+      "reason": "One native numeric text input with projected square cells, grouping, active selection/caret, leading-zero model, paste/autofill, required/invalid, disabled/readonly, native reset and editable prototypes. No authentication logic or password-manager heuristics; maxLength 1\u201332."
     },
     "item": {
       "status": "partial",
@@ -184,7 +184,7 @@
     },
     "resizable": {
       "status": "partial",
-      "reason": "Native CSS resize surface; no split panes, keyboard resize handle or panel persistence."
+      "reason": "Local two-pane splitter with typed first-pane percentage model, pointer capture, keyboard arrows/Home/End, min/max/step, horizontal/vertical, RTL and editable separator/grip. Compose nested splitters; persistence, collapse policy and arbitrary panel arrays excluded."
     },
     "scroll-area": {
       "status": "partial",
@@ -236,7 +236,7 @@
     },
     "toast": {
       "status": "partial",
-      "reason": "Persistent polite native status region; insert content after mount. Application owns queue, timeout, actions and dismissal; no notification manager."
+      "reason": "Persistent polite announcer plus compact title/content/action/close surface; typed open model, Escape/close dismissal and optional timer paused on hover, focus and document visibility. Consumer owns queue, stacking, placement and action logic; no global manager, swiping or toast-priority policy."
     },
     "toggle": {
       "status": "partial",

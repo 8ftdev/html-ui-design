@@ -26,7 +26,7 @@ const entries = [
     "id": "card",
     "name": "Card",
     "category": "Content & data",
-    "code": "import { Card } from '~/components/html-ui-plugin-batch'\n\n<Card><h3 class=\"font-semibold\">Quarterly report</h3><p class=\"text-sm text-muted-foreground\">Ready to review</p></Card>"
+    "code": "import { Card } from '~/components/html-ui-plugin-batch'\n\n<Card><h3 class=\"text-base font-medium\">Quarterly report</h3><p class=\"text-sm text-muted-foreground\">Ready to review</p></Card>"
   },
   {
     "id": "icon",
@@ -344,7 +344,7 @@ const entries = [
     "id": "resizable",
     "name": "Resizable",
     "category": "Layout & structure",
-    "code": "import { Resizable } from '~/components/html-ui-plugin-batch'\n\n<Resizable><p>Drag the native resize corner.</p></Resizable>"
+    "code": "import { Resizable } from '~/components/html-ui-plugin-batch'\n\n<Resizable id=\"gallery-first-panel\" label=\"Resize first panel\" class=\"h-32 rounded-lg border border-border\"><template #start><p class=\"p-4 text-sm\">First panel</p></template><template #end><p class=\"p-4 text-sm\">Second panel</p></template></Resizable>"
   },
   {
     "id": "sidebar",
@@ -362,7 +362,7 @@ const entries = [
     "id": "toast",
     "name": "Toast",
     "category": "Content & data",
-    "code": "import { Toast } from '~/components/html-ui-plugin-batch'\n\n<Toast>Report saved</Toast>"
+    "code": "import { Toast } from '~/components/html-ui-plugin-batch'\n\n<Toast :open=\"true\"><template #title>Report saved</template>Your changes are up to date.</Toast>"
   },
   {
     "id": "tabs",
@@ -499,7 +499,7 @@ onMounted(() => { dark.value = document.documentElement.classList.contains('dark
       <div class="grid lg:grid-cols-2">
         <div class="min-w-0 p-5 sm:p-6">
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2"><h2 class="text-lg font-semibold">Card</h2><span class="text-xs text-muted-foreground">Content & data</span></div>
-          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="card"><Card><h3 class="font-semibold">Quarterly report</h3><p class="text-sm text-muted-foreground">Ready to review</p></Card></div>
+          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="card"><Card><h3 class="text-base font-medium">Quarterly report</h3><p class="text-sm text-muted-foreground">Ready to review</p></Card></div>
         </div>
         <div class="min-w-0 border-t border-border bg-muted/40 p-5 lg:border-t-0 lg:border-s sm:p-6">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vue usage</p>
@@ -1135,7 +1135,7 @@ onMounted(() => { dark.value = document.documentElement.classList.contains('dark
       <div class="grid lg:grid-cols-2">
         <div class="min-w-0 p-5 sm:p-6">
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2"><h2 class="text-lg font-semibold">Resizable</h2><span class="text-xs text-muted-foreground">Layout & structure</span></div>
-          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="resizable"><Resizable><p>Drag the native resize corner.</p></Resizable></div>
+          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="resizable"><Resizable id="gallery-first-panel" label="Resize first panel" class="h-32 rounded-lg border border-border"><template #start><p class="p-4 text-sm">First panel</p></template><template #end><p class="p-4 text-sm">Second panel</p></template></Resizable></div>
         </div>
         <div class="min-w-0 border-t border-border bg-muted/40 p-5 lg:border-t-0 lg:border-s sm:p-6">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vue usage</p>
@@ -1171,7 +1171,7 @@ onMounted(() => { dark.value = document.documentElement.classList.contains('dark
       <div class="grid lg:grid-cols-2">
         <div class="min-w-0 p-5 sm:p-6">
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2"><h2 class="text-lg font-semibold">Toast</h2><span class="text-xs text-muted-foreground">Content & data</span></div>
-          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="toast"><Toast>Report saved</Toast></div>
+          <div class="flex min-h-24 min-w-0 flex-col justify-center gap-3" data-gallery-preview="toast"><Toast :open="true"><template #title>Report saved</template>Your changes are up to date.</Toast></div>
         </div>
         <div class="min-w-0 border-t border-border bg-muted/40 p-5 lg:border-t-0 lg:border-s sm:p-6">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vue usage</p>

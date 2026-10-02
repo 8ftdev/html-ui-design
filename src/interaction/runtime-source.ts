@@ -1,3 +1,6 @@
+import {otpRuntimeSource} from './otp-source';
+import {splitRuntimeSource} from './split-source';
+import {toastRuntimeSource} from './toast-source';
 import {dateRuntimeSource} from './date-source';
 import {dateMathRuntimeSource} from './date-math-source';
 import {dialogRuntimeSource} from './dialog-source';
@@ -72,5 +75,5 @@ export function uiInteraction(root: HTMLElement, kind: UiInteraction, changed?: 
 }
 `;
 
-export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+dateMathRuntimeSource+dateRuntimeSource+interactionBody;
-export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+dateMathRuntimeSource+dateRuntimeSource+interactionBody).replace(/^export /gm,'');
+export const interactionRuntimeSource="import {uiPosition} from './ui-position'\n"+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+dateMathRuntimeSource+dateRuntimeSource+otpRuntimeSource+splitRuntimeSource+toastRuntimeSource+interactionBody;
+export const inlineInteractionRuntimeSource=(positionRuntimeSource+listRuntimeSource+selectRuntimeSource+searchRuntimeSource+hoverRuntimeSource+popupRuntimeSource+dialogRuntimeSource+dateMathRuntimeSource+dateRuntimeSource+otpRuntimeSource+splitRuntimeSource+toastRuntimeSource+interactionBody).replace(/^export /gm,'');

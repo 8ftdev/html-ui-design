@@ -3,7 +3,7 @@
   "name": "shadcn-ui",
   "provenance": {
     "source": "shadcn registry/base-nova (2026-10-02)",
-    "revision": "cc5dc1cad6603d730a6c957cd901b89d97a6f820c520c500f9b92d90df9af25a",
+    "revision": "2b07a7939374993ec4520aafb8bbd33b56d1d1b0dae21be3b92eb8510c7d73e5",
     "license": "MIT; shadcn"
   },
   "tokens": [
@@ -204,7 +204,7 @@
       "parts": {
         "root": {
           "base": [
-            "flex flex-col gap-4 rounded-xl bg-card p-6 text-sm text-card-foreground ring-1 ring-foreground/10"
+            "flex flex-col gap-4 rounded-xl bg-card p-4 text-sm text-card-foreground ring-1 ring-foreground/10"
           ],
           "variants": {},
           "axisTypes": {},
@@ -329,7 +329,7 @@
       "parts": {
         "root": {
           "base": [
-            "group/disclosure w-full border-b border-border pb-2 text-sm"
+            "group/disclosure w-full border-border text-sm not-last:border-b"
           ],
           "variants": {},
           "axisTypes": {},
@@ -338,7 +338,7 @@
         },
         "content": {
           "base": [
-            "text-sm"
+            "pb-2.5 text-sm [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4"
           ],
           "variants": {},
           "axisTypes": {},
@@ -347,7 +347,7 @@
         },
         "trigger": {
           "base": [
-            "cursor-pointer rounded-lg py-2.5 text-left text-sm font-medium outline-none transition-colors hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+            "flex w-full cursor-pointer list-none items-start justify-between gap-4 rounded-lg border border-transparent py-2.5 text-start text-sm font-medium outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden after:pointer-events-none after:mt-0.5 after:size-4 after:shrink-0 after:bg-muted-foreground after:content-[''] after:transition-transform group-open/disclosure:after:rotate-180 motion-reduce:after:transition-none after:[mask-image:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E)] after:[mask-size:contain] after:[mask-repeat:no-repeat] after:[mask-position:center]"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2753,10 +2753,20 @@
     },
     "input-otp": {
       "primitive": "otp-field",
+      "interaction": "input-otp",
       "parts": {
         "root": {
           "base": [
-            "grid gap-2 text-sm font-medium"
+            "inline-grid max-w-full min-w-0 gap-2 text-sm font-medium"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "surface": {
+          "base": [
+            "relative w-fit max-w-full"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2765,7 +2775,43 @@
         },
         "control": {
           "base": [
-            "h-9 w-full min-w-0 rounded-lg border border-input bg-transparent px-3 font-mono tracking-widest outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50 user-invalid:border-destructive"
+            "absolute inset-0 size-full cursor-text border-0 bg-transparent p-0 text-transparent opacity-0 outline-none disabled:cursor-not-allowed"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "cells": {
+          "base": [
+            "pointer-events-none flex w-fit max-w-full items-center data-[disabled=true]:opacity-50"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "cell": {
+          "base": [
+            "relative flex size-8 shrink-0 items-center justify-center border-y border-e border-input text-sm font-normal outline-none transition-shadow data-[group-start=true]:not-data-[ui-otp-index=0]:ms-4 data-[group-start=true]:rounded-s-lg data-[group-start=true]:border-s data-[group-end=true]:rounded-e-lg data-[active=true]:z-10 data-[active=true]:border-ring data-[active=true]:ring-3 data-[active=true]:ring-ring/50 data-[invalid=true]:border-destructive data-[active=true]:data-[invalid=true]:ring-destructive/20 dark:bg-input/30 dark:data-[active=true]:data-[invalid=true]:ring-destructive/40 forced-colors:border-[ButtonText]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "character": {
+          "base": [
+            "select-none data-[selected=true]:bg-accent"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "caret": {
+          "base": [
+            "pointer-events-none absolute h-4 w-px bg-foreground"
           ],
           "variants": {},
           "axisTypes": {},
@@ -2776,7 +2822,8 @@
       "slots": {
         "label": "default"
       },
-      "requirements": []
+      "requirements": [],
+      "hooks": []
     },
     "date-picker": {
       "primitive": "date-grid",
@@ -3660,11 +3707,48 @@
       "requirements": []
     },
     "resizable": {
-      "primitive": "resizable",
+      "primitive": "split-view",
+      "interaction": "resizable",
       "parts": {
         "root": {
           "base": [
-            "h-48 min-h-24 w-full min-w-40 max-w-full resize overflow-auto rounded-lg border border-border p-4 focus-visible:outline-2 focus-visible:outline-ring"
+            "grid min-h-0 min-w-0 w-full grid-cols-[minmax(0,var(--ui-split-start))_auto_minmax(0,var(--ui-split-end))] grid-rows-[minmax(0,1fr)] data-[orientation=vertical]:grid-cols-[minmax(0,1fr)] data-[orientation=vertical]:grid-rows-[minmax(0,var(--ui-split-start))_auto_minmax(0,var(--ui-split-end))] data-[resizing=true]:select-none"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "start": {
+          "base": [
+            "min-h-0 min-w-0 overflow-auto"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "end": {
+          "base": [
+            "min-h-0 min-w-0 overflow-auto"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "separator": {
+          "base": [
+            "relative flex w-px touch-none select-none items-center justify-center bg-border ring-offset-background outline-none after:absolute after:inset-y-0 after:start-1/2 after:w-2 after:-translate-x-1/2 after:content-[''] focus-visible:ring-1 focus-visible:ring-ring aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:inset-x-0 aria-[orientation=horizontal]:after:top-1/2 aria-[orientation=horizontal]:after:h-2 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 aria-[orientation=vertical]:cursor-col-resize aria-[orientation=horizontal]:cursor-row-resize aria-disabled:cursor-default aria-disabled:opacity-50 forced-colors:bg-[ButtonText]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "grip": {
+          "base": [
+            "z-10 h-6 w-1 shrink-0 rounded-lg bg-border in-aria-[orientation=horizontal]:rotate-90"
           ],
           "variants": {},
           "axisTypes": {},
@@ -3673,9 +3757,11 @@
         }
       },
       "slots": {
-        "default": "default"
+        "start": "start",
+        "end": "end"
       },
-      "requirements": []
+      "requirements": [],
+      "hooks": []
     },
     "sidebar": {
       "primitive": "sidebar",
@@ -3724,11 +3810,75 @@
       "requirements": []
     },
     "toast": {
-      "primitive": "notification",
+      "primitive": "toast-message",
+      "interaction": "toast",
       "parts": {
         "root": {
           "base": [
-            "min-w-0 rounded-lg text-sm empty:hidden not-empty:border not-empty:border-border not-empty:bg-background not-empty:p-4 not-empty:shadow-md"
+            "min-w-0"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "announcer": {
+          "base": [
+            "sr-only"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "surface": {
+          "base": [
+            "flex w-full items-center gap-3 rounded-2xl border border-border bg-popover p-4 text-popover-foreground shadow-lg [&[hidden]]:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "body": {
+          "base": [
+            "flex min-w-0 flex-1 flex-col gap-1"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "title": {
+          "base": [
+            "text-sm font-medium empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "content": {
+          "base": [
+            "text-sm text-muted-foreground empty:hidden [overflow-wrap:anywhere]"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "actions": {
+          "base": [
+            "shrink-0 empty:hidden"
+          ],
+          "variants": {},
+          "axisTypes": {},
+          "defaultVariants": {},
+          "compoundVariants": []
+        },
+        "close": {
+          "base": [
+            "group/button inline-flex items-center justify-center border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 border-transparent hover:bg-muted aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg relative shrink-0 text-muted-foreground hover:text-foreground before:size-4 before:bg-current before:content-[''] before:[mask-image:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22m18%206-12%2012M6%206l12%2012%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E)] before:[mask-size:contain] before:[mask-repeat:no-repeat] before:[mask-position:center]"
           ],
           "variants": {},
           "axisTypes": {},
@@ -3737,9 +3887,12 @@
         }
       },
       "slots": {
-        "default": "default"
+        "title": "title",
+        "default": "default",
+        "action": "action"
       },
-      "requirements": []
+      "requirements": [],
+      "hooks": []
     },
     "tabs": {
       "primitive": "tabs",
@@ -3747,7 +3900,7 @@
       "parts": {
         "root": {
           "base": [
-            "grid min-w-0 gap-3 [&>[role=tabpanel]]:rounded-lg [&>[role=tabpanel]]:p-4 [&>[role=tabpanel]]:focus-visible:outline-2 [&>[role=tabpanel]]:focus-visible:outline-ring"
+            "grid min-w-0 gap-2 [&>[role=tabpanel]]:text-sm [&>[role=tabpanel]]:outline-none"
           ],
           "variants": {},
           "axisTypes": {},
@@ -3756,7 +3909,7 @@
         },
         "list": {
           "base": [
-            "inline-flex w-fit max-w-full flex-wrap items-center gap-1 rounded-lg bg-muted p-1 [&>[role=tab]]:rounded-md [&>[role=tab]]:px-3 [&>[role=tab]]:py-1.5 [&>[role=tab]]:text-sm [&>[role=tab]]:text-muted-foreground [&>[role=tab]:hover]:bg-background/50 [&>[role=tab][aria-selected=true]]:bg-background [&>[role=tab][aria-selected=true]]:text-foreground [&>[role=tab][aria-selected=true]]:shadow-sm [&>[role=tab]:disabled]:opacity-50 [&>[role=tab]:focus-visible]:outline-2 [&>[role=tab]:focus-visible]:outline-ring"
+            "inline-flex h-8 w-fit max-w-full items-center justify-center rounded-lg bg-muted p-[3px] text-muted-foreground [&>[role=tab]]:h-[calc(100%-1px)] [&>[role=tab]]:flex-1 [&>[role=tab]]:rounded-md [&>[role=tab]]:border-transparent [&>[role=tab]]:px-1.5 [&>[role=tab]]:py-0.5 [&>[role=tab]]:text-sm [&>[role=tab]]:text-foreground/60 [&>[role=tab]:hover]:text-foreground [&>[role=tab][aria-selected=true]]:bg-background [&>[role=tab][aria-selected=true]]:text-foreground [&>[role=tab][aria-selected=true]]:shadow-sm dark:[&>[role=tab][aria-selected=true]]:border-input dark:[&>[role=tab][aria-selected=true]]:bg-input/30 [&>[role=tab]:disabled]:opacity-50 [&>[role=tab]:focus-visible]:border-ring [&>[role=tab]:focus-visible]:ring-3 [&>[role=tab]:focus-visible]:ring-ring/50"
           ],
           "variants": {},
           "axisTypes": {},

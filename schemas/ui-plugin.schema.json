@@ -71,7 +71,10 @@
               "combobox",
               "command",
               "calendar",
-              "date-picker"
+              "date-picker",
+              "input-otp",
+              "resizable",
+              "toast"
             ]
           },
           "parts": {

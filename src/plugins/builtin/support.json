@@ -1,22 +1,22 @@
 {
   "contractVersion": 2,
   "reference": "https://ui.shadcn.com/docs/components",
-  "snapshot": "2026-09-30",
+  "snapshot": "2026-10-02",
   "plugin": "shadcn-ui",
-  "revision": "cc5dc1cad6603d730a6c957cd901b89d97a6f820c520c500f9b92d90df9af25a",
+  "revision": "2b07a7939374993ec4520aafb8bbd33b56d1d1b0dae21be3b92eb8510c7d73e5",
   "summary": {
     "mappedPrimitives": 70,
     "compositions": 1,
     "total": 71
   },
   "legacyDeclarationMode": {
-    "catalogCount": 74,
+    "catalogCount": 76,
     "establishesPluginSupport": false
   },
   "components": {
     "accordion": {
       "status": "partial",
-      "reason": "One native details/summary item; shared name supports exclusive groups. No disabled item, roving focus, generated indicator, upstream panel lifecycle.",
+      "reason": "One native details/summary item with trailing chevron, Nova spacing, final-item border handling and reduced-motion disclosure animation. Shared name supports exclusive groups. No disabled-item policy, generated roving focus or upstream panel lifecycle.",
       "primitive": "accordion",
       "parts": [
         "root",
@@ -663,7 +663,7 @@
     },
     "card": {
       "status": "partial",
-      "reason": "Native single surface with adapted spacing; upstream Card subcomponents excluded.",
+      "reason": "Native single surface with Nova 16px padding and gap, caller-owned semantic content and title hierarchy. Upstream Card header/footer/action slot anatomy excluded.",
       "primitive": "card",
       "parts": [
         "root"
@@ -2109,17 +2109,54 @@
     },
     "input-otp": {
       "status": "partial",
-      "reason": "Native one-time-code numeric string input with native value/reset. No segmented slots or focus controller.",
+      "reason": "One native numeric text input with projected square cells, grouping, active selection/caret, leading-zero model, paste/autofill, required/invalid, disabled/readonly, native reset and editable prototypes. No authentication logic or password-manager heuristics; maxLength 1–32.",
       "primitive": "otp-field",
       "parts": [
         "root",
-        "control"
+        "surface",
+        "control",
+        "cells",
+        "cell",
+        "character",
+        "caret"
       ],
       "slots": [
         "default"
       ],
       "axes": {},
       "nativeStates": {
+        "caret": {},
+        "cell": {
+          "active": {
+            "source": {
+              "node": "cell",
+              "attribute": "data-active",
+              "value": "true"
+            }
+          },
+          "disabled": {
+            "source": {
+              "node": "control",
+              "pseudo": "disabled"
+            }
+          },
+          "invalid": {
+            "source": {
+              "node": "cell",
+              "attribute": "data-invalid",
+              "value": "true"
+            }
+          },
+          "selected": {
+            "source": {
+              "node": "cell",
+              "attribute": "data-selected",
+              "value": "true"
+            }
+          }
+        },
+        "cells": {},
+        "character": {},
         "control": {
           "disabled": {
             "source": {
@@ -2159,10 +2196,11 @@
               "pseudo": "disabled"
             }
           }
-        }
+        },
+        "surface": {}
       },
-      "behavior": "native",
-      "interaction": null,
+      "behavior": "adapter-required",
+      "interaction": "input-otp",
       "motion": {}
     },
     "item": {
@@ -2616,20 +2654,43 @@
     },
     "resizable": {
       "status": "partial",
-      "reason": "Native CSS resize surface; no split panes, keyboard resize handle or panel persistence.",
-      "primitive": "resizable",
+      "reason": "Local two-pane splitter with typed first-pane percentage model, pointer capture, keyboard arrows/Home/End, min/max/step, horizontal/vertical, RTL and editable separator/grip. Compose nested splitters; persistence, collapse policy and arbitrary panel arrays excluded.",
+      "primitive": "split-view",
       "parts": [
-        "root"
+        "root",
+        "start",
+        "end",
+        "separator",
+        "grip"
       ],
       "slots": [
-        "default"
+        "start",
+        "end"
       ],
       "axes": {},
       "nativeStates": {
-        "root": {}
+        "end": {},
+        "grip": {},
+        "root": {},
+        "separator": {
+          "disabled": {
+            "source": {
+              "node": "separator",
+              "attribute": "aria-disabled",
+              "value": "true"
+            }
+          },
+          "focusVisible": {
+            "source": {
+              "node": "separator",
+              "pseudo": "focus-visible"
+            }
+          }
+        },
+        "start": {}
       },
-      "behavior": "native",
-      "interaction": null,
+      "behavior": "adapter-required",
+      "interaction": "resizable",
       "motion": {}
     },
     "scroll-area": {
@@ -3344,20 +3405,44 @@
     },
     "toast": {
       "status": "partial",
-      "reason": "Persistent polite native status region; insert content after mount. Application owns queue, timeout, actions and dismissal; no notification manager.",
-      "primitive": "notification",
+      "reason": "Persistent polite announcer plus compact title/content/action/close surface; typed open model, Escape/close dismissal and optional timer paused on hover, focus and document visibility. Consumer owns queue, stacking, placement and action logic; no global manager, swiping or toast-priority policy.",
+      "primitive": "toast-message",
       "parts": [
-        "root"
+        "root",
+        "announcer",
+        "surface",
+        "body",
+        "title",
+        "content",
+        "actions",
+        "close"
       ],
       "slots": [
-        "default"
+        "title",
+        "default",
+        "action"
       ],
       "axes": {},
       "nativeStates": {
-        "root": {}
+        "actions": {},
+        "announcer": {},
+        "body": {},
+        "close": {},
+        "content": {},
+        "root": {},
+        "surface": {
+          "open": {
+            "source": {
+              "node": "surface",
+              "attribute": "data-state",
+              "value": "open"
+            }
+          }
+        },
+        "title": {}
       },
-      "behavior": "native",
-      "interaction": null,
+      "behavior": "adapter-required",
+      "interaction": "toast",
       "motion": {}
     },
     "toggle": {

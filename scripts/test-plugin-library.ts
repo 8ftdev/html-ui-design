@@ -201,3 +201,18 @@ for(const attrs of [':value="new Date()"',':first-day-of-week="\'Monday\'"',':cl
  try{check();throw new Error('invalid calendar props accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
 }
 console.log('PASS: Calendar, DatePicker and NativeDatePicker typed contracts; invalid values/week-start/owned parts rejected');
+writeFileSync(resolve(out,'Final.vue'),`<script setup lang="ts" vapor>
+import {ref} from 'vue'
+import {InputOtp,Resizable,Toast,Button} from './index'
+const code=ref('012345'),size=ref(50),open=ref(false)
+</script><template>
+<InputOtp id="otp" name="code" v-model:value="code" :max-length="6" :group-size="3" :classes="{cell:'rounded-none'}">Code</InputOtp>
+<Resizable id="pane" label="Resize files" v-model:size="size" :min="20" :max="80"><template #start>Files</template><template #end>Editor</template></Resizable>
+<Toast v-model:open="open" :duration="5000"><template #title>Saved</template>All changes saved.<template #action><Button variant="outline" size="sm">Undo</Button></template></Toast>
+</template>`);
+check();
+for(const [component,attrs,slots] of [['Resizable','id="x" label="Layout" orientation="diagonal"','<template #start>A</template><template #end>B</template>'],['Resizable','label="Layout"','<template #start>A</template><template #end>B</template>'],['Toast',':open="12"','message'],['Toast','duration="soon"','message'],['InputOtp',':group-size="false"','code']]){
+ writeFileSync(resolve(out,'Invalid.vue'),`<script setup lang="ts" vapor>import ${component} from './${component}.vue'</script><template><${component} ${attrs}>${slots}</${component}></template>`);
+ try{check();throw new Error('invalid final contract accepted')}catch(e){if(!String((e as any).stdout).includes('error TS'))throw e}finally{rmSync(resolve(out,'Invalid.vue'))}
+}
+console.log('PASS: OTP, splitter and toast models, slots and overrides typecheck; invalid contracts rejected');

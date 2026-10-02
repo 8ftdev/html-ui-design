@@ -6,7 +6,7 @@ import type {ComponentRecipe} from '../plugins/schema';
 import {inlineInteractionRuntimeSource} from './runtime-source';
 
 export function validateInteraction(input:VueInput,mapping:ComponentRecipe){
- const expected:Record<string,string[]>={dialog:['dialog','alert-dialog','drawer'],popover:['popover'],tabs:['tabs'],menu:['menu'], 'context-menu':['context-menu'],toolbar:['toolbar','menubar'],toggle:['toggle'],'toggle-group':['toggle-group'],tooltip:['tooltip'],'hover-card':['preview-card'],select:['select-list'],combobox:['combobox-list'],command:['command-list'],calendar:['date-grid'],'date-picker':['date-grid']};
+ const expected:Record<string,string[]>={dialog:['dialog','alert-dialog','drawer'],popover:['popover'],tabs:['tabs'],menu:['menu'], 'context-menu':['context-menu'],toolbar:['toolbar','menubar'],toggle:['toggle'],'toggle-group':['toggle-group'],tooltip:['tooltip'],'hover-card':['preview-card'],select:['select-list'],combobox:['combobox-list'],command:['command-list'],calendar:['date-grid'],'date-picker':['date-grid'],'input-otp':['otp-field'],resizable:['split-view'],toast:['toast-message']};
  if(mapping.interaction&&!expected[mapping.interaction].includes(input.ui.component))throw new Error('interaction does not match primitive contract');
  if(!mapping.interaction)return;
  const root=input.nodes.find(n=>n.part==='root');
@@ -15,7 +15,7 @@ export function validateInteraction(input:VueInput,mapping:ComponentRecipe){
   if(!node||node.tag!==tag||Object.entries(attributes).some(([name,value])=>node.attributes[name]!==value))throw new Error('interaction requires reviewed '+mapping.interaction+' anatomy: '+part);
   return node;
  };
- requirePart('root',mapping.interaction==='toggle'?'button':'div');
+ requirePart('root',mapping.interaction==='toggle'?'button':mapping.interaction==='input-otp'?'label':'div');
  if(mapping.interaction==='tabs')requirePart('list','div',{role:'tablist'});
  if(['dialog','popover','menu','context-menu','tooltip','hover-card'].includes(mapping.interaction)){
   const trigger=requirePart('trigger','button',{type:'button'});
@@ -51,6 +51,11 @@ export function validateInteraction(input:VueInput,mapping:ComponentRecipe){
    if(!owner||node.parent!==owner.node)throw new Error('interaction requires owned date-grid anatomy: '+name);
   }
  }
+ if(mapping.interaction==='input-otp'){
+  requirePart('control','input',{type:'text',autocomplete:'one-time-code'});requirePart('surface','div');requirePart('cells','div',{'aria-hidden':'true'});requirePart('cell','span',{hidden:''});requirePart('character','span');requirePart('caret','span');
+ }
+ if(mapping.interaction==='resizable'){requirePart('start','div');requirePart('end','div');requirePart('separator','div',{role:'separator',tabindex:'0'});requirePart('grip','span',{'aria-hidden':'true'})}
+ if(mapping.interaction==='toast'){requirePart('announcer','div',{role:'status','aria-live':'polite','aria-atomic':'true'});requirePart('surface','div',{hidden:''});requirePart('title','div');requirePart('content','div');requirePart('close','button',{type:'button'})}
  if(mapping.interaction==='tooltip')requirePart('tooltip','div',{role:'tooltip'});
 }
 export function injectInteraction(source:string,input:VueInput,mapping:ComponentRecipe,edits:MagicString,runtimePath?:string){
@@ -58,7 +63,32 @@ export function injectInteraction(source:string,input:VueInput,mapping:Component
  validateInteraction(input,mapping);
  const {descriptor}=parseSFC(source),setup=descriptor.scriptSetup!,offset=setup.loc.start.offset;
  if(source.includes('v-ui-interaction')||setup.content.includes('_uiPressed'))throw new Error('reserved interaction identifier collision');
- edits.appendLeft(offset,runtimePath?`\nimport {${['calendar','date-picker'].includes(mapping.interaction)?'uiDate':mapping.interaction==='select'?'uiSelect':['combobox','command'].includes(mapping.interaction)?'uiSearch':['tooltip','hover-card'].includes(mapping.interaction)?'uiHover':['popover','menu','context-menu'].includes(mapping.interaction)?'uiPopup':'uiInteraction'}} from ${JSON.stringify(runtimePath)}\n`:inlineInteractionRuntimeSource);
+ edits.appendLeft(offset,runtimePath?`\nimport {${mapping.interaction==='input-otp'?'uiOtp':mapping.interaction==='resizable'?'uiSplit':mapping.interaction==='toast'?'uiToast':['calendar','date-picker'].includes(mapping.interaction)?'uiDate':mapping.interaction==='select'?'uiSelect':['combobox','command'].includes(mapping.interaction)?'uiSearch':['tooltip','hover-card'].includes(mapping.interaction)?'uiHover':['popover','menu','context-menu'].includes(mapping.interaction)?'uiPopup':'uiInteraction'}} from ${JSON.stringify(runtimePath)}\n`:inlineInteractionRuntimeSource);
+ if(['input-otp','resizable','toast'].includes(mapping.interaction)){
+  const kind=mapping.interaction,helper=kind==='input-otp'?'uiOtp':kind==='resizable'?'uiSplit':'uiToast',state=kind==='resizable'?'size':'open';
+  edits.appendLeft(offset,"\nimport {watchPostEffect as _uiFinalEffect, ref as _uiFinalRef, watch as _uiFinalWatch} from 'vue'\n");
+  if(kind!=='input-otp'){
+   const ast=parseJS(setup.content,{sourceType:'module',plugins:['typescript']}).program;let emit:any;
+   const visit=(n:any)=>{if(!n||typeof n!=='object')return;if(n.type==='CallExpression'&&n.callee.name==='defineEmits')emit=n;for(const v of Object.values(n))if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object')visit(v)};visit(ast);
+   const modelEmit=`'update:${state}': [value:${kind==='resizable'?'number':'boolean'}]`;
+   if(emit?.typeParameters?.params[0])edits.appendLeft(offset+emit.typeParameters.params[0].end-1,`\n ${modelEmit}\n`);
+   else {if(setup.content.includes('_htmlUiEmit'))throw new Error('reserved model emitter collision');edits.appendLeft(setup.loc.end.offset,`\nconst _htmlUiEmit=defineEmits<{${modelEmit}}>()\n`)}
+   edits.appendLeft(setup.loc.end.offset,`\nconst _uiFinalState = _uiFinalRef(_htmlUiProps.${state})\n_uiFinalWatch(()=>_htmlUiProps.${state},value=>{_uiFinalState.value=value})\n`);
+  }
+  const options=kind==='input-otp'?'{groupSize:_htmlUiProps.groupSize}':kind==='resizable'?'{size:_uiFinalState.value,min:_htmlUiProps.min,max:_htmlUiProps.max,step:_htmlUiProps.step,orientation:_htmlUiProps.orientation,disabled:_htmlUiProps.disabled}':'{open:_uiFinalState.value,duration:_htmlUiProps.duration}';
+  edits.appendLeft(setup.loc.end.offset,`\nconst vUiInteraction = (root:HTMLElement) => {
+ let disposed=false
+ let controller:ReturnType<typeof ${helper}>|undefined
+ const stop=_uiFinalEffect(()=>{
+  const options=${options}
+${kind==='input-otp'?'  void [_htmlUiState0.value,_htmlUiProps.maxLength,_htmlUiProps.disabled,_htmlUiProps.readOnly,_htmlUiProps.ariaInvalid]\n':''}  if(disposed)return
+  controller ??= ${helper}(root,options${kind==='input-otp'?'':`,value=>{_uiFinalState.value=value;_htmlUiEmit('update:${state}',value)}`})
+  controller.sync(options)
+ })
+ return ()=>{disposed=true;stop();controller?.dispose()}
+}\n`);
+  edits.appendLeft(input.nodes.find(n=>n.part==='root')!.start,' v-ui-interaction');return;
+ }
  if(['calendar','date-picker'].includes(mapping.interaction)){
   if(!/const _htmlUiState0 = _htmlUiRef<string \| undefined>\(_htmlUiProps\["value"\]\)/.test(setup.content))throw new Error('Calendar requires reviewed native value model');
   edits.appendLeft(offset,"\nimport {watchPostEffect as _uiDateEffect} from 'vue'\n");

@@ -2,9 +2,9 @@
 
 A plugin supplies typed variants and class recipes to local html-ui primitives. Reviewed interaction profiles can generate shared local behavior; unmapped adapter requirements remain errors. It does not install Base UI/Radix components. Vue/Vapor is the first backend. Tailwind CSS 4 and class-variance-authority 0.7.1 are consumer styling dependencies; the generator does not compile utility CSS.
 
-The library now emits 70 building blocks. See [remaining adaptations](remaining-contracts.md) for local interaction helpers and the boundaries of native date, searchable-list, chart, carousel and content alternatives.
+The library now emits 71 building blocks. See [remaining adaptations](remaining-contracts.md) for local interaction helpers and the boundaries of native date, searchable-list, chart, carousel and content alternatives.
 
-The Nuxt gallery at `/html-ui-plugin-gallery` shows all 70 blocks as live examples beside their Vue imports and markup. Generate it from the dashboard's `html-ui-plugin-batch/ui-library.json` with `bun scripts/build-gallery.ts`; use `bun scripts/build-gallery.ts --check` to verify the checked-in gallery and dashboard page have not drifted. The builder requires an example and category for every manifest entry, so a new component cannot silently disappear from the gallery. Set `HTML_UI_DASHBOARD` to target a different dashboard checkout.
+The Nuxt gallery at `/html-ui-plugin-gallery` shows all 71 blocks as live examples beside their Vue imports and markup. Generate it from the dashboard's `html-ui-plugin-batch/ui-library.json` with `bun scripts/build-gallery.ts`; use `bun scripts/build-gallery.ts --check` to verify the checked-in gallery and dashboard page have not drifted. The builder requires an example and category for every manifest entry, so a new component cannot silently disappear from the gallery. Set `HTML_UI_DASHBOARD` to target a different dashboard checkout.
 
 ## Generate one component
 
@@ -439,3 +439,34 @@ The neutral light/dark preview and browser fixtures are `tests/integration/html-
 
 
 Date batch verification (2026-10-02): producer `make check` passed, including 54 browser checks; installed `/usr/local/bin/html-ui` SHA-256 matches the rebuilt producer. Plugin typecheck and 263 tests pass; all 74 declaration-mode catalog outputs compile/typecheck; strict positive/negative generated consumer checks and support checks pass. Both installed standalone date-grid pipelines compile through explicit `--component` selection. Shared-library regeneration reports `changed: []`. Nuxt nightly typecheck/build and all 363 dashboard production browser checks pass across Chromium, Firefox and WebKit (three workers), including 27 focused date checks. The final UI scan reports no findings; desktop light/dark and 390px mobile previews were inspected. Preview: `http://127.0.0.1:4343/html-ui-date-parity`.
+
+## Final compact controls
+
+`InputOtp` uses one numeric native input for `v-model:value`, form submission/reset, paste and one-time-code autofill. `maxLength` defaults to six (1–32 supported); `groupSize` defaults to three. Cells, characters, caret, surface and input are separate typed owned parts. Label content is noninteractive; use `id` and control ARIA props for external labeling. `readOnly`, disabled fieldsets, required/minLength and invalid state remain native. Selection stays native during IME composition. Match a recipe's state selector when overriding state-dependent classes, or use inline `styles`:
+
+```vue
+<InputOtp id="code" name="code" v-model:value="code" :max-length="6"
+  :classes="{cell:'data-[group-start=true]:rounded-s-none data-[group-end=true]:rounded-e-none'}">
+  Verification code
+</InputOtp>
+```
+
+`Resizable` owns two content slots and one labeled numeric separator. `id` uniquely names the first panel; `label` names its resize handle. `v-model:size` is the first pane percentage, with min/max/step. Arrows and Shift+arrows resize; Home/End reach bounds. Pointer capture supports mouse/touch/pen; orientation and RTL use the same local controller. Its layout is an editable recipe using adapter sizing variables; no inline display/grid assignments override consumer styles.
+
+```vue
+<Resizable id="files" label="Resize files" v-model:size="size" :min="20" :max="80">
+  <template #start>Files</template>
+  <template #end>Editor</template>
+</Resizable>
+```
+
+`Toast` exposes `v-model:open`, optional `duration` in milliseconds (zero disables expiration), title/default/action slots, and a labeled close control. Mount it closed, then supply content and open it; its announcer stays outside action controls. Closed surfaces start hidden in server HTML. Escape/close returns focus to the prior element when focus was inside. Expiration pauses during hover, focus and hidden-document periods, and cleanup prevents queued work from restarting timers. Applications can render an array of local Toast components and remove entries on `update:open`; no external notification manager is generated.
+
+```vue
+<Toast v-model:open="open" :duration="5000">
+  <template #title>Changes saved</template>Your report is ready.
+  <template #action><Button variant="outline" size="sm" @click="undo">Undo</Button></template>
+</Toast>
+```
+
+The final preview `/html-ui-final-parity` demonstrates these controls, a consumer-owned notification stack, neutral light/dark tokens, RTL, editable cell parts and Card/Accordion composition. The gallery remains `/html-ui-plugin-gallery`. Card uses Nova spacing; native Accordion uses a trailing masked chevron and preserves disclosure semantics; Tabs uses the 32px Nova list geometry. These are scoped local adaptations, with exact exclusions recorded in `support.md`.

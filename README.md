@@ -50,7 +50,7 @@ In declaration mode, these are generation-time overrides. The original exported 
 
 ## Compatibility and CSS ownership
 
-Input must conform to the [generated Vue profile](docs/profile.md). All 74 catalog entries compile and typecheck in declaration mode. Class-plugin coverage is listed in [the support matrix](docs/support.md). Native behavior remains in the producer; reviewed local interaction helpers satisfy selected adapter-required profiles. Accordion owns details/summary/content and has no native disabled state; tabs owns root/list only.
+Input must conform to the [generated Vue profile](docs/profile.md). All 76 catalog entries compile and typecheck in declaration mode. Class-plugin coverage is listed in [the support matrix](docs/support.md). Native behavior remains in the producer; reviewed local interaction helpers satisfy selected adapter-required profiles. Accordion owns details/summary/content and has no native disabled state; tabs owns root/list only.
 
 The stylesheet uses the `html-ui` cascade layer and native scoped selectors. The initial layer-order statement is `theme, base, html-ui, components, utilities`; host stylesheets should establish the same order before declaring layers. Unlayered CSS intentionally takes precedence. A second unlayered reset can therefore override the recipes. A second theme provider must not redeclare the same variables with incompatible color formats. Keep one reset/theme owner when combining Tailwind and UnoCSS. The dashboard integration documents the concrete fix for its duplicate reset and theme.
 

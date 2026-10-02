@@ -22,27 +22,6 @@
   },
   {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-    "name": "card",
-    "dependencies": [
-      "cn"
-    ],
-    "files": [
-      {
-        "path": "registry/base-nova/ui/card.tsx",
-        "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Card({\n  className,\n  size = \"default\",\n  ...props\n}: React.ComponentProps<\"div\"> & { size?: \"default\" | \"sm\" }) {\n  return (\n    <div\n      data-slot=\"card\"\n      data-size={size}\n      className={cn(\n        \"group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-header\"\n      className={cn(\n        \"group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-xl px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--card-spacing)\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-title\"\n      className={cn(\n        \"cn-font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardDescription({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-description\"\n      className={cn(\"text-sm text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardAction({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-action\"\n      className={cn(\n        \"col-start-2 row-span-2 row-start-1 self-start justify-self-end\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardContent({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-content\"\n      className={cn(\"px-(--card-spacing)\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-footer\"\n      className={cn(\n        \"flex items-center rounded-b-xl border-t bg-muted/50 p-(--card-spacing)\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Card,\n  CardHeader,\n  CardFooter,\n  CardTitle,\n  CardAction,\n  CardDescription,\n  CardContent,\n}\n",
-        "type": "registry:ui"
-      }
-    ],
-    "meta": {
-      "links": {
-        "docs": "https://ui.shadcn.com/docs/components/base/card",
-        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/card-example.tsx"
-      }
-    },
-    "type": "registry:ui"
-  },
-  {
-    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "input",
     "dependencies": [
       "cn"
@@ -80,28 +59,6 @@
         "docs": "https://ui.shadcn.com/docs/components/base/checkbox",
         "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/checkbox-example.tsx",
         "api": "https://base-ui.com/react/components/checkbox.md"
-      }
-    },
-    "type": "registry:ui"
-  },
-  {
-    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-    "name": "accordion",
-    "dependencies": [
-      "cn"
-    ],
-    "files": [
-      {
-        "path": "registry/base-nova/ui/accordion.tsx",
-        "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\"\nimport { cn } from \"cn\"\n\nimport { IconPlaceholder } from \"@/app/(create)/components/icon-placeholder\"\n\nfunction Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {\n  return (\n    <AccordionPrimitive.Root\n      data-slot=\"accordion\"\n      className={cn(\"flex w-full flex-col\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {\n  return (\n    <AccordionPrimitive.Item\n      data-slot=\"accordion-item\"\n      className={cn(\"not-last:border-b\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AccordionTrigger({\n  className,\n  children,\n  ...props\n}: AccordionPrimitive.Trigger.Props) {\n  return (\n    <AccordionPrimitive.Header className=\"flex\">\n      <AccordionPrimitive.Trigger\n        data-slot=\"accordion-trigger\"\n        className={cn(\n          \"group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring aria-disabled:pointer-events-none aria-disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        <IconPlaceholder\n          lucide=\"ChevronDownIcon\"\n          tabler=\"IconChevronDown\"\n          data-slot=\"accordion-trigger-icon\"\n          hugeicons=\"ArrowDown01Icon\"\n          phosphor=\"CaretDownIcon\"\n          remixicon=\"RiArrowDownSLine\"\n          className=\"pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden\"\n        />\n        <IconPlaceholder\n          lucide=\"ChevronUpIcon\"\n          tabler=\"IconChevronUp\"\n          data-slot=\"accordion-trigger-icon\"\n          hugeicons=\"ArrowUp01Icon\"\n          phosphor=\"CaretUpIcon\"\n          remixicon=\"RiArrowUpSLine\"\n          className=\"pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline\"\n        />\n      </AccordionPrimitive.Trigger>\n    </AccordionPrimitive.Header>\n  )\n}\n\nfunction AccordionContent({\n  className,\n  children,\n  ...props\n}: AccordionPrimitive.Panel.Props) {\n  return (\n    <AccordionPrimitive.Panel\n      data-slot=\"accordion-content\"\n      className=\"overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up\"\n      {...props}\n    >\n      <div\n        className={cn(\n          \"h-(--accordion-panel-height) pt-0 pb-2.5 data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4\",\n          className\n        )}\n      >\n        {children}\n      </div>\n    </AccordionPrimitive.Panel>\n  )\n}\n\nexport { Accordion, AccordionItem, AccordionTrigger, AccordionContent }\n",
-        "type": "registry:ui"
-      }
-    ],
-    "meta": {
-      "links": {
-        "docs": "https://ui.shadcn.com/docs/components/base/accordion",
-        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/accordion-example.tsx",
-        "api": "https://base-ui.com/react/components/accordion.md"
       }
     },
     "type": "registry:ui"
@@ -773,28 +730,6 @@
   },
   {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-    "name": "tabs",
-    "dependencies": [
-      "cn"
-    ],
-    "files": [
-      {
-        "path": "registry/base-nova/ui/tabs.tsx",
-        "content": "\"use client\"\n\nimport { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nfunction Tabs({\n  className,\n  orientation = \"horizontal\",\n  ...props\n}: TabsPrimitive.Root.Props) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      data-orientation={orientation}\n      className={cn(\n        \"group/tabs flex gap-2 data-horizontal:flex-col\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nconst tabsListVariants = cva(\n  \"group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-horizontal/tabs:h-8 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-muted\",\n        line: \"gap-1 bg-transparent\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nfunction TabsList({\n  className,\n  variant = \"default\",\n  ...props\n}: TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>) {\n  return (\n    <TabsPrimitive.List\n      data-slot=\"tabs-list\"\n      data-variant={variant}\n      className={cn(tabsListVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {\n  return (\n    <TabsPrimitive.Tab\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        \"group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent\",\n        \"data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground\",\n        \"after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {\n  return (\n    <TabsPrimitive.Panel\n      data-slot=\"tabs-content\"\n      className={cn(\"flex-1 text-sm outline-none\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }\n",
-        "type": "registry:ui"
-      }
-    ],
-    "meta": {
-      "links": {
-        "docs": "https://ui.shadcn.com/docs/components/base/tabs",
-        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/tabs-example.tsx",
-        "api": "https://base-ui.com/react/components/tabs.md"
-      }
-    },
-    "type": "registry:ui"
-  },
-  {
-    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "tooltip",
     "dependencies": [
       "cn"
@@ -992,29 +927,6 @@
       "links": {
         "docs": "https://ui.shadcn.com/docs/components/base/chart",
         "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/chart-example.tsx"
-      }
-    },
-    "type": "registry:ui"
-  },
-  {
-    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-    "name": "resizable",
-    "dependencies": [
-      "cn",
-      "react-resizable-panels"
-    ],
-    "files": [
-      {
-        "path": "registry/base-nova/ui/resizable.tsx",
-        "content": "\"use client\"\n\nimport { cn } from \"cn\"\nimport * as ResizablePrimitive from \"react-resizable-panels\"\n\nfunction ResizablePanelGroup({\n  className,\n  ...props\n}: ResizablePrimitive.GroupProps) {\n  return (\n    <ResizablePrimitive.Group\n      data-slot=\"resizable-panel-group\"\n      className={cn(\n        \"flex h-full w-full aria-[orientation=vertical]:flex-col\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction ResizablePanel({ ...props }: ResizablePrimitive.PanelProps) {\n  return <ResizablePrimitive.Panel data-slot=\"resizable-panel\" {...props} />\n}\n\nfunction ResizableHandle({\n  withHandle,\n  className,\n  ...props\n}: ResizablePrimitive.SeparatorProps & {\n  withHandle?: boolean\n}) {\n  return (\n    <ResizablePrimitive.Separator\n      data-slot=\"resizable-handle\"\n      className={cn(\n        \"relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90\",\n        className\n      )}\n      {...props}\n    >\n      {withHandle && (\n        <div className=\"z-10 flex h-6 w-1 shrink-0 rounded-lg bg-border\" />\n      )}\n    </ResizablePrimitive.Separator>\n  )\n}\n\nexport { ResizableHandle, ResizablePanel, ResizablePanelGroup }\n",
-        "type": "registry:ui"
-      }
-    ],
-    "meta": {
-      "links": {
-        "docs": "https://ui.shadcn.com/docs/components/base/resizable",
-        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/resizable-example.tsx",
-        "api": "https://github.com/bvaughn/react-resizable-panels"
       }
     },
     "type": "registry:ui"
@@ -1261,6 +1173,143 @@
         "docs": "https://ui.shadcn.com/docs/components/base/calendar",
         "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/calendar-example.tsx",
         "api": "https://react-day-picker.js.org"
+      }
+    },
+    "type": "registry:ui"
+  },
+  {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "input-otp",
+    "dependencies": [
+      "cn",
+      "input-otp"
+    ],
+    "files": [
+      {
+        "path": "registry/base-nova/ui/input-otp.tsx",
+        "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"cn\"\nimport { OTPInput, OTPInputContext } from \"input-otp\"\n\nimport { IconPlaceholder } from \"@/app/(create)/components/icon-placeholder\"\n\nfunction InputOTP({\n  className,\n  containerClassName,\n  ...props\n}: React.ComponentProps<typeof OTPInput> & {\n  containerClassName?: string\n}) {\n  return (\n    <OTPInput\n      data-slot=\"input-otp\"\n      containerClassName={cn(\n        \"cn-input-otp flex items-center has-disabled:opacity-50\",\n        containerClassName\n      )}\n      spellCheck={false}\n      className={cn(\"disabled:cursor-not-allowed\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction InputOTPGroup({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"input-otp-group\"\n      className={cn(\n        \"flex items-center rounded-lg has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction InputOTPSlot({\n  index,\n  className,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  index: number\n}) {\n  const inputOTPContext = React.useContext(OTPInputContext)\n  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {}\n\n  return (\n    <div\n      data-slot=\"input-otp-slot\"\n      data-active={isActive}\n      className={cn(\n        \"relative flex size-8 items-center justify-center border-y border-r border-input text-sm transition-all outline-none first:rounded-l-lg first:border-l last:rounded-r-lg aria-invalid:border-destructive data-[active=true]:z-10 data-[active=true]:border-ring data-[active=true]:ring-3 data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:border-destructive data-[active=true]:aria-invalid:ring-destructive/20 dark:bg-input/30 dark:data-[active=true]:aria-invalid:ring-destructive/40\",\n        className\n      )}\n      {...props}\n    >\n      {char}\n      {hasFakeCaret && (\n        <div className=\"pointer-events-none absolute inset-0 flex items-center justify-center\">\n          <div className=\"h-4 w-px animate-caret-blink bg-foreground duration-1000\" />\n        </div>\n      )}\n    </div>\n  )\n}\n\nfunction InputOTPSeparator({ ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"input-otp-separator\"\n      className=\"flex items-center [&_svg:not([class*='size-'])]:size-4\"\n      role=\"separator\"\n      {...props}\n    >\n      <IconPlaceholder\n        lucide=\"MinusIcon\"\n        tabler=\"IconMinus\"\n        hugeicons=\"MinusSignIcon\"\n        phosphor=\"MinusIcon\"\n        remixicon=\"RiSubtractLine\"\n      />\n    </div>\n  )\n}\n\nexport { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }\n",
+        "type": "registry:ui"
+      }
+    ],
+    "meta": {
+      "links": {
+        "docs": "https://ui.shadcn.com/docs/components/base/input-otp",
+        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/input-otp-example.tsx",
+        "api": "https://input-otp.rodz.dev"
+      }
+    },
+    "type": "registry:ui"
+  },
+  {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "resizable",
+    "dependencies": [
+      "cn",
+      "react-resizable-panels"
+    ],
+    "files": [
+      {
+        "path": "registry/base-nova/ui/resizable.tsx",
+        "content": "\"use client\"\n\nimport { cn } from \"cn\"\nimport * as ResizablePrimitive from \"react-resizable-panels\"\n\nfunction ResizablePanelGroup({\n  className,\n  ...props\n}: ResizablePrimitive.GroupProps) {\n  return (\n    <ResizablePrimitive.Group\n      data-slot=\"resizable-panel-group\"\n      className={cn(\n        \"flex h-full w-full aria-[orientation=vertical]:flex-col\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction ResizablePanel({ ...props }: ResizablePrimitive.PanelProps) {\n  return <ResizablePrimitive.Panel data-slot=\"resizable-panel\" {...props} />\n}\n\nfunction ResizableHandle({\n  withHandle,\n  className,\n  ...props\n}: ResizablePrimitive.SeparatorProps & {\n  withHandle?: boolean\n}) {\n  return (\n    <ResizablePrimitive.Separator\n      data-slot=\"resizable-handle\"\n      className={cn(\n        \"relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90\",\n        className\n      )}\n      {...props}\n    >\n      {withHandle && (\n        <div className=\"z-10 flex h-6 w-1 shrink-0 rounded-lg bg-border\" />\n      )}\n    </ResizablePrimitive.Separator>\n  )\n}\n\nexport { ResizableHandle, ResizablePanel, ResizablePanelGroup }\n",
+        "type": "registry:ui"
+      }
+    ],
+    "meta": {
+      "links": {
+        "docs": "https://ui.shadcn.com/docs/components/base/resizable",
+        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/resizable-example.tsx",
+        "api": "https://github.com/bvaughn/react-resizable-panels"
+      }
+    },
+    "type": "registry:ui"
+  },
+  {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "toast",
+    "dependencies": [
+      "cn",
+      "@base-ui/react"
+    ],
+    "registryDependencies": [
+      "button"
+    ],
+    "files": [
+      {
+        "path": "registry/base-nova/ui/toast.tsx",
+        "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Toast as ToastPrimitive } from \"@base-ui/react/toast\"\nimport { cn } from \"cn\"\n\nimport { Button } from \"@/registry/base-nova/ui/button\"\nimport { IconPlaceholder } from \"@/app/(create)/components/icon-placeholder\"\n\nconst toast = ToastPrimitive.createToastManager()\n\nfunction ToastProvider({ ...props }: ToastPrimitive.Provider.Props) {\n  return <ToastPrimitive.Provider {...props} />\n}\n\nfunction ToastPortal({ ...props }: ToastPrimitive.Portal.Props) {\n  return <ToastPrimitive.Portal data-slot=\"toast-portal\" {...props} />\n}\n\nfunction ToastViewport({ className, ...props }: ToastPrimitive.Viewport.Props) {\n  return (\n    <ToastPrimitive.Viewport\n      data-slot=\"toast-viewport\"\n      className={cn(\n        \"pointer-events-none fixed inset-x-4 bottom-4 z-50 mx-auto w-auto max-w-sm outline-none sm:right-4 sm:left-auto sm:mx-0 sm:w-full\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction Toast({ className, ...props }: ToastPrimitive.Root.Props) {\n  return (\n    <ToastPrimitive.Root\n      data-slot=\"toast\"\n      className={cn(\n        \"group/toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom rounded-2xl border bg-popover text-popover-foreground shadow-lg will-change-transform outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50\",\n        \"[--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))]\",\n        \"h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1),opacity_500ms,height_150ms]\",\n        \"after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']\",\n        \"data-expanded:h-(--toast-height) data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(var(--offset-y))]\",\n        \"data-limited:opacity-0 data-starting-style:[transform:translateY(150%)]\",\n        \"[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)]\",\n        \"data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))]\",\n        \"data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))]\",\n        \"data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]\",\n        \"data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]\",\n        \"data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))]\",\n        \"data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))]\",\n        \"data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]\",\n        \"data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction ToastContent({ className, ...props }: ToastPrimitive.Content.Props) {\n  return (\n    <ToastPrimitive.Content\n      data-slot=\"toast-content\"\n      className={cn(\n        \"flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction ToastTitle({ className, ...props }: ToastPrimitive.Title.Props) {\n  return (\n    <ToastPrimitive.Title\n      data-slot=\"toast-title\"\n      className={cn(\"text-sm font-medium\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction ToastDescription({\n  className,\n  ...props\n}: ToastPrimitive.Description.Props) {\n  return (\n    <ToastPrimitive.Description\n      data-slot=\"toast-description\"\n      className={cn(\"text-sm text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction ToastAction({\n  className,\n  render = <Button variant=\"outline\" size=\"sm\" />,\n  ...props\n}: ToastPrimitive.Action.Props) {\n  return (\n    <ToastPrimitive.Action\n      data-slot=\"toast-action\"\n      render={render}\n      className={cn(\"shrink-0\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction ToastClose({\n  className,\n  children,\n  render = <Button variant=\"ghost\" size=\"icon-sm\" />,\n  ...props\n}: ToastPrimitive.Close.Props) {\n  return (\n    <ToastPrimitive.Close\n      data-slot=\"toast-close\"\n      aria-label=\"Close toast\"\n      render={render}\n      className={cn(\n        \"relative shrink-0 text-muted-foreground after:absolute after:-inset-2 after:content-[''] hover:text-foreground\",\n        className\n      )}\n      {...props}\n    >\n      {children ?? (\n        <IconPlaceholder\n          lucide=\"XIcon\"\n          tabler=\"IconX\"\n          hugeicons=\"Cancel01Icon\"\n          phosphor=\"XIcon\"\n          remixicon=\"RiCloseLine\"\n          aria-hidden=\"true\"\n        />\n      )}\n    </ToastPrimitive.Close>\n  )\n}\n\nfunction ToastIcon({ type }: { type: string | undefined }) {\n  let icon: React.ReactNode = null\n\n  if (type === \"success\") {\n    icon = (\n      <IconPlaceholder\n        lucide=\"CircleCheckIcon\"\n        tabler=\"IconCircleCheck\"\n        hugeicons=\"CheckmarkCircle02Icon\"\n        phosphor=\"CheckCircleIcon\"\n        remixicon=\"RiCheckboxCircleLine\"\n        aria-hidden=\"true\"\n      />\n    )\n  }\n\n  if (type === \"info\") {\n    icon = (\n      <IconPlaceholder\n        lucide=\"InfoIcon\"\n        tabler=\"IconInfoCircle\"\n        hugeicons=\"InformationCircleIcon\"\n        phosphor=\"InfoIcon\"\n        remixicon=\"RiInformationLine\"\n        aria-hidden=\"true\"\n      />\n    )\n  }\n\n  if (type === \"warning\") {\n    icon = (\n      <IconPlaceholder\n        lucide=\"TriangleAlertIcon\"\n        tabler=\"IconAlertTriangle\"\n        hugeicons=\"Alert02Icon\"\n        phosphor=\"WarningIcon\"\n        remixicon=\"RiErrorWarningLine\"\n        aria-hidden=\"true\"\n      />\n    )\n  }\n\n  if (type === \"error\") {\n    icon = (\n      <IconPlaceholder\n        lucide=\"OctagonXIcon\"\n        tabler=\"IconAlertOctagon\"\n        hugeicons=\"MultiplicationSignCircleIcon\"\n        phosphor=\"XCircleIcon\"\n        remixicon=\"RiCloseCircleLine\"\n        className=\"text-destructive\"\n        aria-hidden=\"true\"\n      />\n    )\n  }\n\n  if (type === \"loading\") {\n    icon = (\n      <IconPlaceholder\n        lucide=\"Loader2Icon\"\n        tabler=\"IconLoader\"\n        hugeicons=\"Loading03Icon\"\n        phosphor=\"SpinnerIcon\"\n        remixicon=\"RiLoaderLine\"\n        className=\"animate-spin\"\n        aria-hidden=\"true\"\n      />\n    )\n  }\n\n  if (!icon) {\n    return null\n  }\n\n  return (\n    <span\n      data-slot=\"toast-icon\"\n      className=\"shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4\"\n    >\n      {icon}\n    </span>\n  )\n}\n\nfunction ToastList() {\n  const { toasts } = ToastPrimitive.useToastManager()\n\n  return toasts.map((toastItem) => (\n    <Toast key={toastItem.id} toast={toastItem}>\n      <ToastContent>\n        <ToastIcon type={toastItem.type} />\n        <div className=\"flex min-w-0 flex-1 flex-col gap-1\">\n          <ToastTitle />\n          <ToastDescription />\n        </div>\n        <ToastAction />\n        <ToastClose />\n      </ToastContent>\n    </Toast>\n  ))\n}\n\nfunction Toaster({\n  children,\n  toastManager = toast,\n  ...props\n}: ToastPrimitive.Provider.Props) {\n  return (\n    <ToastProvider toastManager={toastManager} {...props}>\n      {children}\n      <ToastPortal>\n        <ToastViewport>\n          <ToastList />\n        </ToastViewport>\n      </ToastPortal>\n    </ToastProvider>\n  )\n}\n\nconst createToastManager = ToastPrimitive.createToastManager\nconst useToastManager = ToastPrimitive.useToastManager\n\nexport {\n  Toaster,\n  Toast,\n  ToastAction,\n  ToastClose,\n  ToastContent,\n  ToastDescription,\n  ToastPortal,\n  ToastProvider,\n  ToastTitle,\n  ToastViewport,\n  createToastManager,\n  toast,\n  useToastManager,\n}\n",
+        "type": "registry:ui"
+      }
+    ],
+    "meta": {
+      "links": {
+        "docs": "https://ui.shadcn.com/docs/components/base/toast",
+        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/toast-example.tsx",
+        "api": "https://base-ui.com/react/components/toast.md"
+      }
+    },
+    "type": "registry:ui"
+  },
+  {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "accordion",
+    "dependencies": [
+      "cn"
+    ],
+    "files": [
+      {
+        "path": "registry/base-nova/ui/accordion.tsx",
+        "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\"\nimport { cn } from \"cn\"\n\nimport { IconPlaceholder } from \"@/app/(create)/components/icon-placeholder\"\n\nfunction Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {\n  return (\n    <AccordionPrimitive.Root\n      data-slot=\"accordion\"\n      className={cn(\"flex w-full flex-col\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {\n  return (\n    <AccordionPrimitive.Item\n      data-slot=\"accordion-item\"\n      className={cn(\"not-last:border-b\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AccordionTrigger({\n  className,\n  children,\n  ...props\n}: AccordionPrimitive.Trigger.Props) {\n  return (\n    <AccordionPrimitive.Header className=\"flex\">\n      <AccordionPrimitive.Trigger\n        data-slot=\"accordion-trigger\"\n        className={cn(\n          \"group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring aria-disabled:pointer-events-none aria-disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        <IconPlaceholder\n          lucide=\"ChevronDownIcon\"\n          tabler=\"IconChevronDown\"\n          data-slot=\"accordion-trigger-icon\"\n          hugeicons=\"ArrowDown01Icon\"\n          phosphor=\"CaretDownIcon\"\n          remixicon=\"RiArrowDownSLine\"\n          className=\"pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden\"\n        />\n        <IconPlaceholder\n          lucide=\"ChevronUpIcon\"\n          tabler=\"IconChevronUp\"\n          data-slot=\"accordion-trigger-icon\"\n          hugeicons=\"ArrowUp01Icon\"\n          phosphor=\"CaretUpIcon\"\n          remixicon=\"RiArrowUpSLine\"\n          className=\"pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline\"\n        />\n      </AccordionPrimitive.Trigger>\n    </AccordionPrimitive.Header>\n  )\n}\n\nfunction AccordionContent({\n  className,\n  children,\n  ...props\n}: AccordionPrimitive.Panel.Props) {\n  return (\n    <AccordionPrimitive.Panel\n      data-slot=\"accordion-content\"\n      className=\"overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up\"\n      {...props}\n    >\n      <div\n        className={cn(\n          \"h-(--accordion-panel-height) pt-0 pb-2.5 data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4\",\n          className\n        )}\n      >\n        {children}\n      </div>\n    </AccordionPrimitive.Panel>\n  )\n}\n\nexport { Accordion, AccordionItem, AccordionTrigger, AccordionContent }\n",
+        "type": "registry:ui"
+      }
+    ],
+    "meta": {
+      "links": {
+        "docs": "https://ui.shadcn.com/docs/components/base/accordion",
+        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/accordion-example.tsx",
+        "api": "https://base-ui.com/react/components/accordion.md"
+      }
+    },
+    "type": "registry:ui"
+  },
+  {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "card",
+    "dependencies": [
+      "cn"
+    ],
+    "files": [
+      {
+        "path": "registry/base-nova/ui/card.tsx",
+        "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Card({\n  className,\n  size = \"default\",\n  ...props\n}: React.ComponentProps<\"div\"> & { size?: \"default\" | \"sm\" }) {\n  return (\n    <div\n      data-slot=\"card\"\n      data-size={size}\n      className={cn(\n        \"group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-header\"\n      className={cn(\n        \"group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-xl px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--card-spacing)\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-title\"\n      className={cn(\n        \"cn-font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardDescription({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-description\"\n      className={cn(\"text-sm text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardAction({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-action\"\n      className={cn(\n        \"col-start-2 row-span-2 row-start-1 self-start justify-self-end\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction CardContent({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-content\"\n      className={cn(\"px-(--card-spacing)\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CardFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"card-footer\"\n      className={cn(\n        \"flex items-center rounded-b-xl border-t bg-muted/50 p-(--card-spacing)\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Card,\n  CardHeader,\n  CardFooter,\n  CardTitle,\n  CardAction,\n  CardDescription,\n  CardContent,\n}\n",
+        "type": "registry:ui"
+      }
+    ],
+    "meta": {
+      "links": {
+        "docs": "https://ui.shadcn.com/docs/components/base/card",
+        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/card-example.tsx"
+      }
+    },
+    "type": "registry:ui"
+  },
+  {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "tabs",
+    "dependencies": [
+      "cn"
+    ],
+    "files": [
+      {
+        "path": "registry/base-nova/ui/tabs.tsx",
+        "content": "\"use client\"\n\nimport { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nfunction Tabs({\n  className,\n  orientation = \"horizontal\",\n  ...props\n}: TabsPrimitive.Root.Props) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      data-orientation={orientation}\n      className={cn(\n        \"group/tabs flex gap-2 data-horizontal:flex-col\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nconst tabsListVariants = cva(\n  \"group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-horizontal/tabs:h-8 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-muted\",\n        line: \"gap-1 bg-transparent\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nfunction TabsList({\n  className,\n  variant = \"default\",\n  ...props\n}: TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>) {\n  return (\n    <TabsPrimitive.List\n      data-slot=\"tabs-list\"\n      data-variant={variant}\n      className={cn(tabsListVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {\n  return (\n    <TabsPrimitive.Tab\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        \"group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent\",\n        \"data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground\",\n        \"after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {\n  return (\n    <TabsPrimitive.Panel\n      data-slot=\"tabs-content\"\n      className={cn(\"flex-1 text-sm outline-none\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }\n",
+        "type": "registry:ui"
+      }
+    ],
+    "meta": {
+      "links": {
+        "docs": "https://ui.shadcn.com/docs/components/base/tabs",
+        "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/tabs-example.tsx",
+        "api": "https://base-ui.com/react/components/tabs.md"
       }
     },
     "type": "registry:ui"

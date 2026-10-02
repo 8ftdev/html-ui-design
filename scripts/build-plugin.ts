@@ -1,3 +1,4 @@
+import {addFinalParity} from './plugin-final-parity';
 import {addDateParity} from './plugin-date-parity';
 import {addModalParity} from './plugin-modal-parity';
 import {addPopupParity} from './plugin-popup-parity';
@@ -169,6 +170,7 @@ addHoverParity(p, source);
 addPopupParity(p,source);
 addModalParity(p,source);
 addDateParity(p,source);
+addFinalParity(p,source);
 writeFileSync(
   "src/plugins/builtin/shadcn-ui.json",
   JSON.stringify(parsePlugin(p), null, 2) + "\n",
